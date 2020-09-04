@@ -31,12 +31,6 @@ HomeWarpCasesSwitch(CaseSwitch)
 
 return
 
-/*
-    I want to append to a command like\
-    IniRead, Current_Home_warp, HomeStorage.ini, Homes, Home%Variable%
-    That way, I don't have to retype a lot. 
-*/
-
 
 !1::
 HomeWarpCasesSwitch(1)
