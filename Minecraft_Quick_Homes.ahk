@@ -5,10 +5,13 @@ SetWorkingDir, %A_ScriptDir%
 if !FileExist("HomeStorage.ini")
 {  
     ;use a loop command with math.
-    IniWrite, /home , HomeStorage.ini, Homes, Home1
-    IniWrite, /home , HomeStorage.ini, Homes, Home2
-    IniWrite, /home , HomeStorage.ini, Homes, Home3
-    IniWrite, /home , HomeStorage.ini, Homes, Home4
+    Home_Number := 1
+    loop 9
+    {
+        IniWrite, /home , HomeStorage.ini, Homes, Home%Home_Number%
+        Home_Number+= 1
+    }
+
 }
 
 /*
@@ -58,4 +61,20 @@ return
 
 !5::
 HomeWarpCasesSwitch(5)
+return
+
+!6::
+HomeWarpCasesSwitch(6)
+return
+
+!7::
+HomeWarpCasesSwitch(7)
+return
+
+!8::
+HomeWarpCasesSwitch(8)
+return
+
+!9::
+HomeWarpCasesSwitch(9)
 return
