@@ -11,6 +11,7 @@ if !FileExist("HomeStorage.ini")
         IniWrite, /home , HomeStorage.ini, Homes, Home%Home_Number%
         Home_Number+= 1
     }
+    TrayTip, Minecraft_Quick_Homes, Created A new .ini config!, 3,
     Exitapp
 }
 
