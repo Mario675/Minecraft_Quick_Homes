@@ -23,26 +23,13 @@ Current_Home_warp=0
 CaseSwitch := 0
 HomeWarpCasesSwitch(CaseSwitch)
 {
-    switch CaseSwitch
-    {
-    case 1:
-        IniRead, Current_Home_warp, HomeStorage.ini, Homes, Home%CaseSwitch%
-        MsgBox, %Current_Home_warp%
-        Current_Home_warp=0
-        return
+    IniRead, Current_Home_warp, HomeStorage.ini, Homes, Home%CaseSwitch%
+    MsgBox, %Current_Home_warp%
+    Current_Home_warp=0
 
-    case 2:
-        IniRead, Current_Home_warp, HomeStorage.ini, Homes, Home%CaseSwitch%
-        MsgBox, %Current_Home_warp%
-        Current_Home_warp=0
-        return
-        return
-    case 3:
-
-        return
-    }
 return
 }
+
 return
 
 /*
