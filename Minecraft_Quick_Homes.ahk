@@ -11,7 +11,7 @@ if !FileExist("HomeStorage.ini")
         IniWrite, /home , HomeStorage.ini, Homes, Home%Home_Number%
         Home_Number+= 1
     }
-
+    Exitapp
 }
 
 
