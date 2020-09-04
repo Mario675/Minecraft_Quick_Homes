@@ -18,13 +18,16 @@ if !FileExist("HomeStorage.ini")
 
 
 Current_Home_warp=0
-;Declare Cases
 
+;Main Function
 CaseSwitch := 0
 HomeWarpCasesSwitch(CaseSwitch)
 {
     IniRead, Current_Home_warp, HomeStorage.ini, Homes, Home%CaseSwitch%
-    MsgBox, %Current_Home_warp%
+    
+    send %Current_Home_warp%`n
+    
+    ;MsgBox, %Current_Home_warp% ;Debug
     Current_Home_warp=0
 
     return
