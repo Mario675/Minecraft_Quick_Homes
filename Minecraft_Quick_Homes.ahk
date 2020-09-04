@@ -4,6 +4,7 @@ SetWorkingDir, %A_ScriptDir%
 
 if !FileExist("HomeStorage.ini")
 {  
+    ;use a loop command with math.
     IniWrite, /home , HomeStorage.ini, Homes, Home1
     IniWrite, /home , HomeStorage.ini, Homes, Home2
     IniWrite, /home , HomeStorage.ini, Homes, Home3
@@ -27,7 +28,7 @@ HomeWarpCasesSwitch(CaseSwitch)
     MsgBox, %Current_Home_warp%
     Current_Home_warp=0
 
-return
+    return
 }
 
 return
@@ -40,11 +41,21 @@ return
 
 
 !1::
-;IniRead, OutputVar, Filename, Section, Key [, Default] ;For reference
-CaseSwitch := 0
 HomeWarpCasesSwitch(1)
 return
 
-
 !2::
 HomeWarpCasesSwitch(2)
+return
+
+!3::
+HomeWarpCasesSwitch(3)
+return
+
+!4::
+HomeWarpCasesSwitch(4)
+return
+
+!5::
+HomeWarpCasesSwitch(5)
+return
