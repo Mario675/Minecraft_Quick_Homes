@@ -8,7 +8,7 @@ if !FileExist("HomeStorage.ini")
     Home_Number := 1
     loop 9
     {
-        IniWrite, /home , HomeStorage.ini, Homes, Home%Home_Number%
+        IniWrite, home , HomeStorage.ini, Homes, Home%Home_Number%
         Home_Number+= 1
     }
     TrayTip, Minecraft_Quick_Homes, Created A new .ini config!, 3,
@@ -24,7 +24,8 @@ CaseSwitch := 0
 HomeWarpCasesSwitch(CaseSwitch)
 {
     IniRead, Current_Home_warp, HomeStorage.ini, Homes, Home%CaseSwitch%
-    
+    send /
+    sleep 100
     send %Current_Home_warp%`n
     
     ;MsgBox, %Current_Home_warp% ;Debug
