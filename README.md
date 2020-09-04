@@ -1,6 +1,3 @@
-# IMPORTANT
-Script is not ready to use yet. These two lines will be socked when script is ready. 
-
 # Setup
 - Please keep the files in a folder, since Script will be working off it's current directory 
 
