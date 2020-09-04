@@ -14,12 +14,7 @@ if !FileExist("HomeStorage.ini")
 
 }
 
-/*
-    IniWrite, /home , HomeStorage.ini, Homes, Home1
-    IniWrite, /home , HomeStorage.ini, Homes, Home2
-    IniWrite, /home , HomeStorage.ini, Homes, Home3
-    IniWrite, /home , HomeStorage.ini, Homes, Home4
-*/
+
 
 Current_Home_warp=0
 ;Declare Cases
