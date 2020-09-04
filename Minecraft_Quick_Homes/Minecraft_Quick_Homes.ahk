@@ -36,6 +36,9 @@ HomeWarpCasesSwitch(CaseSwitch)
 
 return
 
+!x::
+Exitapp
+return
 
 !1::
 HomeWarpCasesSwitch(1)
