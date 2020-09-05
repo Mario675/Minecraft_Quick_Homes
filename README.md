@@ -14,11 +14,11 @@ Home3=home
 ...
 After:
 Home1=home h
-Home2=home m
+Home2=warp spawn
 Home3=home spider_xp_farm
 ...
 ```
-
+- You don't need it to be a home. This program types whatever you have in your config, after inputting /
 # Useage
 1. Launch Script
 2. use Shortcut Alt+1-9
