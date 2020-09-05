@@ -40,6 +40,12 @@ return
 Exitapp
 return
 
+!`::
+send /
+sleep 100
+send back`n
+return
+
 !1::
 HomeWarpCasesSwitch(1)
 return
