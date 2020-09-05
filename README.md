@@ -4,7 +4,20 @@
 
 1. Launch Script once. This will create your config file. 
 2. Open your .ini file. 
-3. add a space after the /home, and input your home.
+3. add a space after the home, and input your home.
+Example:
+```
+Before:
+Home1=home
+Home2=home
+Home3=home
+...
+After:
+Home1=home h
+Home2=home m
+Home3=home spider_xp_farm
+...
+```
 
 # Useage
 1. Launch Script
