@@ -40,6 +40,13 @@ return
 Exitapp
 return
 
+!c::
+send /
+sleep 100
+send craft`n
+return
+
+
 !`::
 send /
 sleep 100
