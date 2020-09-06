@@ -21,8 +21,12 @@ Home3=home spider_xp_farm
 - You don't need it to be a home. This program types whatever you have in your config, after inputting /
 # Useage
 1. Launch Script
-2. use Shortcut Alt+1-9
+2. Use Shortcut Alt+1-9
+2.5. Use Alt+C to craft. 
 3. Bask in the glory of amazement. 
+
+
 
 4. When you want to close script, go to your taskbar tray, right click the green icon with an H, and click exit app. 
 5. or exit app by Alt+x
+
