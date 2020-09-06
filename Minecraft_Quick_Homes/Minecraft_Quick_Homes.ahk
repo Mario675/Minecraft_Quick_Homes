@@ -42,6 +42,10 @@ HomeWarpCasesSwitch(CaseSwitch)
 
 return
 
+#IfWinActive ahk_exe javaw.exe
+;Failsafe in case user uses hotkey out of minecraft. 
+;When Testing shortcuts, comment out #IfWinActive javaw.exe
+
 !x::
 Exitapp
 return
