@@ -50,6 +50,10 @@ return
 Exitapp
 return
 
+!t::
+Wait_Until_Minecraft_Registers_Slash()
+send trash`n
+
 !c::
 Wait_Until_Minecraft_Registers_Slash()
 send craft`n
