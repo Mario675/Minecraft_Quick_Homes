@@ -57,7 +57,7 @@ return
 
 !e::
 Wait_Until_Minecraft_Registers_Slash()
-send echest
+send echest`n
 return
 
 
