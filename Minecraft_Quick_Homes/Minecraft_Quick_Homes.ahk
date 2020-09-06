@@ -19,13 +19,19 @@ if !FileExist("HomeStorage.ini")
 
 Current_Home_warp=0
 
+Wait_Until_Minecraft_Registers_Slash()
+{
+    send /
+    sleep 100
+    return
+}
+
 ;Main Function
 CaseSwitch := 0
 HomeWarpCasesSwitch(CaseSwitch)
 {
     IniRead, Current_Home_warp, HomeStorage.ini, Homes, Home%CaseSwitch%
-    send /
-    sleep 100
+    Wait_Until_Minecraft_Registers_Slash()
     send %Current_Home_warp%`n
     
     ;MsgBox, %Current_Home_warp% ;Debug
@@ -41,15 +47,18 @@ Exitapp
 return
 
 !c::
-send /
-sleep 100
+Wait_Until_Minecraft_Registers_Slash()
 send craft`n
+return
+
+!e::
+Wait_Until_Minecraft_Registers_Slash()
+send echest
 return
 
 
 !`::
-send /
-sleep 100
+Wait_Until_Minecraft_Registers_Slash()
 send back`n
 return
 

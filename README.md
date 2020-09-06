@@ -22,11 +22,11 @@ Home3=home spider_xp_farm
 # Useage
 1. Launch Script
 2. Use Shortcut Alt+1-9
-2.5. Use Alt+C to craft. 
-3. Bask in the glory of amazement. 
+3. Use Alt+C to craft. 
+4. Use Alt+e to open Ender Chest. 
+5. Bask in the glory of amazement. 
 
+6. When you want to close script, go to your taskbar tray, right click the green icon with an H, and click exit app. 
+7. or exit app by Alt+x
 
-
-4. When you want to close script, go to your taskbar tray, right click the green icon with an H, and click exit app. 
-5. or exit app by Alt+x
-
+- Please be sure that you have saved your changes when editing your .ini config file. 
