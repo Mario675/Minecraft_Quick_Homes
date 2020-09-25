@@ -41,7 +41,7 @@ ErrorsMsgbox(What_type_error)
         return
     }
 
-return
+    return
 }
 
 ;FailSafe For options
@@ -126,7 +126,7 @@ Wait_Until_Minecraft_Registers_Slash()
 send back`n
 return
 
-;Numeral options ---------------------------
+;Numeral options ------------------------------------------------
 
 !1::
 HomeWarpCasesSwitch(1, 0)
