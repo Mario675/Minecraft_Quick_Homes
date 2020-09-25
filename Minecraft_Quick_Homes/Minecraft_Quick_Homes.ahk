@@ -28,23 +28,35 @@ Wait_Until_Minecraft_Registers_Slash()
 
 ;Main Function
 CaseSwitch := 0
-HomeWarpCasesSwitch(CaseSwitch)
+IFSHIFT := 0
+HomeWarpCasesSwitch(CaseSwitch, IFSHIFT)
 {
+    If IFSHIFT = 1
+    {
+        CaseSwitch *= 2
+    }
+
     IniRead, Current_Home_warp, HomeStorage.ini, Homes, Home%CaseSwitch%
     Wait_Until_Minecraft_Registers_Slash()
     send %Current_Home_warp%`n
     
     ;MsgBox, %Current_Home_warp% ;Debug
+    ;Reset Variables
     Current_Home_warp=0
-
+    IFSHIFT = 0
     return
 }
 
+
+
 return
 
-#IfWinActive ahk_exe javaw.exe
+;#IfWinActive ahk_exe javaw.exe
 ;Failsafe in case user uses hotkey out of minecraft. 
 ;When Testing shortcuts, comment out #IfWinActive javaw.exe
+
+
+;Special keys ---------------------------
 
 !x::
 Exitapp
@@ -70,38 +82,78 @@ Wait_Until_Minecraft_Registers_Slash()
 send back`n
 return
 
+;Numeral options ---------------------------
+
 !1::
-HomeWarpCasesSwitch(1)
+HomeWarpCasesSwitch(1, 0)
 return
 
 !2::
-HomeWarpCasesSwitch(2)
+HomeWarpCasesSwitch(2, 0)
 return
 
 !3::
-HomeWarpCasesSwitch(3)
+HomeWarpCasesSwitch(3, 0)
 return
 
 !4::
-HomeWarpCasesSwitch(4)
+HomeWarpCasesSwitch(4, 0)
 return
 
 !5::
-HomeWarpCasesSwitch(5)
+HomeWarpCasesSwitch(5, 0)
 return
 
 !6::
-HomeWarpCasesSwitch(6)
+HomeWarpCasesSwitch(6, 0)
 return
 
 !7::
-HomeWarpCasesSwitch(7)
+HomeWarpCasesSwitch(7, 0)
 return
 
 !8::
-HomeWarpCasesSwitch(8)
+HomeWarpCasesSwitch(8, 0)
 return
 
 !9::
-HomeWarpCasesSwitch(9)
+HomeWarpCasesSwitch(9, 0)
+return
+
+;ALT SHIFT NUMERALS ------------------------------------------------
+
+!+1::
+HomeWarpCasesSwitch(1, 1)
+return
+
+!+2::
+HomeWarpCasesSwitch(2, 1)
+return
+
+!+3::
+HomeWarpCasesSwitch(3, 1)
+return
+
+!+4::
+HomeWarpCasesSwitch(4, 1)
+return
+
+!+5::
+HomeWarpCasesSwitch(5, 1)
+return
+
+!+6::
+HomeWarpCasesSwitch(6, 1)
+return
+
+!+7::
+HomeWarpCasesSwitch(7, 1)
+return
+
+!+8::
+HomeWarpCasesSwitch(8, 1)
+return
+
+!+9::
+HomeWarpCasesSwitch(9, 1)
 return
