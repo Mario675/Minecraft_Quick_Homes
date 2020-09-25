@@ -6,7 +6,7 @@ SetWorkingDir, %A_ScriptDir%
 if !FileExist("HomeStorage.ini")
 {  
     ;IniWrite, Value, Filename, Section, Key
-    IniWrite, 0, HomeStorage.ini, config, Option_To_Add_OR_Multiply
+    IniWrite, 1, HomeStorage.ini, config, Option_To_Add_OR_Multiply
     ;use a loop command with math.
     Home_Number := 1
     loop 18
@@ -32,7 +32,7 @@ CaseSwitch := 0
 IFSHIFT := 0
 
 
-Option_To_Add_OR_Multiply = 0
+Option_To_Add_OR_Multiply = 1
 ;IniRead, OutputVar, Filename, Section, Key [, Default]
 IniRead, Option_To_Add_OR_Multiply, HomeStorage.ini, Config, Option_To_Add_OR_Multiply
 
@@ -44,7 +44,7 @@ HomeWarpCasesSwitch(CaseSwitch, IFSHIFT)
     global Option_To_Add_OR_Multiply
     switch Option_To_Add_OR_Multiply ;Supports option for shift *2 or shift +9
     {
-        case 0: ;Default IFSHIFT multiplier
+        case 1: ;Default IFSHIFT multiplier
             If IFSHIFT = 1
             {
                 CaseSwitch *= 2
@@ -52,7 +52,7 @@ HomeWarpCasesSwitch(CaseSwitch, IFSHIFT)
 
         goto Calc_Home 
 
-        case 1: ;Continue Number as if 1=10
+        case 2: ;Continue Number as if 1=10
             if IFSHIFT = 1
             {
                 CaseSwitch += 10
