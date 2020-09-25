@@ -31,12 +31,27 @@ Wait_Until_Minecraft_Registers_Slash()
 CaseSwitch := 0
 IFSHIFT := 0
 
+ErrorsMsgbox(What_type_error)
+{
+    switch What_type_error
+    {
+        case 0:
+            msgbox Please change Option_To_Add_OR_Multiply, to a valid number, `n 1 or 2.
+            exitapp
+        return
+    }
 
-Option_To_Add_OR_Multiply = 1
-;IniRead, OutputVar, Filename, Section, Key [, Default]
+return
+}
+
+;FailSafe For options
 IniRead, Option_To_Add_OR_Multiply, HomeStorage.ini, Config, Option_To_Add_OR_Multiply
 
-;msgbox %Option_To_Add_OR_Multiply%
+if Option_To_Add_OR_Multiply not between 1 and 2
+{
+    ErrorsMsgbox(0)
+}
+
 
 
 HomeWarpCasesSwitch(CaseSwitch, IFSHIFT)
@@ -47,7 +62,7 @@ HomeWarpCasesSwitch(CaseSwitch, IFSHIFT)
         case 1: ;Default IFSHIFT multiplier
             If IFSHIFT = 1
             {
-                CaseSwitch *= 2
+                CaseSwitch += 10
             }
 
         goto Calc_Home 
@@ -55,7 +70,7 @@ HomeWarpCasesSwitch(CaseSwitch, IFSHIFT)
         case 2: ;Continue Number as if 1=10
             if IFSHIFT = 1
             {
-                CaseSwitch += 10
+                CaseSwitch *= 2
             }
         goto Calc_Home
         ;case 2 ;Extend 1, 2, 3, 4, to represent 5, 6, 7, 8,
