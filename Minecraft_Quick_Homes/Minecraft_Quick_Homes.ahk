@@ -7,7 +7,7 @@ if !FileExist("HomeStorage.ini")
 {  
     ;use a loop command with math.
     Home_Number := 1
-    loop 9
+    loop 18
     {
         IniWrite, home , HomeStorage.ini, Homes, Home%Home_Number%
         Home_Number+= 1
