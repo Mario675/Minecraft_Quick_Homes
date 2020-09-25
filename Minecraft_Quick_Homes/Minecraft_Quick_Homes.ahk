@@ -2,6 +2,7 @@
 SendMode Input
 SetWorkingDir, %A_ScriptDir%
 
+;Create file
 if !FileExist("HomeStorage.ini")
 {  
     ;use a loop command with math.
@@ -15,8 +16,6 @@ if !FileExist("HomeStorage.ini")
     Exitapp
 }
 
-
-
 Current_Home_warp=0
 
 Wait_Until_Minecraft_Registers_Slash()
@@ -29,12 +28,40 @@ Wait_Until_Minecraft_Registers_Slash()
 ;Main Function
 CaseSwitch := 0
 IFSHIFT := 0
+
+
+Option_To_Add_OR_Multiply = 0
+;IniRead, OutputVar, Filename, Section, Key [, Default]
+IniRead, Option_To_Add_OR_Multiply, HomeStorage.ini, Config, Option_To_Add_OR_Multiply
+
+;msgbox %Option_To_Add_OR_Multiply%
+
+
 HomeWarpCasesSwitch(CaseSwitch, IFSHIFT)
 {
-    If IFSHIFT = 1
+    global Option_To_Add_OR_Multiply
+    switch Option_To_Add_OR_Multiply ;Supports option for shift *2 or shift +9
     {
-        CaseSwitch *= 2
+        case 0: ;Default IFSHIFT multiplier
+            If IFSHIFT = 1
+            {
+                CaseSwitch *= 2
+            }
+
+        goto Calc_Home 
+
+        case 1: ;Continue Number as if 1=10
+            if IFSHIFT = 1
+            {
+                CaseSwitch += 9 
+            }
+        goto Calc_Home
+        ;case 2 ;Extend 1, 2, 3, 4, to represent 5, 6, 7, 8,
+
+    goto Calc_Home ;In case over 0 or 1
     }
+
+    Calc_Home: ;Because return in switch statements end the variable. 
 
     IniRead, Current_Home_warp, HomeStorage.ini, Homes, Home%CaseSwitch%
     Wait_Until_Minecraft_Registers_Slash()
