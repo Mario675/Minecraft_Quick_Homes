@@ -55,7 +55,7 @@ HomeWarpCasesSwitch(CaseSwitch, IFSHIFT)
         case 1: ;Continue Number as if 1=10
             if IFSHIFT = 1
             {
-                CaseSwitch += 9 
+                CaseSwitch += 10
             }
         goto Calc_Home
         ;case 2 ;Extend 1, 2, 3, 4, to represent 5, 6, 7, 8,
