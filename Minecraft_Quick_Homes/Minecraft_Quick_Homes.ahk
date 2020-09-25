@@ -5,6 +5,8 @@ SetWorkingDir, %A_ScriptDir%
 ;Create file
 if !FileExist("HomeStorage.ini")
 {  
+    ;IniWrite, Value, Filename, Section, Key
+    IniWrite, 0, HomeStorage.ini, config, Option_To_Add_OR_Multiply
     ;use a loop command with math.
     Home_Number := 1
     loop 18
