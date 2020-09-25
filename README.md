@@ -39,6 +39,7 @@ is equivalent to
 ALT+8
 ```
 
+
 # Useage
 1.	Launch Script
 2.	Use Shortcut Alt+1-9 to /home 1-9
@@ -55,3 +56,11 @@ ALT+8
 - Please be sure that you have saved your changes when editing your .ini config file, so changes would take effect in app.
 
 - This script will also not accept hotkeys outside of minecraft (javaw.exe). This is a failsafe. 
+
+## Important End notes
+> - I know number 10 is inacessable with default, but
+>   `Alt+Shift+1 = __1__*1*`
+>   - Makes more sense since the shift adds the 1 onto the tenth digit, and then the input after. 
+>   - Instead of adding 9
+>   `Alt+Shift+3 = 1__2__`
+>   - Which ones Digit is less than the input. 
