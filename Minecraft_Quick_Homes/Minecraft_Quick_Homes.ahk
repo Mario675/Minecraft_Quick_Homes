@@ -27,9 +27,7 @@ Wait_Until_Minecraft_Registers_Slash()
     return
 }
 
-;Main Function
-CaseSwitch := 0
-IFSHIFT := 0
+
 
 ErrorsMsgbox(What_type_error)
 {
@@ -52,7 +50,9 @@ if Option_To_Add_OR_Multiply not between 1 and 2
     ErrorsMsgbox(0)
 }
 
-
+;Main Function
+CaseSwitch := 0
+IFSHIFT := 0
 
 HomeWarpCasesSwitch(CaseSwitch, IFSHIFT)
 {
