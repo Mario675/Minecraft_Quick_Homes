@@ -78,7 +78,7 @@ HomeWarpCasesSwitch(CaseSwitch, IFSHIFT)
     goto Calc_Home ;In case over 0 or 1
     }
 
-    Calc_Home: ;Because return in switch statements end the variable. 
+    Calc_Home: ;Because return in switch statements end the Function.
 
     IniRead, Current_Home_warp, HomeStorage.ini, Homes, Home%CaseSwitch%
     Wait_Until_Minecraft_Registers_Slash()
