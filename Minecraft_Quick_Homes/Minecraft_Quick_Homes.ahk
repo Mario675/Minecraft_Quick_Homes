@@ -84,16 +84,16 @@ HomeWarpCasesSwitch(CaseSwitch, IFSHIFT)
 
     switch Option_To_Add_OR_Multiply ;Supports option for shift *2 or shift +9
     {
-            case 1: ;Default IFSHIFT multiplier
-                If IFSHIFT = 1
+        case 1: ;Default IFSHIFT multiplier
+            If IFSHIFT = 1
                 {
                     CaseSwitch += 10
                 }
 
             goto Calc_Home 
 
-            case 2: ;Continue Number as if 1=10
-                if IFSHIFT = 1
+        case 2: ;Continue Number as if 1=10
+            if IFSHIFT = 1
                 {
                     CaseSwitch *= 2
                 }
