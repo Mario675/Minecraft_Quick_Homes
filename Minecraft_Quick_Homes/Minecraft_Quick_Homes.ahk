@@ -76,7 +76,7 @@ AutoStart_Setup()
     ;IniWrite, 0, HomeStorage.ini, config, Autostart
     IniRead, Autostart, HomeStorage.ini, config, Autostart
     ;Preamble
-    msgbox, 308, Minecraft_Quick_Homes Shortcut install,You have set AUTOSTART to "1" in HomeStorage.ini`nThis Setup will install a shortcut to Minecraft quick homes as minecraft.`n`nWhen this shortcut is installed`, It will:`n1. Open Quick homes`n2. Launch minecraft.`nWhen you adjust the AUTOSTART setting to 3`, the shortcut will be uninstalled`, and placed back to it's default.`n`nYOU WILL NEED TO LAUNCH QUICK_HOMES AS ADMIN OR INSTALL WILL NOT WORK.`n`nWithout this program, Minecraft will not be launched. You would need to install the shortcut again manually, or download this program to uninstall it. `n`nYes To confirm install`, No to cancel.
+    msgbox, 308, Minecraft_Quick_Homes Shortcut install,You have set AUTOSTART to "1" in HomeStorage.ini`nThis Setup will install a shortcut to Minecraft quick homes as minecraft.`n`nWhen this shortcut is installed`, It will:`n1. Open Quick homes`n2. Launch minecraft.`nSHORT EXPLANATION:`nThe shortcut will launch the quick homes program, and quick homes will then launch minecraft. `n`nWhen you adjust the AUTOSTART setting to 3`, the shortcut will be uninstalled`, and placed back to it's default.`n`nYOU WILL NEED TO LAUNCH QUICK_HOMES AS ADMIN OR INSTALL WILL NOT WORK.`n`nWithout this program, Minecraft will not be launched. You would need to install the shortcut again manually, or download this program to uninstall it. `n`nYes To confirm install`, No to cancel.
 
 
 
