@@ -5,8 +5,10 @@ SetWorkingDir, %A_ScriptDir%
 ;Create file
 if !FileExist("HomeStorage.ini")
 {  
-    ;IniWrite, Value, Filename, Section, Key
+    ;[OPTIONS] Secton
     IniWrite, 1, HomeStorage.ini, config, Option_To_Add_OR_Multiply
+    IniWrite, 0, HomeStorage.ini, config, Autostart
+
     ;use a loop command with math.
     Home_Number := 1
     loop 18
@@ -20,9 +22,7 @@ if !FileExist("HomeStorage.ini")
 
 
 
-
-
-
+;This is the Msgbox text section Since error checking is different from message sending. 
 App_stay_OPEN_AfterError := false
 ErrorsMsgbox(What_type_error, App_stay_OPEN_AfterError)
 {
@@ -41,7 +41,7 @@ ErrorsMsgbox(What_type_error, App_stay_OPEN_AfterError)
     return
 }
 
-
+;This is basically the check before msgbox
 optionFailsafes(Error_App_Stay_Open) ;Designed for checking options section before running Shortcut. In charge of whether app stays open after errors. 
 {
     ;First Check
@@ -64,6 +64,10 @@ optionFailsafes(Error_App_Stay_Open) ;Designed for checking options section befo
     TrayTip, Quickhomes, optionFailsafe cannot find a error, 10
     return
 }
+
+;Need ErrorsMsgbox and optionFailsafe to be loaded first for user errors.
+
+
 
 optionFailsafes(false)
 
