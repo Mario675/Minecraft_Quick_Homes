@@ -18,20 +18,20 @@ if !FileExist("HomeStorage.ini")
     Exitapp
 }
 
-Current_Home_warp=0
 
 
 
 
-App_stay_OPEN := false
-ErrorsMsgbox(What_type_error, App_stay_OPEN)
+
+App_stay_OPEN_AfterError := false
+ErrorsMsgbox(What_type_error, App_stay_OPEN_AfterError)
 {
     switch What_type_error
     {
         case 0:
             msgbox Please change Option_To_Add_OR_Multiply, to a valid number, `n 1 or 2.
-            ;msgbox App_stay_OPEN = %App_stay_OPEN% ;debug. Semicolon by default
-            if App_stay_OPEN = 0
+            ;msgbox App_stay_OPEN_AfterError = %App_stay_OPEN_AfterError% ;debug. Semicolon by default
+            if App_stay_OPEN_AfterError = 0
             {
                 exitapp
             }
@@ -77,6 +77,7 @@ Wait_Until_Minecraft_Registers_Slash()
 ;Main Function
 CaseSwitch := 0
 IFSHIFT := 0
+Current_Home_warp=0
 
 HomeWarpCasesSwitch(CaseSwitch, IFSHIFT)
 {
