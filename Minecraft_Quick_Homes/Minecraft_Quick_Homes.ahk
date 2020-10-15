@@ -28,27 +28,50 @@ Wait_Until_Minecraft_Registers_Slash()
 }
 
 
-
-ErrorsMsgbox(What_type_error)
+App_stay_OPEN := false
+ErrorsMsgbox(What_type_error, App_stay_OPEN)
 {
     switch What_type_error
     {
         case 0:
             msgbox Please change Option_To_Add_OR_Multiply, to a valid number, `n 1 or 2.
-            exitapp
+            ;msgbox App_stay_OPEN = %App_stay_OPEN% ;debug. Semicolon by default
+            if App_stay_OPEN = 0
+            {
+                exitapp
+            }
         return
     }
 
     return
 }
 
-;FailSafe For options
-IniRead, Option_To_Add_OR_Multiply, HomeStorage.ini, Config, Option_To_Add_OR_Multiply ;This Option does not update during a shortcut.
 
-if Option_To_Add_OR_Multiply not between 1 and 2
+
+optionFailsafes(Error_App_Stay_Open) ;Designed for checking options section before running Shortcut. In charge of whether app stays open after errors. 
 {
-    ErrorsMsgbox(0)
+    ;First Check
+    { 
+        global Option_To_Add_OR_Multiply
+        IniRead, Option_To_Add_OR_Multiply, HomeStorage.ini, Config, Option_To_Add_OR_Multiply ;This Option does not update during a shortcut.
+
+        if Option_To_Add_OR_Multiply not between 1 and 2
+        {
+           ErrorsMsgbox(0,Error_App_Stay_Open)
+        }
+        return
+    }
+    ;Second Check Future pull#10
+    {
+        ;This is meant to be a switch error for if UHC fails or if it failed to start up minecraft
+        ;Make sure you include a toast message for starting up minecraft. 
+
+    }
+    TrayTip, Quickhomes, optionFailsafe cannot find a error, 10
+    return
 }
+
+optionFailsafes(false)
 
 ;Main Function
 CaseSwitch := 0
@@ -57,7 +80,7 @@ IFSHIFT := 0
 HomeWarpCasesSwitch(CaseSwitch, IFSHIFT)
 {
     global Option_To_Add_OR_Multiply
-    IniRead, Option_To_Add_OR_Multiply, HomeStorage.ini, Config, Option_To_Add_OR_Multiply 
+    optionFailsafes(true)
 
     switch Option_To_Add_OR_Multiply ;Supports option for shift *2 or shift +9
     {
