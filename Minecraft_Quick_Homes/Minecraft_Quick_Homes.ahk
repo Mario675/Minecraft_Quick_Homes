@@ -20,12 +20,7 @@ if !FileExist("HomeStorage.ini")
 
 Current_Home_warp=0
 
-Wait_Until_Minecraft_Registers_Slash()
-{
-    send /
-    sleep 100
-    return
-}
+
 
 
 App_stay_OPEN := false
@@ -45,7 +40,6 @@ ErrorsMsgbox(What_type_error, App_stay_OPEN)
 
     return
 }
-
 
 
 optionFailsafes(Error_App_Stay_Open) ;Designed for checking options section before running Shortcut. In charge of whether app stays open after errors. 
@@ -72,6 +66,13 @@ optionFailsafes(Error_App_Stay_Open) ;Designed for checking options section befo
 }
 
 optionFailsafes(false)
+
+Wait_Until_Minecraft_Registers_Slash()
+{
+    send /
+    sleep 100
+    return
+}
 
 ;Main Function
 CaseSwitch := 0
