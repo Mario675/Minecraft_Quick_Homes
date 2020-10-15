@@ -22,7 +22,7 @@ if !FileExist("HomeStorage.ini")
 
 
 
-;This is the Msgbox text section Since error checking is different from message sending. 
+;This is the Msgbox text section Since error checking is different (meaning a lot more code) from message sending. 
 App_stay_OPEN_AfterError := false
 ErrorsMsgbox(What_type_error, App_stay_OPEN_AfterError)
 {
@@ -65,7 +65,47 @@ optionFailsafes(Error_App_Stay_Open) ;Designed for checking options section befo
     return
 }
 
+
+Autostart := 0
 ;Need ErrorsMsgbox and optionFailsafe to be loaded first for user errors.
+AutoStart_Setup()
+{
+    ;Directory for minecraft launcher shortcuts: C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Minecraft Launcher
+    ;Icon Directory:
+    Autostart := 0
+    ;IniWrite, 0, HomeStorage.ini, config, Autostart
+    IniRead, Autostart, HomeStorage.ini, config, Autostart
+    ;Preamble
+    msgbox, 308, Minecraft_Quick_Homes,You have turned on AUTOSTART in HomeStorage.ini`nThis Setup will install a shortcut to Minecraft quick homes as minecraft.`n`n
+
+
+
+
+    ;UHC Perms prompt 
+    
+
+    return
+}
+
+Autostart_Uninstall()
+{
+    ;Should be triggered if #3
+}
+
+Autostart_MQH_start_Minecraft()
+{
+    ;This could be triggered if new shortcut is there or :
+    ;A shortcut would send a signal to this program. 
+}
+
+
+
+IniRead, Autostart, HomeStorage.ini, config, Autostart
+if Autostart = 1
+{
+    AutoStart_Setup()
+}
+
 
 
 
