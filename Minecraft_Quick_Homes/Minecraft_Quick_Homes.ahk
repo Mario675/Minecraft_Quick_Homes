@@ -43,7 +43,7 @@ ErrorsMsgbox(What_type_error)
 }
 
 ;FailSafe For options
-IniRead, Option_To_Add_OR_Multiply, HomeStorage.ini, Config, Option_To_Add_OR_Multiply
+IniRead, Option_To_Add_OR_Multiply, HomeStorage.ini, Config, Option_To_Add_OR_Multiply ;This Option does not update during a shortcut.
 
 if Option_To_Add_OR_Multiply not between 1 and 2
 {
@@ -57,6 +57,8 @@ IFSHIFT := 0
 HomeWarpCasesSwitch(CaseSwitch, IFSHIFT)
 {
     global Option_To_Add_OR_Multiply
+    IniRead, Option_To_Add_OR_Multiply, HomeStorage.ini, Config, Option_To_Add_OR_Multiply 
+
     switch Option_To_Add_OR_Multiply ;Supports option for shift *2 or shift +9
     {
         case 1: ;Default IFSHIFT multiplier
