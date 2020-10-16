@@ -78,8 +78,28 @@ AutoStart_Setup()
     ;Preamble
     msgbox, 308, Minecraft_Quick_Homes Shortcut install,You have set AUTOSTART to "1" in HomeStorage.ini`nThis Setup will install a shortcut to Minecraft quick homes as minecraft.`n`nWhen this shortcut is installed`, It will:`n1. Open Quick homes`n2. Launch minecraft.`nSHORT EXPLANATION:`nThe shortcut will launch the quick homes program, and quick homes will then launch minecraft. `n`nWhen you adjust the AUTOSTART setting to 3`, the shortcut will be uninstalled`, and placed back to it's default.`n`nYOU WILL NEED TO LAUNCH QUICK_HOMES AS ADMIN OR INSTALL WILL NOT WORK.`n`nWithout this program, Minecraft will not be launched. You would need to install the shortcut again manually, or download this program to uninstall it. `n`nYes To confirm install`, No to cancel.
 
+;/*
 
 
+    IfMsgBox, yes
+    {
+        ;https://www.autohotkey.com/docs/commands/FileCreateShortcut.htm
+        ;FileCreateShortcut, Target, C:\My Shortcut.lnk [, WorkingDir, Args, Description, IconFile, ShortcutKey, IconNumber
+        FileCreateShortcut, "%A_ScriptFullPath%", Minecraft Launcher1.lnk, "%A_ScriptFullPath%", , , C:\Program Files (x86)\Minecraft Launcher\MinecraftLauncher.exe,
+        sleep 500
+        Filemove Minecraft Launcher2.lnk, C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Minecraft Launcher, 1
+        if ErrorLevel = 1
+        {
+            msgbox RUN MC_Quick_Homes AS ADMIN FIRST!
+        }
+
+    }
+
+    IfMsgBox, no
+    {
+        return
+    }
+;*/
 
     ;UHC Perms prompt 
     
