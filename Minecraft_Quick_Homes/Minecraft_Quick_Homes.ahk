@@ -113,6 +113,14 @@ HomeWarpCasesSwitch(CaseSwitch, IFSHIFT)
     ;Reset Variables
     Current_Home_warp=0
     IFSHIFT = 0
+
+
+    if IFSHIFT = 1
+    {
+        send {ShiftUp}
+    }
+
+
     return
 }
 
