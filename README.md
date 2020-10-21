@@ -45,7 +45,7 @@ ALT+8
 2.	Use Shortcut Alt+1-9 to /home 1-9
 3.	Use Shortcut Alt+Shift to add 10 to your input (Default). 
 4.	Use Alt+` To /back
-5.	Use Alt+C to craft. 
+5.	Use Alt+c to craft. 
 6.	Use Alt+e to open Ender Chest. 
 7.	Use Alt+t To open Trash
 8.	Bask in the glory of amazement. 
