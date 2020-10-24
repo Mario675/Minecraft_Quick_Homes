@@ -249,6 +249,10 @@ switch Autostart
     AutoStart_Setup()
     Return
 
+    case 2:
+    IniWrite, 0, HomeStorage.ini, config, Autostart
+    TrayTip, 2 is not used. Setting to 0.,MC_Quick_Homes,10
+
 
     ;after setup
     case 3:
