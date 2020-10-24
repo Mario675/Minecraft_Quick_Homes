@@ -134,7 +134,7 @@ class Move_Two_Explorer_Windows_To_Half_Of_Monitor
 
         Wintitle := A_ScriptDir
 
-        msgbox 1"%A_ScriptFullPath%" 2"%A_ScriptDir%"
+        ;msgbox 1"%A_ScriptFullPath%" 2"%A_ScriptDir%" ;debug
 
         loop 2
         {     
@@ -188,7 +188,19 @@ AutoStart_Setup()
     {
         ;https://www.autohotkey.com/docs/commands/FileCreateShortcut.htm
         ;FileCreateShortcut, Target, C:\My Shortcut.lnk [, WorkingDir, Args, Description, IconFile, ShortcutKey, IconNumber
-        FileCreateShortcut, "%A_ScriptFullPath%", Ahk_Minecraft Launcher.lnk, "%A_ScriptFullPath%", ,MC_Quick_Homes`, Autolaunch, C:\Program Files (x86)\Minecraft Launcher\MinecraftLauncher.exe,
+
+        MsgBox, 36,Mc_Quick_Homes, Would you like the shortcut name to be:`n1. Ahk_Minecraft Launcher (Yes)`n2. MinecraftLauncher (No)
+
+        IfMsgBox, yes
+        {
+            FileCreateShortcut, "%A_ScriptFullPath%", Ahk_Minecraft Launcher.lnk, "%A_ScriptFullPath%", ,MC_Quick_Homes`, Autostart Shortcut, C:\Program Files (x86)\Minecraft Launcher\MinecraftLauncher.exe,
+        }
+        IfMsgBox, no
+        {
+            FileCreateShortcut, "%A_ScriptFullPath%", MinecraftLauncher.lnk, "%A_ScriptFullPath%", ,MC_Quick_Homes`, Autostart Shortcut, C:\Program Files (x86)\Minecraft Launcher\MinecraftLauncher.exe,
+        }
+
+        
         MsgBox After two windows pop up`, move minecraft shortcut to folder on the right. Confirm with Admin Perms.`nAfter that`, close the two file explorers.`nLaunch the program, and it should open up the minecraft launcher along with Mc_Quick_Homes.`nPS`nIt will take a little bit for windows to update the shortcut in the search menu.
 
         Move_Two_Explorer_Windows_To_Half_Of_Monitor.Launch_Explorer_Windows_And_Split()
