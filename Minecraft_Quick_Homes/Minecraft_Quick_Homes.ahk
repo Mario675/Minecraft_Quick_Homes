@@ -177,7 +177,8 @@ AutoStart_Setup()
     IniRead, Autostart, HomeStorage.ini, config, Autostart
     ;Preamble
     HANDLE_CABINET_EXPLORER := 0
-    msgbox, 308, Minecraft_Quick_Homes Shortcut install,You have set AUTOSTART to "1" in HomeStorage.ini`nThis Setup will install a shortcut to Minecraft quick homes as minecraft.`n`nWhen this shortcut is installed`, It will:`n1. Open Quick homes`n2. Launch minecraft.`nSHORT EXPLANATION:`nThe shortcut will launch the quick homes program, and quick homes will then launch minecraft. `n`nWhen you adjust the AUTOSTART setting to 3`, the shortcut will be uninstalled`, and placed back to it's default.`n`nYOU WILL NEED TO LAUNCH QUICK_HOMES AS ADMIN OR INSTALL WILL NOT WORK.`n`nWithout this program, Minecraft will not be launched. You would need to install the shortcut again manually, or download this program to uninstall it. `n`nYes To confirm install`, No to cancel.
+    msgbox, 308, Minecraft_Quick_Homes Shortcut install,You have set AUTOSTART to "1" in HomeStorage.ini`nThis Setup will install a shortcut to Minecraft quick homes as minecraft.`n`nWhen this shortcut is installed`, It will:`n1. Open Quick homes`n2. Launch minecraft.`nSHORT EXPLANATION:`nThe shortcut will launch the quick homes program, and quick homes will then launch minecraft. `n`nWhen you adjust the AUTOSTART setting to 3`, the shortcut will be uninstalled`, and placed back to it's default.`n `n`nIf Quick Homes were to be removed, Minecraft will not be launched`, if shorcut were to be left alone, and not installed to the default.`n`nIf happens so that you did delete Quick homes, you would need to install the shortcut again for minecraft manually, or download this program to easily uninstall it. `n`nYes To confirm install`, No to cancel.`n`nP.S.`nChoosing 'no' will set autostart back to 0.
+
 
 ;/*
 
@@ -188,7 +189,7 @@ AutoStart_Setup()
         ;https://www.autohotkey.com/docs/commands/FileCreateShortcut.htm
         ;FileCreateShortcut, Target, C:\My Shortcut.lnk [, WorkingDir, Args, Description, IconFile, ShortcutKey, IconNumber
         FileCreateShortcut, "%A_ScriptFullPath%", Ahk_Minecraft Launcher.lnk, "%A_ScriptFullPath%", , , C:\Program Files (x86)\Minecraft Launcher\MinecraftLauncher.exe,
-        MsgBox After two windows pop up`,move minecraft shortcut to folder on the right. Confirm with Admin Perms.`nAfter that`, close the two file explorers.`nLaunch the program, and it should open up the minecraft launcher along with Mc_Quick_Homes.
+        MsgBox After two windows pop up`, move minecraft shortcut to folder on the right. Confirm with Admin Perms.`nAfter that`, close the two file explorers.`nLaunch the program, and it should open up the minecraft launcher along with Mc_Quick_Homes.`nPS`nIt will take a little bit for windows to update the shortcut in the search menu.
 
         Move_Two_Explorer_Windows_To_Half_Of_Monitor.Launch_Explorer_Windows_And_Split()
         ;exitapp ;For Debugging Purposes ;Just for the app to stop running afterwards. 
@@ -200,8 +201,10 @@ AutoStart_Setup()
     }
 
 
-IfMsgBox, no
+    IfMsgBox, no
     {
+        IniWrite, 0, HomeStorage.ini, config, Autostart
+        TrayTip, Autostart is now set to 0, Mc_Quick_Homes, 20
         exitapp
     }
 ;*/
@@ -215,7 +218,7 @@ IfMsgBox, no
 ;Replicates the original shortcut for the user to install.
 Autostart_Uninstall()
 {
-    MsgBox After two windows pop up`,move minecraft shortcut to folder on the right. Confirm with Admin Perms.`nAfter that`, close the two file explorers.`nLaunch the program`, and it should only run the minecraft launcher`, not Mc_QuickHomes
+    MsgBox After two windows pop up`,move minecraft shortcut to folder on the right. Confirm with Admin Perms.`nAfter that`, close the two file explorers.`nLaunch the program`, and it should only run the minecraft launcher`, not Mc_QuickHomes.`nPS`nIt will take a little bit for windows to update the shortcut in the search menu.
     FileCreateShortcut, "C:\Program Files (x86)\Minecraft Launcher\MinecraftLauncher.exe", MinecraftLauncher.lnk, "%A_ScriptFullPath%", , , C:\Program Files (x86)\Minecraft Launcher\MinecraftLauncher.exe,
 
     Move_Two_Explorer_Windows_To_Half_Of_Monitor.Launch_Explorer_Windows_And_Split()
