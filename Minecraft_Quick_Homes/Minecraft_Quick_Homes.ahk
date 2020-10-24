@@ -67,31 +67,29 @@ optionFailsafes(Error_App_Stay_Open) ;Designed for checking options section befo
 
 
 
+MoveExplorer_Left_Or_Right(Left_Or_Right)
+{
+    sleep 800
+    switch Left_Or_Right
+    {
+        case 0:
+        Send, #{left}
+        goto Continue_Past_This_Switch_Statement
+        case 1:
+        send, #{right}
+        goto Continue_Past_This_Switch_Statement
+        throw "Switch left or right have failed to go to Continue_Past_This_Switch_Statement"
+    }
+    Continue_Past_This_Switch_Statement:
+    send {Esc}
+    sleep 500
+    return
+} 
 
 class Move_Two_Explorer_Windows_To_Half_Of_Monitor
 {
     ;To be called inside autostart setup
-    MoveExplorer_Left_Or_Right()
-    {
-        sleep 800
-        switch Left_Or_Right
-        {
-            case 0:
-            Send, #{left}
 
-            goto Continue_Past_This_Switch_Statement
-            case 1:
-            send, #{right}
-            goto Continue_Past_This_Switch_Statement
-            throw "Switch left or right have failed to go to Continue_Past_This_Switch_Statement"
-        }
-
-        Continue_Past_This_Switch_Statement:
-        send {Esc}
-        sleep 500
-
-        return
-    } 
 
 
     Launch_Explorer_Windows_And_Split()
