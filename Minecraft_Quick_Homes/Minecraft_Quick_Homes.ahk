@@ -188,7 +188,7 @@ AutoStart_Setup()
     {
         ;https://www.autohotkey.com/docs/commands/FileCreateShortcut.htm
         ;FileCreateShortcut, Target, C:\My Shortcut.lnk [, WorkingDir, Args, Description, IconFile, ShortcutKey, IconNumber
-        FileCreateShortcut, "%A_ScriptFullPath%", Ahk_Minecraft Launcher.lnk, "%A_ScriptFullPath%", , , C:\Program Files (x86)\Minecraft Launcher\MinecraftLauncher.exe,
+        FileCreateShortcut, "%A_ScriptFullPath%", Ahk_Minecraft Launcher.lnk, "%A_ScriptFullPath%", ,MC_Quick_Homes`, Autolaunch, C:\Program Files (x86)\Minecraft Launcher\MinecraftLauncher.exe,
         MsgBox After two windows pop up`, move minecraft shortcut to folder on the right. Confirm with Admin Perms.`nAfter that`, close the two file explorers.`nLaunch the program, and it should open up the minecraft launcher along with Mc_Quick_Homes.`nPS`nIt will take a little bit for windows to update the shortcut in the search menu.
 
         Move_Two_Explorer_Windows_To_Half_Of_Monitor.Launch_Explorer_Windows_And_Split()
@@ -219,7 +219,7 @@ AutoStart_Setup()
 Autostart_Uninstall()
 {
     MsgBox After two windows pop up`,move minecraft shortcut to folder on the right. Confirm with Admin Perms.`nAfter that`, close the two file explorers.`nLaunch the program`, and it should only run the minecraft launcher`, not Mc_QuickHomes.`nPS`nIt will take a little bit for windows to update the shortcut in the search menu.
-    FileCreateShortcut, "C:\Program Files (x86)\Minecraft Launcher\MinecraftLauncher.exe", MinecraftLauncher.lnk, "%A_ScriptFullPath%", , , C:\Program Files (x86)\Minecraft Launcher\MinecraftLauncher.exe,
+    FileCreateShortcut, "C:\Program Files (x86)\Minecraft Launcher\MinecraftLauncher.exe", MinecraftLauncher.lnk, "%A_ScriptFullPath%", ,A gateway to everything Minecraft, C:\Program Files (x86)\Minecraft Launcher\MinecraftLauncher.exe,
 
     Move_Two_Explorer_Windows_To_Half_Of_Monitor.Launch_Explorer_Windows_And_Split()
 
