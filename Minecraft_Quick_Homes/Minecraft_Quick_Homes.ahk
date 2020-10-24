@@ -83,7 +83,8 @@ optionFailsafes(Error_App_Stay_Open)
         global Autostart
         IniRead, Autostart, HomeStorage.ini, Config, Autostart ;This Option does not update during a shortcut.
 
-        if Autostart not between 0 and 3
+        ;I know 2 is not used in Autostart thus it won't do anything. Same thing if you chose 0. 😉
+        if Autostart not between 0 and 4
         {
            ErrorsMsgbox(1,Error_App_Stay_Open)
         } 
@@ -131,6 +132,10 @@ class Move_Two_Explorer_Windows_To_Half_Of_Monitor
 
         LoopVariableCount := 0
 
+        Wintitle := A_ScriptDir
+
+        msgbox 1"%A_ScriptFullPath%" 2"%A_ScriptDir%"
+
         loop 2
         {     
             LoopVariableCount += 1
@@ -145,8 +150,8 @@ class Move_Two_Explorer_Windows_To_Half_Of_Monitor
             Else ; After else, and after winwait, This Parameter NEEDS 800ms of wait to work.
             {
                 ;This first
-                Run, explore %A_ScriptDir%
-                WinWait, Minecraft Launcher,
+                Run, explore %Wintitle%,
+                WinWait, A ;Wintitle is set to active
                 MoveExplorer_Left_Or_Right(0)
             }
 
@@ -207,10 +212,20 @@ IfMsgBox, no
     return
 }
 
+;Replicates the original shortcut for the user to install.
 Autostart_Uninstall()
 {
-    ;Should be triggered if #3
-    ;If it has not been changed, throw error.
+    MsgBox After two windows pop up`,move minecraft shortcut to folder on the right. Confirm with Admin Perms.`nAfter that`, close the two file explorers.`nLaunch the program`, and it should only run the minecraft launcher`, not Mc_QuickHomes
+    FileCreateShortcut, "C:\Program Files (x86)\Minecraft Launcher\MinecraftLauncher.exe", MinecraftLauncher.lnk, "%A_ScriptFullPath%", , , C:\Program Files (x86)\Minecraft Launcher\MinecraftLauncher.exe,
+
+    Move_Two_Explorer_Windows_To_Half_Of_Monitor.Launch_Explorer_Windows_And_Split()
+
+
+    IniWrite, 0, HomeStorage.ini, config, Autostart
+    TrayTip, Autostart is now set to 0, Mc_Quick_Homes, 20
+
+
+    return
 }
 
 StartupMinecraft()
@@ -234,11 +249,11 @@ switch Autostart
 
     ;after setup
     case 3:
-    StartupMinecraft()
+        StartupMinecraft()
     return
 
-    case uninstall:
-    ;This has not been implenmented yet
+    case 4:
+        Autostart_Uninstall()
     return
 
 }
