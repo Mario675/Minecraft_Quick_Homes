@@ -38,14 +38,21 @@ ALT+Shift 4
 is equivalent to 
 ALT+8
 ```
+## Autostart
+- Autostart is 0 by default. (And setting autostart to 2 will set it back to 0).
 
+What happens if you set autostart to #?
+0. (Not installed)Normal operations.
+1. (Install) Follow the directions/guidelines in the msgbox's that the program opens up. 
+3. (Installed) Mc_Quick_Homes will now run minecraft each time it is ran.
+4. (Uninstall) Follow the directions/guidelines in the msgbox's that the program opens up. 
 
 # Useage
 1.	Launch Script
 2.	Use Shortcut Alt+1-9 to /home 1-9
 3.	Use Shortcut Alt+Shift to add 10 to your input (Default). 
 4.	Use Alt+` To /back
-5.	Use Alt+C to craft. 
+5.	Use Alt+c to craft. 
 6.	Use Alt+e to open Ender Chest. 
 7.	Use Alt+t To open Trash
 8.	Bask in the glory of amazement. 

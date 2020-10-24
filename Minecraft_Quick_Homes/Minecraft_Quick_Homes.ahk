@@ -1,3 +1,12 @@
+/*  
+    #Code from:
+        -https://github.com/Mario675/Minecraft_Quick_Homes
+
+    -This is created so that the code never loses it's original source.
+    -Just in case if someone wanted to check for updates.
+*/
+
+
 #SingleInstance, Force
 SendMode Input
 SetWorkingDir, %A_ScriptDir%
@@ -5,8 +14,10 @@ SetWorkingDir, %A_ScriptDir%
 ;Create file
 if !FileExist("HomeStorage.ini")
 {  
-    ;IniWrite, Value, Filename, Section, Key
+    ;[OPTIONS] Secton
     IniWrite, 1, HomeStorage.ini, config, Option_To_Add_OR_Multiply
+    IniWrite, 0, HomeStorage.ini, config, Autostart
+
     ;use a loop command with math.
     Home_Number := 1
     loop 18
@@ -18,39 +29,45 @@ if !FileExist("HomeStorage.ini")
     Exitapp
 }
 
-Current_Home_warp=0
 
-Wait_Until_Minecraft_Registers_Slash()
+
+End_ErrorsMsgbox_Check____(App_stay_OPEN_AfterError)
 {
-    send /
-    sleep 100
-    return
+    
+    if App_stay_OPEN_AfterError = 0
+    {
+        exitapp
+    }
+
+    return ;It shouldn't reach this point, but this is just in case.
 }
 
-
-App_stay_OPEN := false
-ErrorsMsgbox(What_type_error, App_stay_OPEN)
+;This is the Msgbox text section Since error checking is different (meaning a lot more code) from message sending. 
+App_stay_OPEN_AfterError := false
+ErrorsMsgbox(What_type_error, App_stay_OPEN_AfterError)
 {
     switch What_type_error
     {
         case 0:
             msgbox Please change Option_To_Add_OR_Multiply, to a valid number, `n 1 or 2.
-            ;msgbox App_stay_OPEN = %App_stay_OPEN% ;debug. Semicolon by default
-            if App_stay_OPEN = 0
-            {
-                exitapp
-            }
+            ;msgbox App_stay_OPEN_AfterError = %App_stay_OPEN_AfterError% ;debug. Semicolon by default
+            End_ErrorsMsgbox_Check____(App_stay_OPEN_AfterError)
         return
+
+        case 1:
+            msgbox Please change Autostart, to:`n   - 0 or 1.
+            End_ErrorsMsgbox_Check____(App_stay_OPEN_AfterError)
+        return
+        
     }
 
     return
 }
 
-
-
-optionFailsafes(Error_App_Stay_Open) ;Designed for checking options section before running Shortcut. In charge of whether app stays open after errors. 
+;This checks for all errors. Not just the error when the function was called. Function(Variable): Variable will determine if app stays open
+optionFailsafes(Error_App_Stay_Open)
 {
-    ;First Check
+    ;First Check: Option_To_Add_OR_Multiply in config
     { 
         global Option_To_Add_OR_Multiply
         IniRead, Option_To_Add_OR_Multiply, HomeStorage.ini, Config, Option_To_Add_OR_Multiply ;This Option does not update during a shortcut.
@@ -59,23 +76,220 @@ optionFailsafes(Error_App_Stay_Open) ;Designed for checking options section befo
         {
            ErrorsMsgbox(0,Error_App_Stay_Open)
         }
-        return
+        
     }
-    ;Second Check Future pull#10
+    ;Second Check:
     {
-        ;This is meant to be a switch error for if UHC fails or if it failed to start up minecraft
-        ;Make sure you include a toast message for starting up minecraft. 
+        global Autostart
+        IniRead, Autostart, HomeStorage.ini, Config, Autostart ;This Option does not update during a shortcut.
+
+        ;I know 2 is not used in Autostart thus it won't do anything. Same thing if you chose 0. 😉
+        if Autostart not between 0 and 4
+        {
+           ErrorsMsgbox(1,Error_App_Stay_Open)
+        } 
 
     }
-    TrayTip, Quickhomes, optionFailsafe cannot find a error, 10
+    ;TrayTip, Quickhomes, optionFailsafe cannot find a error, 10 ;Debug
     return
 }
 
+
+/*
+##These are the two setup functions before calling autostart setup.
+- MoveExplorer_Left_Or_Right(Left_Or_Right)
+- class Move_Two_Explorer_Windows_To_Half_Of_Monitor
+
+*/
+MoveExplorer_Left_Or_Right(Left_Or_Right)
+{
+    sleep 800
+    switch Left_Or_Right
+    {
+        case 0:
+        Send, #{left}
+        goto Continue_Past_This_Switch_Statement
+        case 1:
+        send, #{right}
+        goto Continue_Past_This_Switch_Statement
+        throw "Switch left or right have failed to go to Continue_Past_This_Switch_Statement"
+    }
+    Continue_Past_This_Switch_Statement:
+    send {Esc}
+    sleep 500
+    return
+} 
+
+class Move_Two_Explorer_Windows_To_Half_Of_Monitor
+{
+    ;To be called inside autostart setup
+
+
+
+    Launch_Explorer_Windows_And_Split()
+    {
+    
+
+        LoopVariableCount := 0
+
+        Wintitle := A_ScriptDir
+
+        ;msgbox 1"%A_ScriptFullPath%" 2"%A_ScriptDir%" ;debug
+
+        loop 2
+        {     
+            LoopVariableCount += 1
+
+            if LoopVariableCount = 2
+            {
+                ;This second
+                Run, explore C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Minecraft Launcher
+                WinWait, Minecraft Launcher,
+                MoveExplorer_Left_Or_Right(1)
+            }
+            Else ; After else, and after winwait, This Parameter NEEDS 800ms of wait to work.
+            {
+                ;This first
+                Run, explore %Wintitle%,
+                WinWait, A ;Wintitle is set to active
+                MoveExplorer_Left_Or_Right(0)
+            }
+
+        }
+        
+
+        return
+    }
+
+
+
+}
+
+
+Autostart := 0
+;Need ErrorsMsgbox and optionFailsafe to be loaded first for user errors.
+AutoStart_Setup()
+{
+    ;Directory for minecraft launcher shortcuts: C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Minecraft Launcher
+    ;Icon Directory:
+    Autostart := 0
+    ;IniWrite, 0, HomeStorage.ini, config, Autostart
+    IniRead, Autostart, HomeStorage.ini, config, Autostart
+    ;Preamble
+    HANDLE_CABINET_EXPLORER := 0
+    msgbox, 308, Minecraft_Quick_Homes Shortcut install,You have set AUTOSTART to "1" in HomeStorage.ini`nThis Setup will install a shortcut to Minecraft quick homes as minecraft.`n`nWhen this shortcut is installed`, It will:`n1. Open Quick homes`n2. Launch minecraft.`nSHORT EXPLANATION:`nThe shortcut will launch the quick homes program, and quick homes will then launch minecraft. `n`nWhen you adjust the AUTOSTART setting to 3`, the shortcut will be uninstalled`, and placed back to it's default.`n `n`nIf Quick Homes were to be removed, Minecraft will not be launched`, if shorcut were to be left alone, and not installed to the default.`n`nIf happens so that you did delete Quick homes, you would need to install the shortcut again for minecraft manually, or download this program to easily uninstall it. `n`nYes To confirm install`, No to cancel.`n`nP.S.`nChoosing 'no' will set autostart back to 0.
+
+
+;/*
+
+
+    
+    IfMsgBox, yes
+    {
+        ;https://www.autohotkey.com/docs/commands/FileCreateShortcut.htm
+        ;FileCreateShortcut, Target, C:\My Shortcut.lnk [, WorkingDir, Args, Description, IconFile, ShortcutKey, IconNumber
+
+        MsgBox, 36,Mc_Quick_Homes, Would you like the shortcut name to be:`n1. Ahk_Minecraft Launcher (Yes)`n2. MinecraftLauncher (No)
+
+        IfMsgBox, yes
+        {
+            FileCreateShortcut, "%A_ScriptFullPath%", Ahk_Minecraft Launcher.lnk, "%A_ScriptFullPath%", ,MC_Quick_Homes`, Autostart Shortcut, C:\Program Files (x86)\Minecraft Launcher\MinecraftLauncher.exe,
+        }
+        IfMsgBox, no
+        {
+            FileCreateShortcut, "%A_ScriptFullPath%", MinecraftLauncher.lnk, "%A_ScriptFullPath%", ,MC_Quick_Homes`, Autostart Shortcut, C:\Program Files (x86)\Minecraft Launcher\MinecraftLauncher.exe,
+        }
+
+        
+        MsgBox After two windows pop up`, move minecraft shortcut to folder on the right. Confirm with Admin Perms.`nAfter that`, close the two file explorers.`nLaunch the program, and it should open up the minecraft launcher along with Mc_Quick_Homes.`nPS`nIt will take a little bit for windows to update the shortcut in the search menu.
+
+        Move_Two_Explorer_Windows_To_Half_Of_Monitor.Launch_Explorer_Windows_And_Split()
+        ;exitapp ;For Debugging Purposes ;Just for the app to stop running afterwards. 
+
+
+        ;3 means that this program starts up minecraft when it is launched. 
+        IniWrite, 3, HomeStorage.ini, config, Autostart
+        TrayTip, Autostart is now set to 3, Mc_Quick_Homes, 20
+    }
+
+
+    IfMsgBox, no
+    {
+        IniWrite, 0, HomeStorage.ini, config, Autostart
+        TrayTip, Autostart is now set to 0, Mc_Quick_Homes, 20
+        exitapp
+    }
+;*/
+
+    ;UHC Perms prompt 
+    
+
+    return
+}
+
+;Replicates the original shortcut for the user to install.
+Autostart_Uninstall()
+{
+    MsgBox After two windows pop up`,move minecraft shortcut to folder on the right. Confirm with Admin Perms.`nAfter that`, close the two file explorers.`nLaunch the program`, and it should only run the minecraft launcher`, not Mc_QuickHomes.`nPS`nIt will take a little bit for windows to update the shortcut in the search menu.
+    FileCreateShortcut, "C:\Program Files (x86)\Minecraft Launcher\MinecraftLauncher.exe", MinecraftLauncher.lnk, "%A_ScriptFullPath%", ,A gateway to everything Minecraft, C:\Program Files (x86)\Minecraft Launcher\MinecraftLauncher.exe,
+
+    Move_Two_Explorer_Windows_To_Half_Of_Monitor.Launch_Explorer_Windows_And_Split()
+
+
+    IniWrite, 0, HomeStorage.ini, config, Autostart
+    TrayTip, Autostart is now set to 0, Mc_Quick_Homes, 20
+
+
+    return
+}
+
+StartupMinecraft()
+{
+    run C:\Program Files (x86)\Minecraft Launcher\MinecraftLauncher.exe
+
+    return
+}
+
+IniRead, Autostart, HomeStorage.ini, config, Autostart
 optionFailsafes(false)
+switch Autostart
+{
+    ;Turning on setup
+    case 1:
+    AutoStart_Setup()
+    Return
+
+    case 2:
+    IniWrite, 0, HomeStorage.ini, config, Autostart
+    TrayTip, 2 is not used. Setting to 0.,MC_Quick_Homes,10
+
+
+    ;after setup
+    case 3:
+        StartupMinecraft()
+    return
+
+    case 4:
+        Autostart_Uninstall()
+    return
+
+}
+
+
+
+optionFailsafes(false)
+
+Wait_Until_Minecraft_Registers_Slash()
+{
+    send /
+    sleep 100
+    return
+}
 
 ;Main Function
 CaseSwitch := 0
 IFSHIFT := 0
+Current_Home_warp=0
 
 HomeWarpCasesSwitch(CaseSwitch, IFSHIFT)
 {
