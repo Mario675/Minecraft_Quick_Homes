@@ -1,5 +1,5 @@
 # Setup
-- Please keep the files in a folder, since Script will be working off it's current directory, It will create files where it is.
+- Please keep the files in a folder, since Mc_Quick_Homes will be working off it's current directory, Quick_Homes will create files where it is.
 
 
 1. Launch Script once. Quick homes will create your ini file, (when there is no .ini file).
@@ -59,7 +59,7 @@ What happens if you set autostart to #?
 8.	Bask in the glory of amazement. 
 
 9.	When you want to close script, go to your taskbar tray, right click the green icon with an H, and click exit app. 
-10.	or exit app by Alt+x
+10.	or exit app by Alt+x 
 
 - Please be sure that you have saved your changes when editing your .ini config file, so changes would take effect in app.
 
