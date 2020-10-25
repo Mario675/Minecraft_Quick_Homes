@@ -42,6 +42,7 @@ ALT+8
 - Autostart is 0 by default. (And setting autostart to 2 will set it back to 0).
 
 What happens if you set autostart to #?
+
 0. (Not installed)Normal operations.
 1. (Install) Follow the directions/guidelines in the msgbox's that the program opens up. 
 3. (Installed) Mc_Quick_Homes will now run minecraft each time it is ran.
