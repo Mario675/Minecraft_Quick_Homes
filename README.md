@@ -1,5 +1,5 @@
 # Setup
-- Please keep the files in a folder, since Script will be working off it's current directory 
+- Please keep the files in a folder, since Script will be working off it's current directory, It will create files where it is.
 
 
 1. Launch Script once. Quick homes will create your ini file, (when there is no .ini file).
