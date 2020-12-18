@@ -356,6 +356,7 @@ return
 !t::
 Wait_Until_Minecraft_Registers_Slash()
 send trash`n
+return
 
 !c::
 Wait_Until_Minecraft_Registers_Slash()
