@@ -343,7 +343,7 @@ return
 
 ;Special keys ---------------------------
 
-!x::
+!Esc::
 Exitapp
 return
 
