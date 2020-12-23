@@ -324,16 +324,14 @@ HomeWarpCasesSwitch(CaseSwitch, IFSHIFT)
     send %Current_Home_warp%`n
     
     ;MsgBox, %Current_Home_warp% ;Debug
+
+
+    send {ShiftUp}
+
+
     ;Reset Variables
     Current_Home_warp=0
     IFSHIFT = 0
-
-
-    if IFSHIFT = 1
-    {
-        send {ShiftUp}
-    }
-
 
     return
 }
@@ -414,7 +412,7 @@ return
 
 ;ALT SHIFT NUMERALS ------------------------------------------------
 
-!+1::
+*!+1::
 HomeWarpCasesSwitch(1, 1)
 return
 
