@@ -67,7 +67,15 @@ ErrorsMsgbox(What_type_error, App_stay_OPEN_AfterError)
 ;This checks for all errors. Not just the error when the function was called. Function(Variable): Variable will determine if app stays open
 optionFailsafes(Error_App_Stay_Open)
 {
-    ;First Check: Option_To_Add_OR_Multiply in config
+
+    {
+        if !FileExist("HomeStorage.ini")
+        {
+            msgbox HomeStorage.ini was moved`, renamed`, or deleted while Minecraft_Quick_Homes was running.`n Please:`n- rename it to the original file`n- or restart Minecraft_Quick_Homes to Auto-Recreate the file.
+            return
+        }
+    }
+
     { 
         global Option_To_Add_OR_Multiply
         IniRead, Option_To_Add_OR_Multiply, HomeStorage.ini, Config, Option_To_Add_OR_Multiply ;This Option does not update during a shortcut.
@@ -78,7 +86,7 @@ optionFailsafes(Error_App_Stay_Open)
         }
         
     }
-    ;Second Check:
+    
     {
         global Autostart
         IniRead, Autostart, HomeStorage.ini, Config, Autostart ;This Option does not update during a shortcut.
@@ -90,6 +98,7 @@ optionFailsafes(Error_App_Stay_Open)
         } 
 
     }
+    
     ;TrayTip, Quickhomes, optionFailsafe cannot find a error, 10 ;Debug
     return
 }
@@ -324,34 +333,35 @@ HomeWarpCasesSwitch(CaseSwitch, IFSHIFT)
     send %Current_Home_warp%`n
     
     ;MsgBox, %Current_Home_warp% ;Debug
+
+
+    send {ShiftUp}
+
+
     ;Reset Variables
     Current_Home_warp=0
     IFSHIFT = 0
 
-
-    if IFSHIFT = 1
-    {
-        send {ShiftUp}
-    }
-
-
     return
 }
 
-
-
 return
 
-#IfWinActive ahk_exe javaw.exe
-;Failsafe in case user uses hotkey out of minecraft. 
-;When Testing shortcuts, comment out #IfWinActive javaw.exe
+
 
 
 ;Special keys ---------------------------
 
-!x::
+!Esc::
 Exitapp
 return
+
+#IfWinActive ahk_exe javaw.exe
+
+;Failsafe in case user uses hotkey out of minecraft. 
+;When Testing shortcuts, comment out #IfWinActive javaw.exe
+
+
 
 !t::
 Wait_Until_Minecraft_Registers_Slash()
@@ -414,7 +424,7 @@ return
 
 ;ALT SHIFT NUMERALS ------------------------------------------------
 
-!+1::
+*!+1::
 HomeWarpCasesSwitch(1, 1)
 return
 
