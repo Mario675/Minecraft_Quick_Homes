@@ -424,7 +424,7 @@ return
 
 ;ALT SHIFT NUMERALS ------------------------------------------------
 
-*!+1::
+!+1::
 HomeWarpCasesSwitch(1, 1)
 return
 
