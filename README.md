@@ -64,9 +64,10 @@ What happens if you set autostart to #?
 5. Use Alt+c to craft.
 6. Use Alt+e to open Ender Chest.
 7. Use Alt+t To open Trash
-8. Bask in the glory of amazement.
-9. When you want to close script, go to your taskbar tray, right click the green icon with an H, and click exit app.
-10. or exit app by Alt+Esc. (Alt + x) In older versons.
+8. Use Alt+v to toggle veinminer.
+9. Bask in the glory of amazement.
+10. When you want to close script, go to your taskbar tray, right click the green icon with an H, and click exit app.
+11. or exit app by Alt+Esc. (Alt + x) In older verson.
 
 - Please be sure that you have saved your changes when editing your .ini config file, so changes would take effect in app.
 - This script will also not accept hotkeys outside of minecraft (javaw.exe). This is a failsafe.
