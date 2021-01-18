@@ -361,7 +361,10 @@ return
 ;Failsafe in case user uses hotkey out of minecraft. 
 ;When Testing shortcuts, comment out #IfWinActive javaw.exe
 
-
+!v::
+Wait_Until_Minecraft_Registers_Slash()
+send veinminer toggle`n
+return
 
 !t::
 Wait_Until_Minecraft_Registers_Slash()
