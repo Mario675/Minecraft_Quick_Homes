@@ -72,6 +72,42 @@ What happens if you set autostart to #?
 - Please be sure that you have saved your changes when editing your .ini config file, so changes would take effect in app.
 - This script will also not accept hotkeys outside of minecraft (javaw.exe). This is a failsafe.
 
+## How to Customize your Minecraft Quick Home script
+
+- Scroll down to the point where there is a comment saying `Special keys ---------`.
+- Anything below this line `#IfWinActive ahk_exe javaw.exe`, will only trigger while minecraft is active. Anything above this line will get triggered outside of minecraft.
+
+### How to make a "Hotkey"
+
+- First up, most of the documentation that is referenced below you can find on the [AutoHotkey's Help manual.](https://www.autohotkey.com/docs/AutoHotkey.htm)
+- Here is an example of a hotkey in Quick homes:
+
+```AutoHotKey
+!c::
+Wait_Until_Minecraft_Registers_Slash()
+send craft`n
+return
+```
+
+- ! = Alt
+
+- The function called `Wait_Until_Minecraft_Registers_Slash()` is used to make sure to give minecraft a delay to interpet that a slash was inputted, before the rest of the command is inputted. This is a failsafe to make sure the send command doesn't input your characters incorrectly.
+- The `send` command allows you to send text.
+- The ``n` characters is a parameter that means to send the enter key. Or if you don't want to memorize those characters, you can use `{Enter}` surrounded in brackets.
+- The `return` command prevents the program from reading past your hotkey script.
+
+#### Potential common mistakes
+
+- `Wait_Until_Minecraft_Registers_Slash()` function **already** puts a slash before it is finished, so there is almost no need to add an extra slash at the end of your command.
+
+> - "My custom command goes past what it's supposed to do."
+
+- Please Put a return at the end of your command to prevent the tread from executing more unintended commands.
+
+> - "My hotkey won't activate / It won't respond"
+
+- You didn't put two colons after the command.
+
 ## Important End notes
 
 > - I know number 10 is inacessable with default, but
