@@ -5,7 +5,7 @@
 1. Launch Script once. Quick homes will create your ini file, (when there is no .ini file).
 2. Open your .ini file.
 3. add a space after the home, and input your home.
-   Example:
+  Example:
 
 ```
 Before:
@@ -21,7 +21,7 @@ Home3=home spider_xp_farm
 ```
 
 - You don't need it to be a home. It can even be a warp.
-  This script types whatever you have in your ini corelating to the button you pressed after alt, after inputting /
+  - This script types whatever you have in your ini corelating to the button you pressed after alt, after inputting /
 
 4. You can adjust what ALT+SHIFT does by changing the variable in section `config`
 
@@ -55,7 +55,7 @@ What happens if you set autostart to #?
 2. (Installed) Mc_Quick_Homes will now run minecraft each time it is ran.
 3. (Uninstall) Follow the directions/guidelines in the msgbox's that the program opens up.
 
-# Useage
+## Useage
 
 1. Launch Script
 2. Use Shortcut Alt+1-9 to /home 1-9
@@ -80,3 +80,4 @@ What happens if you set autostart to #?
 >   - Instead of adding 9
 >     `Alt+Shift+3 = 1__2__`
 >   - Which ones Digit is less than the input.
+>   - In in conclusion, it would be a bit confusing.
