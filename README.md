@@ -4,10 +4,10 @@
 
 1. Launch Script once. Quick homes will create your ini file, (when there is no .ini file).
 2. Open your .ini file.
-3. add a space after the home, and input your home.
+3. Add a space after the home, and input your home.
   Example:
 
-```
+```ini
 Before:
 Home1=home
 Home2=home
@@ -29,7 +29,7 @@ Home3=home spider_xp_farm
 
 Option 1
 
-```
+```Text
 1 which is default; Option 1 will add 10 to your input, so
 Alt+shift 3
 Alt+13
@@ -37,7 +37,7 @@ Alt+13
 
 Option 2
 
-```
+```Text
 Multiples the input by 2, so
 ALT+Shift 4
 is equivalent to 
