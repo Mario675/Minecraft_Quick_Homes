@@ -93,7 +93,7 @@ return
 
 - The function called `Wait_Until_Minecraft_Registers_Slash()` is used to make sure to give minecraft a delay to interpet that a slash was inputted, before the rest of the command is inputted. This is a failsafe to make sure the send command doesn't input your characters incorrectly.
 - The `send` command allows you to send text.
-- The ``n` characters is a parameter that means to send the enter key. Or if you don't want to memorize those characters, you can use `{Enter}` surrounded in brackets.
+- The \`n characters is a parameter that means to send the enter key. Or if you don't want to memorize those characters, you can use `{Enter}` surrounded in brackets.
 - The `return` command prevents the program from reading past your hotkey script.
 
 #### Potential common mistakes
