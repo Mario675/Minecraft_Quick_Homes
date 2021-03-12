@@ -116,4 +116,4 @@ return
 >   - Instead of adding 9
 >     `Alt+Shift+3 = 1__2__`
 >   - Which ones Digit is less than the input.
->   - In in conclusion, it would be a bit confusing.
+>   - In conclusion, it would be a bit confusing.
