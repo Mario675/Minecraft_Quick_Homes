@@ -102,7 +102,7 @@ return
 
 > - "My custom command goes past what it's supposed to do."
 
-- Please Put a return at the end of your command to prevent the tread from executing more unintended commands.
+- Please Put a return at the end of your command to prevent the thread from executing more unintended commands.
 
 > - "My hotkey won't activate / It won't respond"
 
