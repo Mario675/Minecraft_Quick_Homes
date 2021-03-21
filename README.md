@@ -67,7 +67,7 @@ What happens if you set autostart to #?
 8. Use Alt+v to toggle veinminer.
 9. Bask in the glory of amazement.
 10. When you want to close script, go to your taskbar tray, right click the green icon with an H, and click exit app.
-11. or exit app by Alt+Esc. (Alt + x) In older verson.
+11. or exit app by Alt+Esc. (Alt + x) In older version.
 
 - Please be sure that you have saved your changes when editing your .ini config file, so changes would take effect in app.
 - This script will also not accept hotkeys outside of minecraft (javaw.exe). This is a failsafe.
@@ -96,7 +96,7 @@ return
 - The \`n characters is a parameter that means to send the enter key. Or if you don't want to memorize those characters, you can use `{Enter}` surrounded in brackets.
 - The `return` command prevents the program from reading past your hotkey script.
 
-#### Potential common mistakes
+#### QnA
 
 - `Wait_Until_Minecraft_Registers_Slash()` function **already** puts a slash before it is finished, so there is almost no need to add an extra slash at the end of your command.
 
@@ -107,6 +107,10 @@ return
 > - "My hotkey won't activate / It won't respond"
 
 - You didn't put two colons after the command.
+
+> - "When I switch homes rapidly, the alt key appears to be stuck somtimes, or when minecraft is busy loading another part of the world that I am teleporting to."
+
+- This is a documented issue on the [Mincraft Quick Homes Github](https://github.com/Mario675/Minecraft_Quick_Homes/issues/25). A temporary fix would be to press, then release the alt key, to unlatch the virtually held key. When minecraft is busy, and cannot accept an input into the text line, Minecraft Quick Homes will proceed to type into minecraft without the text line. Meaning that windows might pop up from button shortcuts such as the achievement window `(L)`, the server players windows `(P)`, etc.
 
 ## Important End notes
 
