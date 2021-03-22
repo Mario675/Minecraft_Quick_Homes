@@ -55,19 +55,20 @@ What happens if you set autostart to #?
 2. (Installed) Mc_Quick_Homes will now run minecraft each time it is ran.
 3. (Uninstall) Follow the directions/guidelines in the msgbox's that the program opens up.
 
-## Useage
+## Usage
 
-1. Launch Script
-2. Use Shortcut Alt+1-9 to /home 1-9
-3. Use Shortcut Alt+Shift to add 10 to your input (Default).
-4. Use Alt+` To /back
-5. Use Alt+c to craft.
-6. Use Alt+e to open Ender Chest.
-7. Use Alt+t To open Trash
-8. Use Alt+v to toggle veinminer.
-9. Bask in the glory of amazement.
-10. When you want to close script, go to your taskbar tray, right click the green icon with an H, and click exit app.
-11. or exit app by Alt+Esc. (Alt + x) In older version.
+1. Launch Script. Then Launch the script again, after it has autocreated Homestorage.ini
+2. Configure your Homestorage.ini. You can also press Alt + I to configure Homestorage.ini in minecraft.
+3. Use Shortcut Alt+1-9 to /home 1-9
+4. Use Shortcut Alt+Shift to add 10 to your input (Default).
+5. Use Alt+` To /back
+6. Use Alt+c to craft.
+7. Use Alt+e to open Ender Chest.
+8. Use Alt+t To open Trash
+9. Use Alt+v to toggle veinminer.
+10. Bask in the glory of amazement.
+11. When you want to close script, go to your taskbar tray, right click th  e green icon with an H, and click exit app.
+12. or exit app by Alt+Esc. (Alt + x) In older versions.
 
 - Please be sure that you have saved your changes when editing your .ini config file, so changes would take effect in app.
 - This script will also not accept hotkeys outside of minecraft (javaw.exe). This is a failsafe.
