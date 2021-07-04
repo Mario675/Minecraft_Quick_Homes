@@ -58,6 +58,11 @@ ErrorsMsgbox(What_type_error, App_stay_OPEN_AfterError)
             msgbox Please change Autostart, to:`n   - 0 or 1.
             End_ErrorsMsgbox_Check____(App_stay_OPEN_AfterError)
         return
+
+        case 3:
+            msgbox HomeStorage.ini was moved`, renamed`, or deleted while Minecraft_Quick_Homes was running.`n Please:`n- rename it to the original file`n- or restart Minecraft_Quick_Homes to Auto-Recreate a new file.
+            End_ErrorsMsgbox_Check____(App_stay_OPEN_AfterError)
+        return
         
     }
 
@@ -71,7 +76,7 @@ optionFailsafes(Error_App_Stay_Open)
     {
         if !FileExist("HomeStorage.ini")
         {
-            msgbox HomeStorage.ini was moved`, renamed`, or deleted while Minecraft_Quick_Homes was running.`n Please:`n- rename it to the original file`n- or restart Minecraft_Quick_Homes to Auto-Recreate the file.
+            ErrorsMsgbox(3, Error_App_Stay_Open)
             return
         }
     }
@@ -360,6 +365,16 @@ return
 
 ;Failsafe in case user uses hotkey out of minecraft. 
 ;When Testing shortcuts, comment out #IfWinActive javaw.exe
+
+!i::
+if !FileExist("HomeStorage.ini")
+{
+    optionFailsafes(true)
+}
+else
+run HomeStorage.ini
+
+return
 
 !v::
 Wait_Until_Minecraft_Registers_Slash()
