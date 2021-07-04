@@ -343,7 +343,9 @@ Parse_Sections_Homes_Into_Array()
     ;msgbox  Output Below `n`n %msgboxtest_var%
 
     ;Parse All sections into array.
-    home_sections := [[],[],[]]
+    ;The first subsection of the array (home_sections.1), is the Sections divided up into slots
+    ;The second subsection of the array (home_sections.2), is the 1 section split up into 3 data points.
+    home_sections := [[],[]]
     
     home_sections.1 := StrSplit(msgboxtest_var, "`n")
     msgbox % home_sections.1[1] ; array[1] is useless, since config will already be in there. 
