@@ -187,7 +187,7 @@ AutoStart_Setup()
     ;Directory for minecraft launcher shortcuts: C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Minecraft Launcher
     ;Icon Directory:
     Autostart := 0
-    ;IniWrite, 0, HomeStorage.ini, config, Autostart
+    
     IniRead, Autostart, HomeStorage.ini, config, Autostart
     ;Preamble
     HANDLE_CABINET_EXPLORER := 0
@@ -299,6 +299,18 @@ Wait_Until_Minecraft_Registers_Slash()
     sleep 100
     return
 }
+
+/*
+https://www.autohotkey.com/docs/commands/LoopParse.htm
+
+- So first, I have to get the file name of it, and put it into a variable for it to be parsed. 
+- I would need the period to act as a delimiter, to separate the subjects from each other. 
+- Then I can omit chars from the third string, otherwise known as the `MC_`
+
+
+*/
+
+
 
 ;Main Function
 CaseSwitch := 0
