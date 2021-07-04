@@ -17,6 +17,7 @@ if !FileExist("HomeStorage.ini")
     ;[OPTIONS] Secton
     IniWrite, 1, HomeStorage.ini, config, Option_To_Add_OR_Multiply
     IniWrite, 0, HomeStorage.ini, config, Autostart
+    IniWrite, C:\Program Files (x86)\Minecraft Launcher\MinecraftLauncher.exe, HomeStorage.ini, config, Minecraft_Launcher_Path
 
     ;use a loop command with math.
     Home_Number := 1
@@ -259,7 +260,9 @@ Autostart_Uninstall()
 
 StartupMinecraft()
 {
-    run C:\Program Files (x86)\Minecraft Launcher\MinecraftLauncher.exe
+    Minecraft_Launcher_Path := 0
+    IniRead, Minecraft_Launcher_Path, HomeStorage.ini, config, Minecraft_Launcher_Path 
+    run %Minecraft_Launcher_Path%
 
     return
 }

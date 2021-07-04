@@ -55,6 +55,16 @@ What happens if you set autostart to #?
 2. (Installed) Mc_Quick_Homes will now run minecraft each time it is ran.
 3. (Uninstall) Follow the directions/guidelines in the msgbox's that the program opens up.
 
+- Autostart can be configured to launch another minecraft launcher.
+
+```ini
+[config]
+...
+Minecraft_Launcher_Path=C:\Program Files (x86)\Minecraft Launcher\MinecraftLauncher.exe
+```
+
+- Just add The full path to your launcher, including the `.exe`.
+
 ## Usage
 
 1. Launch Script. Then Launch the script again, after it has autocreated Homestorage.ini
