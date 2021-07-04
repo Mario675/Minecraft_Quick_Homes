@@ -23,7 +23,7 @@ if !FileExist("HomeStorage.ini")
     Home_Number := 1
     loop 18
     {
-        IniWrite, home , HomeStorage.ini, Homes, Home%Home_Number%
+        IniWrite, home , HomeStorage.ini, Homes.1.blank, Home%Home_Number%
         Home_Number+= 1
     }
     TrayTip, Minecraft_Quick_Homes, Created A new .ini config!, 3,
@@ -327,8 +327,45 @@ https://www.autohotkey.com/docs/commands/LoopParse.htm
 - I would need the period to act as a delimiter, to separate the subjects from each other. 
 - Then I can omit chars from the third string, otherwise known as the `MC_`
 
+I would need these three functions
+1. Parse_Existing_Homes_Into_Array()
+
 
 */
+
+;Update 3.5
+
+Parse_Sections_Homes_Into_Array()
+{
+    ;List All Sections
+    msgboxtest_var := 0
+    IniRead, msgboxtest_var, HomeStorage.ini
+    ;msgbox  Output Below `n`n %msgboxtest_var%
+
+    ;Parse All sections into array.
+    home_sections := [[],[],[]]
+    
+    home_sections.1 := StrSplit(msgboxtest_var, "`n")
+    msgbox % home_sections.1[1] ; array[1] is useless, since config will already be in there. 
+    msgbox % home_sections.1[2] ; However, Array[2] and so forth, will highlight all the other ones.
+
+    home_sections.2 := StrSplit(home_sections.1[2], ".")
+    msgbox % home_sections.2[1]
+    msgbox % home_sections.2[2]
+    msgbox % home_sections.2[3]
+
+}
+
+Parse_Sections_Homes_Into_Array()
+
+Switch_Set_Of_Homes_By_Sections()
+{
+    optionFailsafes(true)
+
+
+
+}
+
 
 
 
