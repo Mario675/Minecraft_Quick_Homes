@@ -64,6 +64,11 @@ ErrorsMsgbox(What_type_error, App_stay_OPEN_AfterError)
             msgbox HomeStorage.ini was moved`, renamed`, or deleted while Minecraft_Quick_Homes was running.`n Please:`n- rename it to the original file`n- or restart Minecraft_Quick_Homes to Auto-Recreate a new file.
             End_ErrorsMsgbox_Check____(App_stay_OPEN_AfterError)
         return
+
+        case 4:
+            TrayTip, Minecraft_Quick_Homes, Updated your Homestorage.ini, 3,
+            
+        return
         
     }
 
@@ -94,7 +99,7 @@ optionFailsafes(Error_App_Stay_Open)
     }
     
     {
-        global Autostart
+        
         IniRead, Autostart, HomeStorage.ini, Config, Autostart ;This Option does not update during a shortcut.
 
         ;I know 2 is not used in Autostart thus it won't do anything. Same thing if you chose 0. 😉
@@ -105,6 +110,15 @@ optionFailsafes(Error_App_Stay_Open)
 
     }
     
+    if Autostart = 3
+    { ; issue #31 fix
+
+        Check_If_Existing__Minecraft_Launcher_Path__In_Homestorage_ini()
+
+        Check_Valid_Minecraft_Launcher_Path()
+        
+    }
+
     ;TrayTip, Quickhomes, optionFailsafe cannot find a error, 10 ;Debug
     return
 }
@@ -258,9 +272,40 @@ Autostart_Uninstall()
     return
 }
 
+Check_If_Existing__Minecraft_Launcher_Path__In_Homestorage_ini()
+{
+    Temp_variable_for_checking_valid_path_for_autostart := 0
+    IniRead, Temp_variable_for_checking_valid_path_for_autostart, HomeStorage.ini, config, Minecraft_Launcher_Path, 0 ;Set the default to zero, so I can compare it.
+
+    if Temp_variable_for_checking_valid_path_for_autostart = 0
+    {
+        IniWrite, C:\Program Files (x86)\Minecraft Launcher\MinecraftLauncher.exe, HomeStorage.ini, config, Minecraft_Launcher_Path
+        ErrorsMsgbox(4, Error_App_Stay_Open)
+    }
+
+    return
+}
+
+Check_Valid_Minecraft_Launcher_Path()
+{
+    IniRead, Minecraft_Launcher_Path, HomeStorage.ini, config, Minecraft_Launcher_Path 
+    Try run %Minecraft_Launcher_Path%
+    Catch e
+    {
+        MsgBox, Non valid path Minecraft_Launcher_Path detected.`nPlease check your Minecraft_Launcher_Path variable in homestorage.ini.`nMake sure it includes the full path, including the executable name and extension.`n`n- Example:`nC:\Program Files (x86)\Minecraft Launcher\MinecraftLauncher.exe
+        ExitApp
+    }
+
+    return
+}
+
+
 StartupMinecraft()
 {
-    Minecraft_Launcher_Path := 0
+    ; I put the optionFailsafes() here, because of bug #31 on github. Prevents a crash with old files.
+    ; It will also check the validity or existence of the Minecraft_Launcher_Path variable.
+    optionFailsafes(true)
+
     IniRead, Minecraft_Launcher_Path, HomeStorage.ini, config, Minecraft_Launcher_Path 
     run %Minecraft_Launcher_Path%
 
