@@ -52,8 +52,9 @@ What happens if you set autostart to #?
 
 0. (Not installed)Normal operations.
 1. (Install) Follow the directions/guidelines in the msgbox's that the program opens up.
-2. (Installed) Mc_Quick_Homes will now run minecraft each time it is ran.
-3. (Uninstall) Follow the directions/guidelines in the msgbox's that the program opens up.
+2. (Not used)
+3. (Installed) Mc_Quick_Homes will now run minecraft each time it is ran.
+4. (Uninstall) Follow the directions/guidelines in the msgbox's that the program opens up.
 
 - Autostart can be configured to launch another minecraft launcher.
 
