@@ -114,8 +114,6 @@ optionFailsafes(Error_App_Stay_Open)
     { ; issue #31 fix
 
         Check_If_Existing__Minecraft_Launcher_Path__In_Homestorage_ini()
-
-        Check_Valid_Minecraft_Launcher_Path()
         
     }
 
@@ -286,7 +284,7 @@ Check_If_Existing__Minecraft_Launcher_Path__In_Homestorage_ini()
     return
 }
 
-Check_Valid_Minecraft_Launcher_Path()
+Check_and_launch_Valid_Minecraft_Launcher_Path()
 {
     IniRead, Minecraft_Launcher_Path, HomeStorage.ini, config, Minecraft_Launcher_Path 
     Try run %Minecraft_Launcher_Path%
@@ -306,8 +304,7 @@ StartupMinecraft()
     ; It will also check the validity or existence of the Minecraft_Launcher_Path variable.
     optionFailsafes(true)
 
-    IniRead, Minecraft_Launcher_Path, HomeStorage.ini, config, Minecraft_Launcher_Path 
-    run %Minecraft_Launcher_Path%
+    Check_and_launch_Valid_Minecraft_Launcher_Path()
 
     return
 }
@@ -453,7 +450,7 @@ return
 ;Numeral options ------------------------------------------------
 
 !1::
-HomeWarpCasesSwitch(1, 0)
+    HomeWarpCasesSwitch(1, 0)
 return
 
 !2::
