@@ -384,6 +384,10 @@ HomeWarpCasesSwitch(CaseSwitch, IFSHIFT)
     
     ;MsgBox, %Current_Home_warp% ;Debug
 
+    Fix_Virtual_Alt_Held()
+    Fix_Virtual_Shift_Held()
+    ;#KeyHistory 100
+    ;keyHistory
 
     send {ShiftUp}
 
@@ -397,7 +401,29 @@ HomeWarpCasesSwitch(CaseSwitch, IFSHIFT)
 
 return
 
+;Code modified from:
+;https://stackoverflow.com/questions/49009176/autohotkey-causing-control-key-to-get-stuck#49034365
+Fix_Virtual_Alt_Held()
+{ 
+    If GetKeyState("Alt")           ; If the OS believes the key to be in (logical state),
+    {
+        If !GetKeyState("Alt","P")  ; but  the user isn't physically holding it down (physical state)
+        {
+            Send {Blind}{Alt Up}
+        }
+    }
+}
 
+Fix_Virtual_Shift_Held()
+{
+    If GetKeyState("Shift")           ; If the OS believes the key to be in (logical state),
+    {
+        If !GetKeyState("Shift","P")  ; but  the user isn't physically holding it down (physical state)
+        {
+            Send {Blind}{Shift Up}
+        }
+    }
+}
 
 
 ;Special keys ---------------------------
