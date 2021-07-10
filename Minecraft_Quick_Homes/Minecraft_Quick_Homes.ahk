@@ -412,6 +412,7 @@ Fix_Virtual_Alt_Held()
             Send {Blind}{Alt Up}
         }
     }
+    return
 }
 
 Fix_Virtual_Shift_Held()
@@ -423,6 +424,7 @@ Fix_Virtual_Shift_Held()
             Send {Blind}{Shift Up}
         }
     }
+    return
 }
 
 
