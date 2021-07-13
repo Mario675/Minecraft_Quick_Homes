@@ -5,7 +5,8 @@
 - The code is open source and made in Autohotkey. You can customize your copy of Minecraft Quick Homes with your own shortcuts.
 - Less time on the intricacies, more time on the fun of the game.
 
-[Minecraft_Quick_Homes_Logo](Minecraft Quick homes Logo\Final Image\Backround Image.png)
+<img title="a title" alt="" src="\Minecraft Quick homes Logo\Final Image\Backround Image.png">
+![Minecraft_Quick_Homes_Logo](\Minecraft Quick homes Logo\Final Image\Just_steave.png)
 
 ## Setup
 
