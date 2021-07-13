@@ -1,4 +1,13 @@
-# Setup
+# About
+
+- Minecraft Quick Homes makes common server commands into a shortcut. Once installed, you no longer have to be delayed with typing in your command/homes perfectly.
+- You have the freedom with naming your homes as long as you want, without giving up the diligence and convenience of teleporting.
+- The code is open source and made in Autohotkey. You can customize your copy of Minecraft Quick Homes with your own shortcuts.
+- Less time on the intricacies, more time on the fun of the game.
+
+<img title="Minecraft_Quick_Homes_Logo" alt="" src="/Minecraft Quick homes Logo/Final Image/Backround Image.png">
+
+## Setup
 
 - Please keep the files in a folder, since Mc_Quick_Homes will be working off it's current directory, Quick_Homes will create files where it is.
 
@@ -52,8 +61,9 @@ What happens if you set autostart to #?
 
 0. (Not installed)Normal operations.
 1. (Install) Follow the directions/guidelines in the msgbox's that the program opens up.
-2. (Installed) Mc_Quick_Homes will now run minecraft each time it is ran.
-3. (Uninstall) Follow the directions/guidelines in the msgbox's that the program opens up.
+2. (Not used)
+3. (Installed) Mc_Quick_Homes will now run minecraft each time it is ran.
+4. (Uninstall) Follow the directions/guidelines in the msgbox's that the program opens up.
 
 - Autostart can be configured to launch another minecraft launcher.
 
