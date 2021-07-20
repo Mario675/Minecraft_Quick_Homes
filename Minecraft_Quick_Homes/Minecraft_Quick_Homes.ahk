@@ -392,14 +392,9 @@ I would need these three functions
 
 ;Update 3.5
 
-Get_Minecraft_Window_Title()
-{
-    OutputVar := ""
-    WinGetTitle, OutputVar, ahk_exe javaw.exe
-    return OutputVar
-}
 
-class minecraft_version_sections
+
+class minecraft_version_sections_ReadWrite
 {
     Parse_Sections_Homes_Into_Array()
     {
@@ -418,13 +413,13 @@ class minecraft_version_sections
             home_sections := [[],[]]
 
             home_sections.1 := StrSplit(msgboxtest_var, "`n")
-            msgbox % home_sections.1[1] ; array[1] is useless, since config will already be in there. 
-            msgbox % home_sections.1[2] ; However, Array[2] and so forth, will highlight all the other ones.
+            ; msgbox % home_sections.1[1] ; array[1] is useless, since config will already be in there. 
+            ; msgbox % home_sections.1[2] ; However, Array[2] and so forth, will highlight all the other ones.
 
             home_sections.2 := StrSplit(home_sections.1[2], "&")
-            msgbox % home_sections.2[1]
-            msgbox % home_sections.2[2]
-            msgbox % home_sections.2[3]
+            ; msgbox % home_sections.2[1]
+            ; msgbox % home_sections.2[2]
+            ; msgbox % home_sections.2[3]
         ;*/
         ;}
 
@@ -433,36 +428,69 @@ class minecraft_version_sections
 
     }
 
-    Add_Section_Homes_Into_HomeStorage(home_sections, new_minecraft_window_title)
+    Add_Section_Homes_Into_HomeStorage(home_sections, Minecraft_Window_Title)
     {
-        ;We need to identify the existing homes!
-        ;Meaning the Parse_Sections_Homes_Into_Array() needs to be called first. The home_section array needs to be passed onto this function after analyzing the available homes. 
-        ;We also need the window title to add onto the header. 
+        result := this.get_existing_sum_of_sections(home_sections)
 
-        ; Once we have the data from Parse_Sections_Homes_Into_Array(),
-        ; We need to detect the missing homes. 
-
-        ; One way is to do so is:
-        /*
-
-            ; If there is not nothing in homesection.1[INCREMENTING VARIABLE], increment the variable until not true.
-            while if !home_section.1[i + 1]
-            {
-                ; This should keep track of how many times it is true. 
-            }
-            ; Once exited, we would know the exact array number to add another section, and the proper increment. 
-            ; Time to look up the help manual.
-        */
-
-        
+        ; now that we got the amount of sections inside, all thats needed, is noting down the minecraft version. 
+        ; Since config is not a useful home section, subtract result by 1.
 
 
 
+        Insert_Home_numbers_into_HomeStorage(result, Minecraft_Window_Title)
 
+        TrayTip Minecraft Quick Homes, Added Homes&%result%&%Minecraft_Window_Title%
 
         return
     }
 
+    Get_Active_Window_Title()
+    {
+        WinGetActiveTitle, active_window_title
+
+        return active_window_title
+    }
+
+    Insert_Home_numbers_into_HomeStorage(section_number, Minecraft_Window_Title)
+    {
+        ;This function actually writes the template into HomeStorage.ini
+
+        ;Checks if inserted parameter is blank.
+        if !Minecraft_Window_Title
+        {
+            Minecraft_Window_Title := "blank"
+            ;msgbox %Minecraft_Window_Title%
+        }
+        ;msgbox %Minecraft_Window_Title%
+
+        ;use a loop command with math.
+        Home_Number := 1
+        loop 18
+        {
+            IniWrite, home , HomeStorage.ini, Homes&%section_number%&%Minecraft_Window_Title%, Home%Home_Number%
+            Home_Number+= 1
+        }
+        return
+    }
+
+    get_existing_sum_of_sections(home_sections)
+    {
+        ;While home_sections has an index, execute inside code. 
+        while home_sections.1[A_Index]
+        {
+            ;msgbox % home_sections.1[A_Index]","A_Index
+            result := A_Index
+        }
+        
+
+        ;msgbox final index is %result%
+        ;If there is no homes index, then the result should be 0. 
+
+        return result
+    }
+
+}
+;TBD
     Switch_Set_Of_Homes_By_Sections()
     {
         ;This switches the main section header to the hotkey pressed. 
@@ -485,17 +513,12 @@ class minecraft_version_sections
         optionFailsafes(true)
         return
     }
-}
 
-new_minecraft_window_title.Parse_Sections_Homes_Into_Array()
+
 !Q::
     ;Notes down current title version, and makes a new section.
+    minecraft_version_sections_ReadWrite.Add_Section_Homes_Into_HomeStorage(minecraft_version_sections_ReadWrite.Parse_Sections_Homes_Into_Array(), minecraft_version_sections_ReadWrite.Get_Active_Window_Title())
 
-    new_minecraft_window_title := Get_Minecraft_Window_Title()
-    home_sections := minecraft_version_sections.Parse_Sections_Homes_Into_Array()
-    minecraft_version_sections.Add_Section_Homes_Into_HomeStorage(home_sections, new_minecraft_window_title)
-    ;MsgBox, %new_minecraft_window_title%
-    ;minecraft_version_sections.Parse_Sections_Homes_Into_Array()
 return
 
 
