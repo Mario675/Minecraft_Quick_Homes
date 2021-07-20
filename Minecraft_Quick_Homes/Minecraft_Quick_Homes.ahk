@@ -392,38 +392,111 @@ I would need these three functions
 
 ;Update 3.5
 
-Parse_Sections_Homes_Into_Array()
+Get_Minecraft_Window_Title()
 {
-    ;List All Sections
-    msgboxtest_var := 0
-    IniRead, msgboxtest_var, HomeStorage.ini
-    ;msgbox  Output Below `n`n %msgboxtest_var%
-
-    ;Parse All sections into array.
-    ;The first subsection of the array (home_sections.1), is the Sections divided up into slots
-    ;The second subsection of the array (home_sections.2), is the 1 section split up into 3 data points.
-    home_sections := [[],[]]
-    
-    home_sections.1 := StrSplit(msgboxtest_var, "`n")
-    msgbox % home_sections.1[1] ; array[1] is useless, since config will already be in there. 
-    msgbox % home_sections.1[2] ; However, Array[2] and so forth, will highlight all the other ones.
-
-    home_sections.2 := StrSplit(home_sections.1[2], ".")
-    msgbox % home_sections.2[1]
-    msgbox % home_sections.2[2]
-    msgbox % home_sections.2[3]
-
+    OutputVar := ""
+    WinGetTitle, OutputVar, ahk_exe javaw.exe
+    return OutputVar
 }
 
-Parse_Sections_Homes_Into_Array()
-
-Switch_Set_Of_Homes_By_Sections()
+class minecraft_version_sections
 {
-    optionFailsafes(true)
+    Parse_Sections_Homes_Into_Array()
+    {
+        ;List All Sections
+        msgboxtest_var := 0
+        IniRead, msgboxtest_var, HomeStorage.ini
+        ;msgbox  Output Below `n`n %msgboxtest_var%
+
+        ;{ ;Example
+        ;/*
+
+
+            ;Parse All sections into array.
+            ;The first subsection of the array (home_sections.1), is the Sections divided up into slots
+            ;The second subsection of the array (home_sections.2), is the 1 section split up into 3 data points.
+            home_sections := [[],[]]
+
+            home_sections.1 := StrSplit(msgboxtest_var, "`n")
+            msgbox % home_sections.1[1] ; array[1] is useless, since config will already be in there. 
+            msgbox % home_sections.1[2] ; However, Array[2] and so forth, will highlight all the other ones.
+
+            home_sections.2 := StrSplit(home_sections.1[2], "&")
+            msgbox % home_sections.2[1]
+            msgbox % home_sections.2[2]
+            msgbox % home_sections.2[3]
+        ;*/
+        ;}
+
+        
+        return home_sections
+
+    }
+
+    Add_Section_Homes_Into_HomeStorage(home_sections, new_minecraft_window_title)
+    {
+        ;We need to identify the existing homes!
+        ;Meaning the Parse_Sections_Homes_Into_Array() needs to be called first. The home_section array needs to be passed onto this function after analyzing the available homes. 
+        ;We also need the window title to add onto the header. 
+
+        ; Once we have the data from Parse_Sections_Homes_Into_Array(),
+        ; We need to detect the missing homes. 
+
+        ; One way is to do so is:
+        /*
+
+            ; If there is not nothing in homesection.1[INCREMENTING VARIABLE], increment the variable until not true.
+            while if !home_section.1[i + 1]
+            {
+                ; This should keep track of how many times it is true. 
+            }
+            ; Once exited, we would know the exact array number to add another section, and the proper increment. 
+            ; Time to look up the help manual.
+        */
+
+        
 
 
 
+
+
+        return
+    }
+
+    Switch_Set_Of_Homes_By_Sections()
+    {
+        ;This switches the main section header to the hotkey pressed. 
+        /*
+            example:
+            Ctrl + Alt + 1
+            This will go to the first header, 
+            > [Homes&1&blank]
+
+            If you press:
+            Ctrl + Alt + 2
+            This will go to the second header,
+            > [Homes&2&blank]
+
+            Changing the main header will change how HomeWarpCasesSwitch() calls homes. 
+
+            It's like switching desktops on Windows 10.
+
+        */
+        optionFailsafes(true)
+        return
+    }
 }
+
+new_minecraft_window_title.Parse_Sections_Homes_Into_Array()
+!Q::
+    ;Notes down current title version, and makes a new section.
+
+    new_minecraft_window_title := Get_Minecraft_Window_Title()
+    home_sections := minecraft_version_sections.Parse_Sections_Homes_Into_Array()
+    minecraft_version_sections.Add_Section_Homes_Into_HomeStorage(home_sections, new_minecraft_window_title)
+    ;MsgBox, %new_minecraft_window_title%
+    ;minecraft_version_sections.Parse_Sections_Homes_Into_Array()
+return
 
 
 
@@ -514,7 +587,7 @@ Fix_Virtual_Shift_Held()
 ;Special keys ---------------------------
 
 !Esc::
-Exitapp
+    Exitapp
 return
 
 #IfWinActive ahk_exe javaw.exe
