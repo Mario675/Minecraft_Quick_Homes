@@ -451,28 +451,6 @@ class minecraft_version_sections_ReadWrite
         return active_window_title
     }
 
-    Insert_Home_numbers_into_HomeStorage(section_number, Minecraft_Window_Title)
-    {
-        ;This function actually writes the template into HomeStorage.ini
-
-        ;Checks if inserted parameter is blank.
-        if !Minecraft_Window_Title
-        {
-            Minecraft_Window_Title := "blank"
-            ;msgbox %Minecraft_Window_Title%
-        }
-        ;msgbox %Minecraft_Window_Title%
-
-        ;use a loop command with math.
-        Home_Number := 1
-        loop 18
-        {
-            IniWrite, home , HomeStorage.ini, Homes&%section_number%&%Minecraft_Window_Title%, Home%Home_Number%
-            Home_Number+= 1
-        }
-        return
-    }
-
     get_existing_sum_of_sections(home_sections)
     {
         ;While home_sections has an index, execute inside code. 
