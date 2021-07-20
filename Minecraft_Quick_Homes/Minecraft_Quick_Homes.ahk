@@ -11,7 +11,7 @@
 SendMode Input
 SetWorkingDir, %A_ScriptDir%
 
-;Create file
+;Create Starting file
 if !FileExist("HomeStorage.ini")
 {  
     ;[OPTIONS] Secton
@@ -19,18 +19,33 @@ if !FileExist("HomeStorage.ini")
     IniWrite, 0, HomeStorage.ini, config, Autostart
     IniWrite, C:\Program Files (x86)\Minecraft Launcher\MinecraftLauncher.exe, HomeStorage.ini, config, Minecraft_Launcher_Path
 
-    ;use a loop command with math.
-    Home_Number := 1
-    loop 18
-    {
-        IniWrite, home , HomeStorage.ini, Homes.1.blank, Home%Home_Number%
-        Home_Number+= 1
-    }
+    Insert_Home_numbers_into_HomeStorage(1,"")
+
     TrayTip, Minecraft_Quick_Homes, Created A new .ini config!, 3,
     Exitapp
 }
 
+Insert_Home_numbers_into_HomeStorage(section_number, Minecraft_Window_Title)
+{
+    ;This function actually writes the template into HomeStorage.ini
 
+    ;Checks if inserted parameter is blank.
+    if !Minecraft_Window_Title
+    {
+        Minecraft_Window_Title := "blank"
+        ;msgbox %Minecraft_Window_Title%
+    }
+    ;msgbox %Minecraft_Window_Title%
+
+    ;use a loop command with math.
+    Home_Number := 1
+    loop 18
+    {
+        IniWrite, home , HomeStorage.ini, Homes&%section_number%&%Minecraft_Window_Title%, Home%Home_Number%
+        Home_Number+= 1
+    }
+    return
+}
 
 End_ErrorsMsgbox_Check____(App_stay_OPEN_AfterError)
 {
