@@ -508,45 +508,45 @@ return
 ;When Testing shortcuts, comment out #IfWinActive javaw.exe
 
 !i::
-if !FileExist("HomeStorage.ini")
-{
-    optionFailsafes(true)
-}
-else
-run HomeStorage.ini
+    if !FileExist("HomeStorage.ini")
+    {
+        optionFailsafes(true)
+    }
+    else
+    run HomeStorage.ini
 
 return
 
 !v::
-Wait_Until_Minecraft_Registers_Slash()
-send veinminer toggle`n
-return
+    Wait_Until_Minecraft_Registers_Slash()
+    send veinminer toggle`n
+return  
 
 !t::
-Wait_Until_Minecraft_Registers_Slash()
-send trash`n
+    Wait_Until_Minecraft_Registers_Slash()
+    send trash`n
 return
 
 !c::
-Wait_Until_Minecraft_Registers_Slash()
-send craft`n
+    Wait_Until_Minecraft_Registers_Slash()
+    send craft`n
 return
 
 !e::
-Wait_Until_Minecraft_Registers_Slash()
-send echest`n
+    Wait_Until_Minecraft_Registers_Slash()
+    send echest`n
 return
 
 
 !`::
-Wait_Until_Minecraft_Registers_Slash()
-send back`n
+    Wait_Until_Minecraft_Registers_Slash()
+    send back`n
 return
 
 ;Numeral options ------------------------------------------------
 
 !1::
-    HomeWarpCasesSwitch(1, 0)
+HomeWarpCasesSwitch(1, 0)
 return
 
 !2::
