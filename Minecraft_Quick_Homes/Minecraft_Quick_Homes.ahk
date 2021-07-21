@@ -500,6 +500,24 @@ class minecraft_version_sections_ReadWrite
 return
 
 
+; There needs to be a new function that allows the HomeWarpCasesSwitch() to check what is the current header section.
+; This function checks the section header to use when switching Homes. 
+; This does not change the home section header (Switch_Set_Of_Homes_By_Sections() does that.). 
+check_current_home_section()
+{
+    ;The default home is [Homes&1&blank]. However, I should read the first home in the array. 
+
+    ; But wait, if Switch_Set_Of_Homes_By_Sections() is supposed to switch sections, check_current_home_section() would call
+    ;variable outside it's function. 
+    ; You could make Switch_Set_Of_Homes_By_Sections() return the current_home_section by default, but then it wouldn't 
+    ;be simple.
+    ; But if one were to keep things simple to both functions, that would be difficult.
+    ; # A class containing these two functions would solve the global variable problems. 
+    ; - They would both know the variable in the class, and it would be clear to call. Things would be hunky dory. 
+
+
+    return
+}
 
 
 ;Main Function
