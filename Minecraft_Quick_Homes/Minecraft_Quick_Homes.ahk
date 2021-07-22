@@ -495,7 +495,7 @@ class switch_minecraft_header_sections
 
         if Minecraft_Version = 0
         {
-            ; Please Change me from the lazy way. If you see this, plug an issue into github. 
+            ; Please Change me from the lazy way. If you see this in the final pull, plug an issue into github. 
 
             ; Since config is useless for determining a home, add one to the input Switch_Section_Hotkey
             Switch_Section_Hotkey++
