@@ -16,21 +16,21 @@
 3. Add a space after the home, and input your home.
   Example:
 
-```ini
-Before:
-Home1=home
-Home2=home
-Home3=home
-...
-After:
-Home1=home h
-Home2=warp spawn
-Home3=home spider_xp_farm
-...
-```
+    ```ini
+    Before:
+    Home1=home
+    Home2=home
+    Home3=home
+    ...
+    After:
+    Home1=home h
+    Home2=warp spawn
+    Home3=home spider_xp_farm
+    ...
+    ```
 
-- You don't need it to be a home. It can even be a warp.
-  - This script types whatever you have in your ini corelating to the button you pressed after alt, after inputting /
+    - You don't need it to be a home. It can even be a warp.
+      - This script types whatever you have in your ini corelating to the button you pressed after alt, after inputting /
 
 4. You can adjust what ALT+SHIFT does by changing the variable in section `config`
 
