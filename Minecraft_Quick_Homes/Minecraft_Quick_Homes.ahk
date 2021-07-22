@@ -468,8 +468,15 @@ class minecraft_version_sections_ReadWrite
     }
 
 }
-;TBD
-    Switch_Set_Of_Homes_By_Sections()
+
+class switch_minecraft_header_sections
+{
+
+    current_header_section := 0
+
+    ; If no version is specified, aka `,0` then it will use Switch_Section_Hotkey
+    ; WARNING DOES NOT SWITCH BY MIDDLE SECTION NUMBER `&#&`
+    Switch_Set_Of_Homes_By_Sections(Switch_Section_Hotkey, Minecraft_Version)
     {
         ;This switches the main section header to the hotkey pressed. 
         /*
@@ -477,21 +484,74 @@ class minecraft_version_sections_ReadWrite
             Ctrl + Alt + 1
             This will go to the first header, 
             > [Homes&1&blank]
-
             If you press:
             Ctrl + Alt + 2
             This will go to the second header,
             > [Homes&2&blank]
-
             Changing the main header will change how HomeWarpCasesSwitch() calls homes. 
-
             It's like switching desktops on Windows 10.
+        */
+        
+
+        if Minecraft_Version = 0
+        {
+            ; Please Change me from the lazy way. If you see this, plug an issue into github. 
+
+            ; Since config is useless for determining a home, add one to the input Switch_Section_Hotkey
+            Switch_Section_Hotkey++
+
+            home_sections := minecraft_version_sections_ReadWrite.Parse_Sections_Homes_Into_Array()
+            current_header_section := home_sections.1[Switch_Section_Hotkey]
+        }
+        ;First read the HomeStorage.ini File and parse it into an array. 
+
+        /* ; This can be an optional error message. Decided to turn it off, since it would probably annoy the user.
+        if !current_header_section 
+        {
+            msgbox The section you selected as header does not exist.`n`nPlease add more sections.
+        }
 
         */
-        optionFailsafes(true)
-        return
+
+        return current_header_section
     }
 
+
+
+
+    ; There needs to be a new function that allows the HomeWarpCasesSwitch() to check what is the current header section.
+    ; This function checks the section header to use when switching Homes. 
+    ; This does not change the home section header (Switch_Set_Of_Homes_By_Sections() does that.). 
+    check_current_home_section()
+    {
+        ;The default home is [Homes&1&blank]. However, I should read the first home in the array. 
+
+        ; But wait, if Switch_Set_Of_Homes_By_Sections() is supposed to switch sections, check_current_home_section() would call
+        ;variable outside it's function. 
+        ; You could make Switch_Set_Of_Homes_By_Sections() return the current_home_section by default, but then it wouldn't 
+        ;be simple.
+        ; But if one were to keep things simple to both functions, that would be difficult.
+        ; # A class containing these two functions would solve the global variable problems. 
+        ; - They would both know the variable in the class, and it would be clear to call. Things would be hunky dory. 
+
+
+        return
+    }
+}
+
+; get_section_name is meant to be used with Switch_Set_Of_Homes_By_Sections()
+Show_tooltip_while__section_combo_held__(get_section_name)
+{
+    while GetKeyState("Ctrl", "P") && GetKeyState("Alt", "P")
+    {
+        ToolTip, %get_section_name%
+    }
+
+    ToolTip
+
+
+    return
+}
 
 !Q::
     ;Notes down current title version, and makes a new section.
@@ -499,26 +559,26 @@ class minecraft_version_sections_ReadWrite
 
 return
 
+; Switch sections by number. ---------
+!^1::
+    test := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(1, 0)
+    ; msgbox % test
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(1,0))
+    
 
-; There needs to be a new function that allows the HomeWarpCasesSwitch() to check what is the current header section.
-; This function checks the section header to use when switching Homes. 
-; This does not change the home section header (Switch_Set_Of_Homes_By_Sections() does that.). 
-check_current_home_section()
-{
-    ;The default home is [Homes&1&blank]. However, I should read the first home in the array. 
+return
 
-    ; But wait, if Switch_Set_Of_Homes_By_Sections() is supposed to switch sections, check_current_home_section() would call
-    ;variable outside it's function. 
-    ; You could make Switch_Set_Of_Homes_By_Sections() return the current_home_section by default, but then it wouldn't 
-    ;be simple.
-    ; But if one were to keep things simple to both functions, that would be difficult.
-    ; # A class containing these two functions would solve the global variable problems. 
-    ; - They would both know the variable in the class, and it would be clear to call. Things would be hunky dory. 
+!^2::
+    test := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(2, 0)
+    ; msgbox % test
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(2,0))
+return
 
-
-    return
-}
-
+!^3::
+    test := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(3, 0)
+    ; msgbox % test
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(3,0))
+return
 
 ;Main Function
 CaseSwitch := 0
