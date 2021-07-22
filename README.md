@@ -121,6 +121,12 @@ return
 
 - `Wait_Until_Minecraft_Registers_Slash()` function **already** puts a slash before it is finished, so there is almost no need to add an extra slash at the end of your command.
 
+- If the output to minecraft is `/ERROR`, that means that your home is non-existant, in the ini file.
+  - Fixes:
+  > Change the current header section to 1, or what is defined in your `HomeStorage.ini`.
+
+- If the output to minecraft is `/home`, it is likely that there is nothing filled in.
+
 > - "My custom command goes past what it's supposed to do."
 
 - Please Put a return at the end of your command to prevent the thread from executing more unintended commands.
