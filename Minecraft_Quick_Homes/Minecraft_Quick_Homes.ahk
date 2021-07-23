@@ -11,6 +11,9 @@
 SendMode Input
 SetWorkingDir, %A_ScriptDir%
 
+;Failsafe in case player does not select a section to switch.
+Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(1, 0)
+
 ;Create Starting file
 if !FileExist("HomeStorage.ini")
 {  
@@ -620,7 +623,6 @@ return
 
 ; Switch sections by number. ---------
 
-;Stored__home_section_pos := ""
 
 !^1::
     Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(1, 0)
