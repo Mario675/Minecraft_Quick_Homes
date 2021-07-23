@@ -503,9 +503,6 @@ class minecraft_version_sections_ReadWrite
 
 }
 
-!W::
-    msgbox % minecraft_version_sections_ReadWrite.Parse_Sections_Homes_Into_Array()
-return
 
 class switch_minecraft_header_sections
 {
