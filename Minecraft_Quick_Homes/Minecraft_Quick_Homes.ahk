@@ -408,18 +408,51 @@ class minecraft_version_sections_ReadWrite
 
 
             ;Parse All sections into array.
-            ;The first subsection of the array (home_sections.1), is the Sections divided up into slots
-            ;The second subsection of the array (home_sections.2), is the 1 section split up into 3 data points.
+            ;The first section of the array (home_sections[0]["Homes&1&blank", "etc"]), which notes down all the sections
+            ;The second subsection of the array (home_sections[1]), is the 1 section split up into 3 data points.
             home_sections := [[],[]]
 
-            home_sections.1 := StrSplit(msgboxtest_var, "`n")
+            ;| Defining the sections available in HomeStorage. This will not count them. get_existing_sum_of_sections() will.
+            ;\/
+            home_sections[0] := StrSplit(msgboxtest_var, "`n")
             ; msgbox % home_sections.1[1] ; array[1] is useless, since config will already be in there. 
             ; msgbox % home_sections.1[2] ; However, Array[2] and so forth, will highlight all the other ones.
+            
+            ; | Defining the subsection stored in this variable.
+            ; |                                     | Parsing the sections into subsections **To Be Stored**.
+            ; \/                                    \/
+            ; home_sections.2/*[Subsection_ID]*/ := StrSplit(home_sections.1[2], "&")
+            ; home_sections[2]/*[Subsection_ID]*/ := StrSplit(home_sections[1][2], "&")
+            ; home_sections.3/*[Subsection_ID]*/ := StrSplit(home_sections.1[3], "&")
+            
 
-            home_sections.2 := StrSplit(home_sections.1[2], "&")
+            Total_Home_Sections := this.get_existing_sum_of_sections(home_sections)
+
+            dot_operator_start := 1
+
+            
+
+            loop % Total_Home_Sections
+            {
+                home_sections[dot_operator_start] := StrSplit(home_sections[0][dot_operator_start], "&")
+                dot_operator_start++
+            }
+            
+            ;msgbox % home_sections[2][2]
+
+            
+            
+
+
+            
+
             ; msgbox % home_sections.2[1]
             ; msgbox % home_sections.2[2]
             ; msgbox % home_sections.2[3]
+
+            ; msgbox % home_sections.3[1]
+            ; msgbox % home_sections.3[2]
+            ; msgbox % home_sections.3[3]
         ;*/
         ;}
 
@@ -451,10 +484,11 @@ class minecraft_version_sections_ReadWrite
         return active_window_title
     }
 
+    ; Just pipe in the Parsed HomeStorage Array here.
     get_existing_sum_of_sections(home_sections)
     {
         ;While home_sections has an index, execute inside code. 
-        while home_sections.1[A_Index]
+        while home_sections[0][A_Index]
         {
             ;msgbox % home_sections.1[A_Index]","A_Index
             result := A_Index
@@ -468,6 +502,10 @@ class minecraft_version_sections_ReadWrite
     }
 
 }
+
+!W::
+    msgbox % minecraft_version_sections_ReadWrite.Parse_Sections_Homes_Into_Array()
+return
 
 class switch_minecraft_header_sections
 {
@@ -498,10 +536,27 @@ class switch_minecraft_header_sections
             ; Please Change me from the lazy way. If you see this in the final pull, plug an issue into github. 
 
             ; Since config is useless for determining a home, add one to the input Switch_Section_Hotkey
-            Switch_Section_Hotkey++
+            ; Switch_Section_Hotkey++ ; This was leftover from old fix.
 
             home_sections := minecraft_version_sections_ReadWrite.Parse_Sections_Homes_Into_Array()
-            current_header_section := home_sections.1[Switch_Section_Hotkey]
+            
+            ; This is the lazy method below
+            ; Switch_Section_Hotkey++ ;Since in home sections, config is first, and not needed.
+            ; current_header_section := home_sections[0][Switch_Section_Hotkey] 
+
+            ; First, Find the home section that is there. This should be a incremental while loop. 
+
+            ; I think It's going to be a while loop inside a while loop until It finds the assigned parameter. 
+
+            ; once all is done, the command `continue` can be used. 
+
+            ; If the section searcher runs out of sections to search, an error message should show. 
+            
+            ; Ok, we have Switch_Section_Hotkey. That tells us what to look for. 
+
+            
+
+
         }
         ;First read the HomeStorage.ini File and parse it into an array. 
 
