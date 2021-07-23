@@ -586,27 +586,10 @@ class switch_minecraft_header_sections
 
 
 
-    ; There needs to be a new function that allows the HomeWarpCasesSwitch() to check what is the current header section.
-    ; This function checks the section header to use when switching Homes. 
-    ; This does not change the home section header (Switch_Set_Of_Homes_By_Sections() does that.). 
-    check_current_home_section()
-    {
-        ;The default home is [Homes&1&blank]. However, I should read the first home in the array. 
 
-        ; But wait, if Switch_Set_Of_Homes_By_Sections() is supposed to switch sections, check_current_home_section() would call
-        ;variable outside it's function. 
-        ; You could make Switch_Set_Of_Homes_By_Sections() return the current_home_section by default, but then it wouldn't 
-        ;be simple.
-        ; But if one were to keep things simple to both functions, that would be difficult.
-        ; # A class containing these two functions would solve the global variable problems. 
-        ; - They would both know the variable in the class, and it would be clear to call. Things would be hunky dory. 
-
-
-        return
-    }
 }
 
-get_home_name__from_section_pos(section_pos)
+get_section_home_name__from_section_pos(section_pos)
 {
     home_sections := minecraft_version_sections_ReadWrite.Parse_Sections_Homes_Into_Array()
     home_name := home_sections[0][section_pos]
@@ -618,7 +601,7 @@ get_home_name__from_section_pos(section_pos)
 Show_tooltip_while__section_combo_held__(get_section_pos)
 {
 
-    home_name := get_home_name__from_section_pos(get_section_pos)
+    home_name := get_section_home_name__from_section_pos(get_section_pos)
 
     while GetKeyState("Ctrl", "P") && GetKeyState("Alt", "P")
     {
@@ -637,9 +620,13 @@ Show_tooltip_while__section_combo_held__(get_section_pos)
 
 return
 
+
 ; Switch sections by number. ---------
+
+;Stored__home_section_pos := ""
+
 !^1::
-    test := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(1, 0)
+    Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(1, 0)
     ; msgbox % test
     Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(1,0))
     
@@ -647,13 +634,13 @@ return
 return
 
 !^2::
-    test := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(2, 0)
+    Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(2, 0)
     ; msgbox % test
     Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(2,0))
 return
 
 !^3::
-    test := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(3, 0)
+    Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(3, 0)
     ; msgbox % test
     Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(3,0))
 return
@@ -665,6 +652,7 @@ Current_Home_warp=0
 
 HomeWarpCasesSwitch(CaseSwitch, IFSHIFT)
 {
+    global Stored__home_section_pos
     global Option_To_Add_OR_Multiply
     optionFailsafes(true)
 
@@ -691,7 +679,9 @@ HomeWarpCasesSwitch(CaseSwitch, IFSHIFT)
 
     Calc_Home: ;Because return in switch statements end the Function.
 
-    IniRead, Current_Home_warp, HomeStorage.ini, Homes, Home%CaseSwitch%
+    Home_Name := get_section_home_name__from_section_pos(Stored__home_section_pos)
+
+    IniRead, Current_Home_warp, HomeStorage.ini, %Home_Name%, Home%CaseSwitch%
     Wait_Until_Minecraft_Registers_Slash()
     send %Current_Home_warp%`n
     
@@ -747,7 +737,7 @@ Fix_Virtual_Shift_Held()
     Exitapp
 return
 
-#IfWinActive ahk_exe javaw.exe
+;#IfWinActive ahk_exe javaw.exe
 
 ;Failsafe in case user uses hotkey out of minecraft. 
 ;When Testing shortcuts, comment out #IfWinActive javaw.exe
