@@ -544,15 +544,27 @@ class switch_minecraft_header_sections
             ; Switch_Section_Hotkey++ ;Since in home sections, config is first, and not needed.
             ; current_header_section := home_sections[0][Switch_Section_Hotkey] 
 
-            ; First, Find the home section that is there. This should be a incremental while loop. 
+            ;Since we can access all the sections from homesections[0][sections], we should search through there using a recursive algorithm.
 
-            ; I think It's going to be a while loop inside a while loop until It finds the assigned parameter. 
+            ;This is to check if the sections exists. If the section does not exist, break.
+            while home_sections[0][A_Index]
+            {
+                ; msgbox % home_sections[0][A_Index]
 
-            ; once all is done, the command `continue` can be used. 
+                
 
-            ; If the section searcher runs out of sections to search, an error message should show. 
-            
-            ; Ok, we have Switch_Section_Hotkey. That tells us what to look for. 
+                ; This should find the second subsection of the sections
+
+                if home_sections[A_Index][2] = Switch_Section_Hotkey
+                {
+                    ; msgbox % home_sections[A_Index][2] "YAY"
+                    hotkey_section_home := A_Index
+                    goto break_out_of_loop
+                }
+                
+
+
+            }
 
             
 
@@ -567,8 +579,8 @@ class switch_minecraft_header_sections
         }
 
         */
-
-        return current_header_section
+        break_out_of_loop:
+        return hotkey_section_home
     }
 
 
@@ -594,12 +606,23 @@ class switch_minecraft_header_sections
     }
 }
 
-; get_section_name is meant to be used with Switch_Set_Of_Homes_By_Sections()
-Show_tooltip_while__section_combo_held__(get_section_name)
+get_home_name__from_section_pos(section_pos)
 {
+    home_sections := minecraft_version_sections_ReadWrite.Parse_Sections_Homes_Into_Array()
+    home_name := home_sections[0][section_pos]
+
+    return home_name
+}
+
+; get_section_name is meant to be used with Switch_Set_Of_Homes_By_Sections()
+Show_tooltip_while__section_combo_held__(get_section_pos)
+{
+
+    home_name := get_home_name__from_section_pos(get_section_pos)
+
     while GetKeyState("Ctrl", "P") && GetKeyState("Alt", "P")
     {
-        ToolTip, %get_section_name%
+        ToolTip, %home_name%
     }
 
     ToolTip
