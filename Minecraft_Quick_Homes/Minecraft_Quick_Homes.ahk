@@ -19,6 +19,7 @@ if !FileExist("HomeStorage.ini")
 {  
     ;[OPTIONS] Secton
     IniWrite, 1, HomeStorage.ini, config, Option_To_Add_OR_Multiply
+    IniWrite, 0, HomeStorage.ini, config, Auto_Switch_Sections_by_Minecraft_Title
     IniWrite, 0, HomeStorage.ini, config, Autostart
     IniWrite, C:\Program Files (x86)\Minecraft Launcher\MinecraftLauncher.exe, HomeStorage.ini, config, Minecraft_Launcher_Path
 
