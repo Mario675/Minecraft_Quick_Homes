@@ -204,7 +204,7 @@ AutoStart_Setup()
     IniRead, Autostart, HomeStorage.ini, config, Autostart
     ;Preamble
     HANDLE_CABINET_EXPLORER := 0
-    msgbox, 308, Minecraft_Quick_Homes Shortcut install,You have set AUTOSTART to "1" in HomeStorage.ini`nThis Setup will install a shortcut to Minecraft quick homes as minecraft.`n`nWhen this shortcut is installed`, It will:`n1. Open Quick homes`n2. Launch minecraft.`nSHORT EXPLANATION:`nThe shortcut will launch the quick homes program, and quick homes will then launch minecraft. `n`nWhen you adjust the AUTOSTART setting to 3`, the shortcut will be uninstalled`, and placed back to it's default.`n `n`nIf Quick Homes were to be removed, Minecraft will not be launched`, if shorcut were to be left alone, and not installed to the default.`n`nIf happens so that you did delete Quick homes, you would need to install the shortcut again for minecraft manually, or download this program to easily uninstall it. `n`nYes To confirm install`, No to cancel.`n`nP.S.`nChoosing 'no' will set autostart back to 0.
+    msgbox, 308, Minecraft_Quick_Homes Shortcut install,You have set AUTOSTART to "1" in HomeStorage.ini`nThis Setup will install a shortcut to Minecraft quick homes as minecraft.`n`nWhen this shortcut is installed`, It will:`n1. Open Quick homes`n2. Launch minecraft.`nSHORT EXPLANATION:`nThe shortcut will launch the quick homes program, and quick homes will then launch minecraft. `n`nWhen you adjust the AUTOSTART setting to 4`, the shortcut will be uninstalled`, and placed back to it's default.`n `n`nIf Quick Homes were to be removed`, Minecraft will not be launched. You would need to reset the shortcut to the vanilla launcher on your own.`n`nIf so happens that you did delete Quick homes, you would need to install the shortcut again for minecraft manually, or download this program to easily uninstall it. `n`nYes To confirm install`, No to cancel.`n`nP.S.`nChoosing 'no' will set autostart back to 0.
 
 
 ;/*
@@ -384,6 +384,10 @@ HomeWarpCasesSwitch(CaseSwitch, IFSHIFT)
     
     ;MsgBox, %Current_Home_warp% ;Debug
 
+    Fix_Virtual_Alt_Held()
+    Fix_Virtual_Shift_Held()
+    ;#KeyHistory 100
+    ;keyHistory
 
     send {ShiftUp}
 
@@ -397,7 +401,31 @@ HomeWarpCasesSwitch(CaseSwitch, IFSHIFT)
 
 return
 
+;Code modified from:
+;https://stackoverflow.com/questions/49009176/autohotkey-causing-control-key-to-get-stuck#49034365
+Fix_Virtual_Alt_Held()
+{ 
+    If GetKeyState("Alt")           ; If the OS believes the key to be in (logical state),
+    {
+        If !GetKeyState("Alt","P")  ; but  the user isn't physically holding it down (physical state)
+        {
+            Send {Blind}{Alt Up}
+        }
+    }
+    return
+}
 
+Fix_Virtual_Shift_Held()
+{
+    If GetKeyState("Shift")           ; If the OS believes the key to be in (logical state),
+    {
+        If !GetKeyState("Shift","P")  ; but  the user isn't physically holding it down (physical state)
+        {
+            Send {Blind}{Shift Up}
+        }
+    }
+    return
+}
 
 
 ;Special keys ---------------------------
