@@ -621,28 +621,7 @@ Show_tooltip_while__section_combo_held__(get_section_pos)
 return
 
 
-; Switch sections by number. ---------
 
-
-!^1::
-    Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(1, 0)
-    ; msgbox % test
-    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(1,0))
-    
-
-return
-
-!^2::
-    Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(2, 0)
-    ; msgbox % test
-    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(2,0))
-return
-
-!^3::
-    Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(3, 0)
-    ; msgbox % test
-    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(3,0))
-return
 
 ;Main Function
 CaseSwitch := 0
