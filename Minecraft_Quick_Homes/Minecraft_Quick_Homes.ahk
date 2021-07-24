@@ -852,3 +852,135 @@ return
 !+9::
 HomeWarpCasesSwitch(9, 1)
 return
+
+
+; Switch sections by number. -----------------------------------------
+#IfWinActive ;This disables the contraint to be in a javaw.exe app. The shortcuts below can now be used everywhere.
+
+!^1::
+    Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(1, 0)
+    ; msgbox % test
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(1,0))
+    
+
+return
+
+!^2::
+    Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(2, 0)
+    ; msgbox % test
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(2,0))
+return
+
+!^3::
+    Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(3, 0)
+    ; msgbox % test
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(3,0))
+return
+
+!^4::
+    Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(4, 0)
+    ; msgbox % test
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(4,0))
+return
+
+!^5::
+    Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(5, 0)
+    ; msgbox % test
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(5,0))
+return
+
+!^6::
+    Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(6, 0)
+    ; msgbox % test
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(6,0))
+return
+
+!^7::
+    Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(7, 0)
+    ; msgbox % test
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(7,0))
+return
+
+!^8::
+    Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(8, 0)
+    ; msgbox % test
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(8,0))
+return
+
+!^9::
+    Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(9, 0)
+    ; msgbox % test
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(9,0))
+return
+
+!^0::
+    Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(10, 0)
+    ; msgbox % test
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(10,0))
+return
+
+;---
+; Numpad Switch Sections! -----------------------------------------------------------------------------
+;---
+
+!^Numpad1::
+    Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(1, 0)
+    ; msgbox % test
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(1,0))
+    
+
+return
+
+!^Numpad2::
+    Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(2, 0)
+    ; msgbox % test
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(2,0))
+return
+
+!^Numpad3::
+    Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(3, 0)
+    ; msgbox % test
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(3,0))
+return
+
+!^Numpad4::
+    Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(4, 0)
+    ; msgbox % test
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(4,0))
+return
+
+!^Numpad5::
+    Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(5, 0)
+    ; msgbox % test
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(5,0))
+return
+
+!^Numpad6::
+    Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(6, 0)
+    ; msgbox % test
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(6,0))
+return
+
+!^Numpad7::
+    Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(7, 0)
+    ; msgbox % test
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(7,0))
+return
+
+!^Numpad8::
+    Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(8, 0)
+    ; msgbox % test
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(8,0))
+return
+
+!^Numpad9::
+    Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(9, 0)
+    ; msgbox % test
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(9,0))
+return
+
+!^Numpad0::
+    Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(10, 0)
+    ; msgbox % test
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(10,0))
+return
