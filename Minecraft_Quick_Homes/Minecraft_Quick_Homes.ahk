@@ -88,6 +88,11 @@ ErrorsMsgbox(What_type_error, App_stay_OPEN_AfterError)
             TrayTip, Minecraft_Quick_Homes, Updated your Homestorage.ini, 3,
             
         return
+
+        case 5:
+            msgbox Please change Auto_Switch_Sections_by_Minecraft_Title to valid values:`n   - 0 or 1.
+            End_ErrorsMsgbox_Check____(App_stay_OPEN_AfterError)
+        return
         
     }
 
@@ -134,6 +139,16 @@ optionFailsafes(Error_App_Stay_Open)
 
         Check_If_Existing__Minecraft_Launcher_Path__In_Homestorage_ini()
         
+    }
+
+    {
+        IniRead, Auto_Switch_Sections_by_Minecraft_Title, HomeStorage.ini, config, Auto_Switch_Sections_by_Minecraft_Title
+
+        if Auto_Switch_Sections_by_Minecraft_Title not between 0 and 1
+        {
+            ErrorsMsgbox(5, Error_App_Stay_Open)
+        }
+
     }
 
     ;TrayTip, Quickhomes, optionFailsafe cannot find a error, 10 ;Debug
@@ -334,7 +349,7 @@ switch Autostart
 {
     ;Turning on setup
     case 1:
-    AutoStart_Setup()
+        AutoStart_Setup()
     Return
 
     case 2:
