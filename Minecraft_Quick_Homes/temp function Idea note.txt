@@ -1,0 +1,6 @@
+What if the user could input his home, and then it could switch to that home?
+He can use Ctrl + Alt + Q. 
+
+The first parmeter of (%*%) `& # & #` can be used to make an input. 
+
+That way, if the user has too many homes, he can refer to them by input!
