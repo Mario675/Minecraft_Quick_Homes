@@ -548,25 +548,13 @@ class switch_minecraft_header_sections
 
         if Minecraft_Version = 0
         {
-            ; Please Change me from the lazy way. If you see this in the final pull, plug an issue into github. 
-
-            ; Since config is useless for determining a home, add one to the input Switch_Section_Hotkey
-            ; Switch_Section_Hotkey++ ; This was leftover from old fix.
-
             home_sections := minecraft_version_sections_ReadWrite.Parse_Sections_Homes_Into_Array()
-            
-            ; This is the lazy method below
-            ; Switch_Section_Hotkey++ ;Since in home sections, config is first, and not needed.
-            ; current_header_section := home_sections[0][Switch_Section_Hotkey] 
 
             ;Since we can access all the sections from homesections[0][sections], we should search through there using a recursive algorithm.
 
             ;This is to check if the sections exists. If the section does not exist, break.
             while home_sections[0][A_Index]
-            {
-                ; msgbox % home_sections[0][A_Index]
-
-                
+            {              
 
                 ; This should find the second subsection of the sections
 
@@ -576,24 +564,12 @@ class switch_minecraft_header_sections
                     hotkey_section_home := A_Index
                     goto break_out_of_loop
                 }
-                
-
 
             }
-
-            
-
-
-        }
-        ;First read the HomeStorage.ini File and parse it into an array. 
-
-        /* ; This can be an optional error message. Decided to turn it off, since it would probably annoy the user.
-        if !current_header_section 
-        {
-            msgbox The section you selected as header does not exist.`n`nPlease add more sections.
         }
 
-        */
+
+
         break_out_of_loop:
         return hotkey_section_home
     }
