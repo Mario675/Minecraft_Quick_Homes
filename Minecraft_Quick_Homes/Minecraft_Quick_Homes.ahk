@@ -528,8 +528,7 @@ class switch_minecraft_header_sections
 
     current_header_section := 0
 
-    ; If no version is specified, aka `,0` then it will use Switch_Section_Hotkey
-    ; WARNING DOES NOT SWITCH BY MIDDLE SECTION NUMBER `&#&`
+    ; If no minecraft version is specified, aka `,0` then it will use Switch_Section_Hotkey
     Switch_Set_Of_Homes_By_Sections(Switch_Section_Hotkey, Minecraft_Version)
     {
         ;This switches the main section header to the hotkey pressed. 
