@@ -644,13 +644,6 @@ Show_tooltip_while__section_combo_held__(get_section_pos__or__message_input, mes
     return
 }
 
-!Q::
-    ;Notes down current title version, and makes a new section.
-    minecraft_version_sections_ReadWrite.Add_Section_Homes_Into_HomeStorage(minecraft_version_sections_ReadWrite.Parse_Sections_Homes_Into_Array(), minecraft_version_sections_ReadWrite.Get_Active_Window_Title())
-
-return
-
-
 
 determine_home_name()
 {
@@ -762,6 +755,12 @@ Fix_Virtual_Shift_Held()
 
 !Esc::
     Exitapp
+return
+
+!Q::
+    ;Notes down current title version, and makes a new section.
+    minecraft_version_sections_ReadWrite.Add_Section_Homes_Into_HomeStorage(minecraft_version_sections_ReadWrite.Parse_Sections_Homes_Into_Array(), minecraft_version_sections_ReadWrite.Get_Active_Window_Title())
+
 return
 
 #IfWinActive ahk_exe javaw.exe
