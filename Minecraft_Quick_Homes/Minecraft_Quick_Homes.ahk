@@ -368,9 +368,25 @@ switch Autostart
 
 }
 
-
-
 optionFailsafes(false)
+
+Auto_Switch_Sections__by_Minecraft_Title()
+{
+    IniRead, Auto_Switch_Sections_by_Minecraft_Title, HomeStorage.ini, config, Auto_Switch_Sections_by_Minecraft_Title
+    if Auto_Switch_Sections_by_Minecraft_Title = 1
+    {
+        ; Get the active window title
+        Active_Window_Title := minecraft_version_sections_ReadWrite.Get_Active_Window_Title()
+        ;msgbox % Active_Window_Title
+
+        ; Calculate home based on window title. (Use minecraft_section_switch)
+        home_section := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(0, Active_Window_Title)
+    }
+
+    ; If the setting is not turned on, then this options should return "" by default. 
+    return home_section
+}
+
 
 Wait_Until_Minecraft_Registers_Slash()
 {
@@ -567,7 +583,24 @@ class switch_minecraft_header_sections
 
             }
         }
+        Else
+        {
+            home_sections := minecraft_version_sections_ReadWrite.Parse_Sections_Homes_Into_Array()
 
+            while home_sections[0][A_Index]
+            {              
+
+                ; This should find the second subsection of the sections
+
+                if home_sections[A_Index][3] = Minecraft_Version
+                {
+                    ; msgbox % home_sections[A_Index][2] "YAY"
+                    hotkey_section_home := A_Index
+                    goto break_out_of_loop
+                }
+
+            }
+        }
 
 
         break_out_of_loop:
@@ -619,6 +652,26 @@ return
 
 
 
+determine_home_name()
+{
+    global Stored__home_section_pos
+    ; This looks up the current Stored__home_section_pos. But if Auto_Switch_Sections__by_Minecraft_Title() was on, it should run under this command. 
+    Home_Name_Default := get_section_home_name__from_section_pos(Stored__home_section_pos)
+    Home_Name_2 := get_section_home_name__from_section_pos(Auto_Switch_Sections__by_Minecraft_Title())
+
+    if Home_Name_2
+    {
+        ; Then use Home_Name_2
+        Final_Home_Name = %Home_Name_2%
+        
+    }
+    Else
+    {
+        Final_Home_Name = %Home_Name_Default%
+    }
+
+    return Final_Home_Name
+}
 
 ;Main Function
 CaseSwitch := 0
@@ -627,7 +680,6 @@ Current_Home_warp=0
 
 HomeWarpCasesSwitch(CaseSwitch, IFSHIFT)
 {
-    global Stored__home_section_pos
     global Option_To_Add_OR_Multiply
     optionFailsafes(true)
 
@@ -654,13 +706,13 @@ HomeWarpCasesSwitch(CaseSwitch, IFSHIFT)
 
     Calc_Home: ;Because return in switch statements end the Function.
 
-    Home_Name := get_section_home_name__from_section_pos(Stored__home_section_pos)
+    Home_Name := determine_home_name()
 
+    ; Send known home. The part of the code that is useful.
     IniRead, Current_Home_warp, HomeStorage.ini, %Home_Name%, Home%CaseSwitch%
     Wait_Until_Minecraft_Registers_Slash()
     send %Current_Home_warp%`n
     
-    ;MsgBox, %Current_Home_warp% ;Debug
 
     Fix_Virtual_Alt_Held()
     Fix_Virtual_Shift_Held()
