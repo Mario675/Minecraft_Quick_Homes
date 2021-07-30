@@ -561,7 +561,7 @@ class switch_minecraft_header_sections
             It's like switching desktops on Windows 10.
         */
         
-
+        ; This can be refactored to be more compact. The only thing that changes would be `if home_sections[A_Index][#] = #####`
         if Minecraft_Version = 0
         {
             home_sections := minecraft_version_sections_ReadWrite.Parse_Sections_Homes_Into_Array()
