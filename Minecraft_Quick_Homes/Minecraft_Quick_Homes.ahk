@@ -750,6 +750,39 @@ Fix_Virtual_Shift_Held()
     return
 }
 
+toggle_auto_switch_sections()
+{
+    
+    IniRead, Auto_Switch_Sections_by_Minecraft_Title, HomeStorage.ini, config, Auto_Switch_Sections_by_Minecraft_Title
+
+    switch Auto_Switch_Sections_by_Minecraft_Title
+    {
+        case 0:
+            IniWrite, 1, HomeStorage.ini, config, Auto_Switch_Sections_by_Minecraft_Title
+            ending_toggle_message := "ON For Auto_Switch_Sections_by_Minecraft_Title Toggled ON"
+        goto exit_switch
+
+        case 1:
+            IniWrite, 0, HomeStorage.ini, config, Auto_Switch_Sections_by_Minecraft_Title
+            ending_toggle_message := "OFF For Auto_Switch_Sections_by_Minecraft_Title Toggled OFF"
+        goto exit_switch
+
+        Default:
+            ; If the user needs to teleport away, but Auto_Switch_Sections_by_Minecraft_Title was invalid after program was launched, set it to 0. 
+            IniWrite, 0, HomeStorage.ini, config, Auto_Switch_Sections_by_Minecraft_Title
+            ending_toggle_message := "OFF For Invalid value in key Auto_Switch_Sections_by_Minecraft_Title, in HomeStorage.ini Setted to OFF"
+        goto exit_switch
+        
+    }
+    
+    ; Because using return in a switch statement ends the function.
+    exit_switch:
+
+    ; This should show the user if the setting is on or off when it has been toggled. Actually
+    Show_tooltip_while__section_combo_held__(ending_toggle_message, 1)
+
+    return
+}
 
 ;Special keys ---------------------------
 
@@ -760,6 +793,14 @@ return
 !Q::
     ;Notes down current title version, and makes a new section.
     minecraft_version_sections_ReadWrite.Add_Section_Homes_Into_HomeStorage(minecraft_version_sections_ReadWrite.Parse_Sections_Homes_Into_Array(), minecraft_version_sections_ReadWrite.Get_Active_Window_Title())
+
+return
+
+
+!+Q::
+
+    ; Toggles setting Auto_Switch_Sections_by_Minecraft_Title
+    toggle_auto_switch_sections()
 
 return
 
