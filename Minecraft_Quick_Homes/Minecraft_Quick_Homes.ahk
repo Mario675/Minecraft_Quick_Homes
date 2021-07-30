@@ -588,15 +588,21 @@ get_section_home_name__from_section_pos(section_pos)
     return home_name
 }
 
-; get_section_name is meant to be used with Switch_Set_Of_Homes_By_Sections()
-Show_tooltip_while__section_combo_held__(get_section_pos)
+; get_section_name is meant to be used with Switch_Set_Of_Homes_By_Sections(). If you need to use a message, enable the second parameter.
+Show_tooltip_while__section_combo_held__(get_section_pos__or__message_input, message_option)
 {
 
-    home_name := get_section_home_name__from_section_pos(get_section_pos)
+    home_name := get_section_home_name__from_section_pos(get_section_pos__or__message_input)
 
-    while GetKeyState("Ctrl", "P") && GetKeyState("Alt", "P")
+    
+
+    while GetKeyState("Ctrl", "P") || GetKeyState("Alt", "P")
     {
-        ToolTip, %home_name%
+        if message_option = 0
+            ToolTip, %home_name%
+
+        if message_option = 1
+            ToolTip, %get_section_pos__or__message_input%
     }
 
     ToolTip
@@ -830,7 +836,7 @@ return
 !^1::
     Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(1, 0)
     ; msgbox % test
-    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(1,0))
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(1,0), 0)
     
 
 return
@@ -838,55 +844,55 @@ return
 !^2::
     Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(2, 0)
     ; msgbox % test
-    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(2,0))
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(2,0), 0)
 return
 
 !^3::
     Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(3, 0)
     ; msgbox % test
-    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(3,0))
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(3,0), 0)
 return
 
 !^4::
     Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(4, 0)
     ; msgbox % test
-    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(4,0))
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(4,0), 0)
 return
 
 !^5::
     Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(5, 0)
     ; msgbox % test
-    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(5,0))
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(5,0), 0)
 return
 
 !^6::
     Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(6, 0)
     ; msgbox % test
-    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(6,0))
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(6,0), 0)
 return
 
 !^7::
     Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(7, 0)
     ; msgbox % test
-    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(7,0))
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(7,0), 0)
 return
 
 !^8::
     Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(8, 0)
     ; msgbox % test
-    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(8,0))
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(8,0), 0)
 return
 
 !^9::
     Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(9, 0)
     ; msgbox % test
-    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(9,0))
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(9,0), 0)
 return
 
 !^0::
     Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(10, 0)
     ; msgbox % test
-    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(10,0))
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(10,0), 0)
 return
 
 ;---
@@ -896,7 +902,7 @@ return
 !^Numpad1::
     Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(1, 0)
     ; msgbox % test
-    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(1,0))
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(1,0), 0)
     
 
 return
@@ -904,53 +910,53 @@ return
 !^Numpad2::
     Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(2, 0)
     ; msgbox % test
-    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(2,0))
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(2,0), 0)
 return
 
 !^Numpad3::
     Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(3, 0)
     ; msgbox % test
-    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(3,0))
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(3,0), 0)
 return
 
 !^Numpad4::
     Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(4, 0)
     ; msgbox % test
-    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(4,0))
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(4,0), 0)
 return
 
 !^Numpad5::
     Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(5, 0)
     ; msgbox % test
-    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(5,0))
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(5,0), 0)
 return
 
 !^Numpad6::
     Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(6, 0)
     ; msgbox % test
-    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(6,0))
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(6,0), 0)
 return
 
 !^Numpad7::
     Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(7, 0)
     ; msgbox % test
-    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(7,0))
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(7,0), 0)
 return
 
 !^Numpad8::
     Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(8, 0)
     ; msgbox % test
-    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(8,0))
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(8,0), 0)
 return
 
 !^Numpad9::
     Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(9, 0)
     ; msgbox % test
-    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(9,0))
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(9,0), 0)
 return
 
 !^Numpad0::
     Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(10, 0)
     ; msgbox % test
-    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(10,0))
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(10,0), 0)
 return
