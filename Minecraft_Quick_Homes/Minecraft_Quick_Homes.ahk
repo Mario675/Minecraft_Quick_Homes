@@ -547,10 +547,10 @@ class switch_minecraft_header_sections
     ; If no minecraft version is specified, aka `,0` then it will use Switch_Section_Hotkey
     Switch_Set_Of_Homes_By_Sections(Switch_Section_Hotkey, Minecraft_Version)
     {
-        ; Why not change the fucntion parameters to:
+        ; Why not change the function parameters to:
         ; inputname, Switch_Section_Hotkey, Minecraft version.
         ; This is intuitive to the naming convention already defined in #&#&#
-        ; The inner loop can then be siplified to what it is looking for. If the parameter is 0, then don't check for that. 
+        ; The inner loop can then be simplified to what it is looking for. If the parameter is 0, then don't check for that. 
         ; The only exception, is that when calling this function, there only must be one valid parameter. Otherwise, it will not give the expected results. 
 
         ;This switches the main section header to the hotkey pressed. 
