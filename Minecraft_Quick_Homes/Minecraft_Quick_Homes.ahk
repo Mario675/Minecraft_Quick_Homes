@@ -547,6 +547,12 @@ class switch_minecraft_header_sections
     ; If no minecraft version is specified, aka `,0` then it will use Switch_Section_Hotkey
     Switch_Set_Of_Homes_By_Sections(Switch_Section_Hotkey, Minecraft_Version)
     {
+        ; Why not change the fucntion parameters to:
+        ; inputname, Switch_Section_Hotkey, Minecraft version.
+        ; This is intuitive to the naming convention already defined in #&#&#
+        ; The inner loop can then be siplified to what it is looking for. If the parameter is 0, then don't check for that. 
+        ; The only exception, is that when calling this function, there only must be one valid parameter. Otherwise, it will not give the expected results. 
+
         ;This switches the main section header to the hotkey pressed. 
         /*
             example:
@@ -562,45 +568,43 @@ class switch_minecraft_header_sections
         */
         
         ; This can be refactored to be more compact. The only thing that changes would be `if home_sections[A_Index][#] = #####`
-        if Minecraft_Version = 0
-        {
-            home_sections := minecraft_version_sections_ReadWrite.Parse_Sections_Homes_Into_Array()
+        
+        home_sections := minecraft_version_sections_ReadWrite.Parse_Sections_Homes_Into_Array()
 
-            ;Since we can access all the sections from homesections[0][sections], we should search through there using a recursive algorithm.
+        ;Since we can access all the sections from homesections[0][sections], we should search through there using a recursive algorithm.
 
-            ;This is to check if the sections exists. If the section does not exist, break.
-            while home_sections[0][A_Index]
-            {              
+        ;This is to check if the sections exists. If the section does not exist, break.
+        while home_sections[0][A_Index]
+        {              
 
-                ; This should find the second subsection of the sections
-
+            ; This should find the second subsection of the sections
+            if Switch_Section_Hotkey
+            {
                 if home_sections[A_Index][2] = Switch_Section_Hotkey
                 {
-                    ; msgbox % home_sections[A_Index][2] "YAY"
                     hotkey_section_home := A_Index
                     goto break_out_of_loop
                 }
-
             }
-        }
-        Else
-        {
-            home_sections := minecraft_version_sections_ReadWrite.Parse_Sections_Homes_Into_Array()
 
-            while home_sections[0][A_Index]
-            {              
-
-                ; This should find the second subsection of the sections
-
+            if Minecraft_Version
+            {
                 if home_sections[A_Index][3] = Minecraft_Version
                 {
-                    ; msgbox % home_sections[A_Index][2] "YAY"
                     hotkey_section_home := A_Index
                     goto break_out_of_loop
                 }
-
             }
+                
+
         }
+
+            
+
+            
+
+            
+        
 
 
         break_out_of_loop:
