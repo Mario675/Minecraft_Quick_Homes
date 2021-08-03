@@ -670,7 +670,7 @@ determine_home_name()
     return Final_Home_Name
 }
 
-IFSHIFT_Multiplyer(CaseSwitch, IFSHIFT)
+IFSHIFT_Multiplier(CaseSwitch, IFSHIFT)
 {
     global Option_To_Add_OR_Multiply
 
@@ -711,7 +711,7 @@ HomeWarpCasesSwitch(CaseSwitch, IFSHIFT)
     
     optionFailsafes(true)
 
-    CaseSwitch := IFSHIFT_Multiplyer(CaseSwitch, IFSHIFT)
+    CaseSwitch := IFSHIFT_Multiplier(CaseSwitch, IFSHIFT)
 
     Home_Name := determine_home_name()
 
@@ -944,7 +944,7 @@ switch_section_hotkey_number(Number_input, IFSHIFT)
 {
     global Stored__home_section_pos
 
-    Number_input := IFSHIFT_Multiplyer(Number_input, IFSHIFT)
+    Number_input := IFSHIFT_Multiplier(Number_input, IFSHIFT)
 
     Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(Number_input, 0)
     ; msgbox % test
