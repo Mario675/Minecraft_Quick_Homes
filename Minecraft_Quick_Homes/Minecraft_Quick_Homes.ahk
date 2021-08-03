@@ -947,44 +947,44 @@ switch_section_hotkey_number(Number_input)
     Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(Number_input,0), 0)
 }
 
-!^1::
+^1::
     switch_section_hotkey_number(1)
 
 return
 
-!^2::
+^2::
     switch_section_hotkey_number(2)
 return
 
-!^3::
+^3::
     switch_section_hotkey_number(3)
 return
 
-!^4::
+^4::
     switch_section_hotkey_number(4)
 return
 
-!^5::
+^5::
     switch_section_hotkey_number(5)
 return
 
-!^6::
+^6::
     switch_section_hotkey_number(6)
 return
 
-!^7::
+^7::
     switch_section_hotkey_number(7)
 return
 
-!^8::
+^8::
     switch_section_hotkey_number(8)
 return
 
-!^9::
+^9::
     switch_section_hotkey_number(9)
 return
 
-!^0::
+^0::
     switch_section_hotkey_number(10)
 return
 
@@ -992,42 +992,42 @@ return
 ; Numpad Switch Sections! -----------------------------------------------------------------------------
 ;---
 
-!^Numpad1::
+^Numpad1::
     switch_section_hotkey_number(1)
 return
 
-!^Numpad2::
+^Numpad2::
     switch_section_hotkey_number(2)
 return
 
-!^Numpad3::
+^Numpad3::
     switch_section_hotkey_number(3)
 return
 
-!^Numpad4::
+^Numpad4::
     switch_section_hotkey_number(4)
 return
 
-!^Numpad5::
+^Numpad5::
     switch_section_hotkey_number(5)
 return
 
-!^Numpad6::
+^Numpad6::
     switch_section_hotkey_number(6)
 return
 
-!^Numpad7::
+^Numpad7::
     switch_section_hotkey_number(7)
 return
 
-!^Numpad8::
+^Numpad8::
     switch_section_hotkey_number(8)
 return
 
-!^Numpad9::
+^Numpad9::
     switch_section_hotkey_number(9)
 return
 
-!^Numpad0::
+^Numpad0::
     switch_section_hotkey_number(10)
 return
