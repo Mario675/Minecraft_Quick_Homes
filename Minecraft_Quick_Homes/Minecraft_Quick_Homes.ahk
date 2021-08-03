@@ -656,9 +656,9 @@ determine_home_name()
     Home_Name_Default := get_section_home_name__from_section_pos(Stored__home_section_pos)
     Home_Name_2 := get_section_home_name__from_section_pos(Auto_Switch_Sections__by_Minecraft_Title())
 
+    ; If the Window title is not named, don't use it if the setting is turned on. 
     if Home_Name_2
     {
-        ; Then use Home_Name_2
         Final_Home_Name = %Home_Name_2%
         
     }
