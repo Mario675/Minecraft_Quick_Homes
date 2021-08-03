@@ -87,7 +87,7 @@ Minecraft_Launcher_Path=C:\Program Files (x86)\Minecraft Launcher\MinecraftLaunc
 8. Use Alt+t To open Trash
 9. Use Alt+v to toggle veinminer.
 10. Bask in the glory of amazement.
-11. When you want to close script, go to your taskbar tray, right click th  e green icon with an H, and click exit app.
+11. When you want to close script, go to your taskbar tray, right click the green icon with an H, and click exit app.
 12. or exit app by Alt+Esc. (Alt + x) In older versions.
 
 - Please be sure that you have saved your changes when editing your .ini config file, so changes would take effect in app.
