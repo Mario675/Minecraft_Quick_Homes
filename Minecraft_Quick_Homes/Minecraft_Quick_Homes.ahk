@@ -370,22 +370,7 @@ switch Autostart
 
 optionFailsafes(false)
 
-Auto_Switch_Sections__by_Minecraft_Title()
-{
-    IniRead, Auto_Switch_Sections_by_Minecraft_Title, HomeStorage.ini, config, Auto_Switch_Sections_by_Minecraft_Title
-    if Auto_Switch_Sections_by_Minecraft_Title = 1
-    {
-        ; Get the active window title
-        Active_Window_Title := minecraft_version_sections_ReadWrite.Get_Active_Window_Title()
-        ;msgbox % Active_Window_Title
 
-        ; Calculate home based on window title. (Use minecraft_section_switch)
-        home_section := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(0, Active_Window_Title)
-    }
-
-    ; If the setting is not turned on, then this options should return "" by default. 
-    return home_section
-}
 
 
 Wait_Until_Minecraft_Registers_Slash()
@@ -612,7 +597,22 @@ class switch_minecraft_header_sections
     }
 
 
+    Auto_Switch_Sections__by_Minecraft_Title()
+    {
+        IniRead, Auto_Switch_Sections_by_Minecraft_Title, HomeStorage.ini, config, Auto_Switch_Sections_by_Minecraft_Title
+        if Auto_Switch_Sections_by_Minecraft_Title = 1
+        {
+            ; Get the active window title
+            Active_Window_Title := minecraft_version_sections_ReadWrite.Get_Active_Window_Title()
+            ;msgbox % Active_Window_Title
 
+            ; Calculate home based on window title. (Use minecraft_section_switch)
+            home_section := this.Switch_Set_Of_Homes_By_Sections(0, Active_Window_Title)
+        }
+
+        ; If the setting is not turned on, then this options should return "" by default. 
+        return home_section
+    }
 
 
 }
@@ -652,9 +652,9 @@ Show_tooltip_while__section_combo_held__(get_section_pos__or__message_input, mes
 determine_home_name()
 {
     global Stored__home_section_pos
-    ; This looks up the current Stored__home_section_pos. But if Auto_Switch_Sections__by_Minecraft_Title() was on, it should run under this command. 
+    ; This looks up the current Stored__home_section_pos. But if switch_minecraft_header_sections.Auto_Switch_Sections__by_Minecraft_Title() was on, it should run under this command. 
     Home_Name_Default := get_section_home_name__from_section_pos(Stored__home_section_pos)
-    Home_Name_2 := get_section_home_name__from_section_pos(Auto_Switch_Sections__by_Minecraft_Title())
+    Home_Name_2 := get_section_home_name__from_section_pos(switch_minecraft_header_sections.Auto_Switch_Sections__by_Minecraft_Title())
 
     ; If the Window title is not named, don't use it if the setting is turned on. 
     if Home_Name_2
