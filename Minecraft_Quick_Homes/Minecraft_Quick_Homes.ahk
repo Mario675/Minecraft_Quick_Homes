@@ -670,15 +670,9 @@ determine_home_name()
     return Final_Home_Name
 }
 
-;Main Function
-CaseSwitch := 0
-IFSHIFT := 0
-Current_Home_warp=0
-
-HomeWarpCasesSwitch(CaseSwitch, IFSHIFT)
+IFSHIFT_Multiplyer(CaseSwitch, IFSHIFT)
 {
     global Option_To_Add_OR_Multiply
-    optionFailsafes(true)
 
     switch Option_To_Add_OR_Multiply ;Supports option for shift *2 or shift +9
     {
@@ -702,6 +696,22 @@ HomeWarpCasesSwitch(CaseSwitch, IFSHIFT)
     }
 
     Calc_Home: ;Because return in switch statements end the Function.
+
+    return CaseSwitch
+}
+
+
+;Main Function
+CaseSwitch := 0
+IFSHIFT := 0
+Current_Home_warp=0
+
+HomeWarpCasesSwitch(CaseSwitch, IFSHIFT)
+{
+    
+    optionFailsafes(true)
+
+    CaseSwitch := IFSHIFT_Multiplyer(CaseSwitch, IFSHIFT)
 
     Home_Name := determine_home_name()
 
