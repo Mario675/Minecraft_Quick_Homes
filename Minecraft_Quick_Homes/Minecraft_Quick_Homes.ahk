@@ -808,10 +808,6 @@ return
 
 return
 
-#IfWinActive ahk_exe javaw.exe
-
-;Failsafe in case user uses hotkey out of minecraft. 
-;When Testing shortcuts, comment out #IfWinActive javaw.exe
 
 !i::
     if !FileExist("HomeStorage.ini")
@@ -822,6 +818,11 @@ return
     run HomeStorage.ini
 
 return
+
+#IfWinActive ahk_exe javaw.exe
+
+;Failsafe in case user uses hotkey out of minecraft. 
+;When Testing shortcuts, comment out #IfWinActive javaw.exe
 
 !v::
     Wait_Until_Minecraft_Registers_Slash()
