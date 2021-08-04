@@ -99,6 +99,13 @@ ErrorsMsgbox(What_type_error, App_stay_OPEN_AfterError)
     return
 }
 
+read_Option_To_Add_OR_Multiply_in__HomeStorage()
+{
+    IniRead, Option_To_Add_OR_Multiply, HomeStorage.ini, Config, Option_To_Add_OR_Multiply
+    return Option_To_Add_OR_Multiply
+}
+
+
 ;This checks for all errors. Not just the error when the function was called. Function(Variable): Variable will determine if app stays open
 optionFailsafes(Error_App_Stay_Open)
 {
@@ -112,8 +119,7 @@ optionFailsafes(Error_App_Stay_Open)
     }
 
     { 
-        global Option_To_Add_OR_Multiply
-        IniRead, Option_To_Add_OR_Multiply, HomeStorage.ini, Config, Option_To_Add_OR_Multiply ;This Option does not update during a shortcut.
+        Option_To_Add_OR_Multiply := read_Option_To_Add_OR_Multiply_in__HomeStorage()
 
         if Option_To_Add_OR_Multiply not between 1 and 2
         {
@@ -672,7 +678,7 @@ determine_home_name()
 
 IFSHIFT_Multiplier(CaseSwitch, IFSHIFT)
 {
-    global Option_To_Add_OR_Multiply
+    Option_To_Add_OR_Multiply := read_Option_To_Add_OR_Multiply_in__HomeStorage()
 
     switch Option_To_Add_OR_Multiply ;Supports option for shift *2 or shift +9
     {
