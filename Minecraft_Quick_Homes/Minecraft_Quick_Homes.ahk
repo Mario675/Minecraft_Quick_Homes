@@ -12,7 +12,7 @@ SendMode Input
 SetWorkingDir, %A_ScriptDir%
 
 ;Failsafe in case player does not select a section to switch.
-Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(1, 0)
+Stored__home_section_pos := switch_minecraft_header_sections.Switch_Section_by_category(1, 0)
 
 ;Create Starting file
 if !FileExist("HomeStorage.ini")
@@ -530,7 +530,7 @@ class switch_minecraft_header_sections
     current_header_section := 0
 
     ; If no minecraft version is specified, aka `,0` then it will use Switch_Section_Hotkey
-    Switch_Set_Of_Homes_By_Sections(Switch_Section_Hotkey, Minecraft_Version)
+    Switch_Section_by_category(Switch_Section_Hotkey, Minecraft_Version)
     {
         ; Why not change the function parameters to:
         ; inputname, Switch_Section_Hotkey, Minecraft version.
@@ -607,7 +607,7 @@ class switch_minecraft_header_sections
             ;msgbox % Active_Window_Title
 
             ; Calculate home based on window title. (Use minecraft_section_switch)
-            home_section := this.Switch_Set_Of_Homes_By_Sections(0, Active_Window_Title)
+            home_section := this.Switch_Section_by_category(0, Active_Window_Title)
         }
 
         ; If the setting is not turned on, then this options should return "" by default. 
@@ -625,7 +625,7 @@ get_section_home_name__from_section_pos(section_pos)
     return home_name
 }
 
-; get_section_name is meant to be used with Switch_Set_Of_Homes_By_Sections(). If you need to use a message, enable the second parameter.
+; get_section_name is meant to be used with Switch_Section_by_category(). If you need to use a message, enable the second parameter.
 Show_tooltip_while__section_combo_held__(get_section_pos__or__message_input, message_option)
 {
 
@@ -946,9 +946,9 @@ switch_section_hotkey_number(Number_input, IFSHIFT)
 
     Number_input := IFSHIFT_Multiplier(Number_input, IFSHIFT)
 
-    Stored__home_section_pos := switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(Number_input, 0)
+    Stored__home_section_pos := switch_minecraft_header_sections.Switch_Section_by_category(Number_input, 0)
     ; msgbox % test
-    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Set_Of_Homes_By_Sections(Number_input,0), 0)
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Section_by_category(Number_input,0), 0)
 }
 
 ^1::
