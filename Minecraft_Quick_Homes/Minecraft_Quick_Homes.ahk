@@ -905,21 +905,6 @@ toggle_auto_switch_sections()
     Exitapp
 return
 
-!Q::
-    ;Notes down current title version, and makes a new section.
-    minecraft_version_sections_ReadWrite.Add_Section_Homes_Into_HomeStorage(minecraft_version_sections_ReadWrite.Parse_Sections_Homes_Into_Array(), minecraft_version_sections_ReadWrite.Get_Active_Window_Title())
-
-return
-
-
-!+Q::
-
-    ; Toggles setting Auto_Switch_Sections_by_Minecraft_Title
-    toggle_auto_switch_sections()
-
-return
-
-
 !i::
     if !FileExist("HomeStorage.ini")
     {
@@ -934,6 +919,20 @@ return
 
 ;Failsafe in case user uses hotkey out of minecraft. 
 ;When Testing shortcuts, comment out #IfWinActive javaw.exe
+
+!Q::
+    ;Notes down current title version, and makes a new section.
+    minecraft_version_sections_ReadWrite.Add_Section_Homes_Into_HomeStorage(minecraft_version_sections_ReadWrite.Parse_Sections_Homes_Into_Array(), minecraft_version_sections_ReadWrite.Get_Active_Window_Title())
+
+return
+
+!+Q::
+
+    ; Toggles setting Auto_Switch_Sections_by_Minecraft_Title
+    toggle_auto_switch_sections()
+
+return
+
 
 !v::
     Wait_Until_Minecraft_Registers_Slash()
