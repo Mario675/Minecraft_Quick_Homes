@@ -1039,7 +1039,7 @@ return
 
 
 ; Switch sections by number. -----------------------------------------
-#IfWinActive ;This disables the contraint to be in a javaw.exe app. The shortcuts below can now be used everywhere.
+
 
 switch_section_hotkey_number(Number_input, IFSHIFT)
 {
