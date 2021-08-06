@@ -602,18 +602,113 @@ class switch_minecraft_header_sections
         return hotkey_section_home
     }
 
+    
+
+    class compare
+    {
+        static last_and_new_minecraft_title := []
+        static temp_setting := ""
+
+        what_is_the_difference__in_two_indexes()
+        {
+            if this.last_and_new_minecraft_title[1] = this.last_and_new_minecraft_title[2]
+            {
+                ;msgbox % "These are the same!" this.last_and_new_minecraft_title[1] "=" this.last_and_new_minecraft_title[2]
+                this.temp_setting := 0
+            }
+            Else
+            {
+                this.temp_setting := 1
+                ;msgbox % "These are not the same!" this.last_and_new_minecraft_title[1] "=" this.last_and_new_minecraft_title[2]
+            }
+        }
+
+        push_active_minecraft_window_title()
+        {
+            this.last_and_new_minecraft_title.Push(minecraft_version_sections_ReadWrite.Get_Active_Window_Title())
+        }
+
+        static first_run_from_launch := 0
+
+        first_run_of_section_switch()
+        {
+            loop 2
+                this.push_active_minecraft_window_title()
+        }
+
+        sum_of_sections(array)
+        {
+            while array[A_Index]
+            {
+                result := A_Index
+            }
+            return result
+        }
+
+        pop_if_over_3()
+        {
+            if this.sum_of_sections(this.last_and_new_minecraft_title) = 3
+            {
+
+                this.last_and_new_minecraft_title.RemoveAt(this.last_and_new_minecraft_title.MinIndex())
+
+                ; Value := Object.RemoveAt(Object.Length())
+            }
+            
+        }
+        
+
+        test()
+        {
+            if this.first_run_from_launch = 0
+            {
+                this.first_run_of_section_switch()
+                this.first_run_from_launch++
+                this.temp_setting := 1 ; Since this is the first shortcut, make sure it switches.
+            }
+            Else
+            {
+                this.push_active_minecraft_window_title()
+                this.pop_if_over_3()
+                this.what_is_the_difference__in_two_indexes()
+            }
+            
+            ;msgbox % this.last_and_new_minecraft_title[1]
+            
+
+            ; msgbox % this.temp_setting
+            return this.temp_setting
+        }
+    }
+    
+    store_section_pos_after_auto_Switch(Active_Window_Title)
+    {
+        global Stored__home_section_pos
+        Stored__home_section_pos := switch_minecraft_header_sections.Switch_Section_by_category(0, Active_Window_Title)
+
+    }
 
     Auto_Switch_Sections__by_Minecraft_Title()
     {
         IniRead, Auto_Switch_Sections_by_Minecraft_Title, HomeStorage.ini, config, Auto_Switch_Sections_by_Minecraft_Title
+
+        
+
+        temp_setting := this.compare.test()
+
         if Auto_Switch_Sections_by_Minecraft_Title = 1
         {
-            ; Get the active window title
-            Active_Window_Title := minecraft_version_sections_ReadWrite.Get_Active_Window_Title()
-            ;msgbox % Active_Window_Title
+            if temp_setting = 1
+            {
+                ; Get the active window title
+                Active_Window_Title := minecraft_version_sections_ReadWrite.Get_Active_Window_Title()
+                ;msgbox % Active_Window_Title
 
-            ; Calculate home based on window title. (Use minecraft_section_switch)
-            home_section := this.Switch_Section_by_category(0, Active_Window_Title)
+                ; Save Stored__home_section_pos
+                this.store_section_pos_after_auto_Switch(Active_Window_Title)            
+                ; Calculate home based on window title. (Use minecraft_section_switch)
+                home_section := this.Switch_Section_by_category(0, Active_Window_Title)
+            }
         }
 
         ; If the setting is not turned on, then this options should return "" by default. 
