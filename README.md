@@ -99,7 +99,7 @@ Minecraft_Launcher_Path=C:\Program Files (x86)\Minecraft Launcher\MinecraftLaunc
 
 ## (Section Switch, and adding more sections - Hotkey Guide)
 
-If you want to `Auto_Switch_Sections_by_Minecraft_Title`, please enable that setting in section `[config]` in `HomeStorage.ini`. 
+If you want to `Auto_Switch_Sections_by_Minecraft_Title`, please enable that setting in section `[config]` in `HomeStorage.ini`.
 
 1. Use `Ctrl` `+` `1-9` to switch sections.
 2. Use `Ctrl` `+` `Shift` to add ten to your input (Default). Not supported on the numpad.
