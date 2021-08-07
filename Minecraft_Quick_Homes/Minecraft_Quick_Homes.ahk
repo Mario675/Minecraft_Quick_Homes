@@ -11,26 +11,45 @@
 SendMode Input
 SetWorkingDir, %A_ScriptDir%
 
-;Create file
+;Failsafe in case player does not select a section to switch.
+Stored__home_section_pos := switch_minecraft_header_sections.Switch_Section_by_category(1, 0)
+
+;Create Starting file
 if !FileExist("HomeStorage.ini")
 {  
     ;[OPTIONS] Secton
     IniWrite, 1, HomeStorage.ini, config, Option_To_Add_OR_Multiply
+    IniWrite, 0, HomeStorage.ini, config, Auto_Switch_Sections_by_Minecraft_Title
     IniWrite, 0, HomeStorage.ini, config, Autostart
     IniWrite, C:\Program Files (x86)\Minecraft Launcher\MinecraftLauncher.exe, HomeStorage.ini, config, Minecraft_Launcher_Path
+
+    Insert_Home_numbers_into_HomeStorage(1,"")
+
+    TrayTip, Minecraft_Quick_Homes, Created A new .ini config!, 3,
+    Exitapp
+}
+
+Insert_Home_numbers_into_HomeStorage(section_number, Minecraft_Window_Title)
+{
+    ;This function actually writes the template into HomeStorage.ini
+
+    ;Checks if inserted parameter is blank.
+    if !Minecraft_Window_Title
+    {
+        Minecraft_Window_Title := "blank"
+        ;msgbox %Minecraft_Window_Title%
+    }
+    ;msgbox %Minecraft_Window_Title%
 
     ;use a loop command with math.
     Home_Number := 1
     loop 18
     {
-        IniWrite, home , HomeStorage.ini, Homes, Home%Home_Number%
+        IniWrite, home , HomeStorage.ini, Homes&%section_number%&%Minecraft_Window_Title%, Home%Home_Number%
         Home_Number+= 1
     }
-    TrayTip, Minecraft_Quick_Homes, Created A new .ini config!, 3,
-    Exitapp
+    return
 }
-
-
 
 End_ErrorsMsgbox_Check____(App_stay_OPEN_AfterError)
 {
@@ -69,11 +88,24 @@ ErrorsMsgbox(What_type_error, App_stay_OPEN_AfterError)
             TrayTip, Minecraft_Quick_Homes, Updated your Homestorage.ini, 3,
             
         return
+
+        case 5:
+            IniWrite, 1, HomeStorage.ini, config, Auto_Switch_Sections_by_Minecraft_Title
+            TrayTip, Set `...` to 1. , Please change Auto_Switch_Sections_by_Minecraft_Title to valid values:`n   - 0 or 1.
+            End_ErrorsMsgbox_Check____(App_stay_OPEN_AfterError)
+        return
         
     }
 
     return
 }
+
+read_Option_To_Add_OR_Multiply_in__HomeStorage()
+{
+    IniRead, Option_To_Add_OR_Multiply, HomeStorage.ini, Config, Option_To_Add_OR_Multiply
+    return Option_To_Add_OR_Multiply
+}
+
 
 ;This checks for all errors. Not just the error when the function was called. Function(Variable): Variable will determine if app stays open
 optionFailsafes(Error_App_Stay_Open)
@@ -88,8 +120,7 @@ optionFailsafes(Error_App_Stay_Open)
     }
 
     { 
-        global Option_To_Add_OR_Multiply
-        IniRead, Option_To_Add_OR_Multiply, HomeStorage.ini, Config, Option_To_Add_OR_Multiply ;This Option does not update during a shortcut.
+        Option_To_Add_OR_Multiply := read_Option_To_Add_OR_Multiply_in__HomeStorage()
 
         if Option_To_Add_OR_Multiply not between 1 and 2
         {
@@ -115,6 +146,16 @@ optionFailsafes(Error_App_Stay_Open)
 
         Check_If_Existing__Minecraft_Launcher_Path__In_Homestorage_ini()
         
+    }
+
+    {
+        IniRead, Auto_Switch_Sections_by_Minecraft_Title, HomeStorage.ini, config, Auto_Switch_Sections_by_Minecraft_Title
+
+        if Auto_Switch_Sections_by_Minecraft_Title not between 0 and 1
+        {
+            ErrorsMsgbox(5, Error_App_Stay_Open)
+        }
+
     }
 
     ;TrayTip, Quickhomes, optionFailsafe cannot find a error, 10 ;Debug
@@ -200,7 +241,7 @@ AutoStart_Setup()
     ;Directory for minecraft launcher shortcuts: C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Minecraft Launcher
     ;Icon Directory:
     Autostart := 0
-    ;IniWrite, 0, HomeStorage.ini, config, Autostart
+    
     IniRead, Autostart, HomeStorage.ini, config, Autostart
     ;Preamble
     HANDLE_CABINET_EXPLORER := 0
@@ -315,7 +356,7 @@ switch Autostart
 {
     ;Turning on setup
     case 1:
-    AutoStart_Setup()
+        AutoStart_Setup()
     Return
 
     case 2:
@@ -334,9 +375,10 @@ switch Autostart
 
 }
 
-
-
 optionFailsafes(false)
+
+
+
 
 Wait_Until_Minecraft_Registers_Slash()
 {
@@ -345,15 +387,365 @@ Wait_Until_Minecraft_Registers_Slash()
     return
 }
 
-;Main Function
-CaseSwitch := 0
-IFSHIFT := 0
-Current_Home_warp=0
 
-HomeWarpCasesSwitch(CaseSwitch, IFSHIFT)
+
+; ** Begin (most of the logic) Update 4.0 **
+
+
+
+class minecraft_version_sections_ReadWrite
 {
-    global Option_To_Add_OR_Multiply
-    optionFailsafes(true)
+    Parse_Sections_Homes_Into_Array()
+    {
+        ;List All Sections
+        msgboxtest_var := 0
+        IniRead, msgboxtest_var, HomeStorage.ini
+        ;msgbox  Output Below `n`n %msgboxtest_var%
+
+        ;{ ;Example
+        ;/*
+
+
+            ;Parse All sections into array.
+            ;The first section of the array (home_sections[0]["Homes&1&blank", "etc"]), which notes down all the sections
+            ;The second subsection of the array (home_sections[1]), is the 1 section split up into 3 data points.
+            home_sections := [[],[]]
+
+            ;| Defining the sections available in HomeStorage. This will not count them. get_existing_sum_of_sections() will.
+            ;\/
+            home_sections[0] := StrSplit(msgboxtest_var, "`n")
+            ; msgbox % home_sections.1[1] ; array[1] is useless, since config will already be in there. 
+            ; msgbox % home_sections.1[2] ; However, Array[2] and so forth, will highlight all the other ones.
+            
+            ; | Defining the subsection stored in this variable.
+            ; |                                     | Parsing the sections into subsections **To Be Stored**.
+            ; \/                                    \/
+            ; home_sections.2/*[Subsection_ID]*/ := StrSplit(home_sections.1[2], "&")
+            ; home_sections[2]/*[Subsection_ID]*/ := StrSplit(home_sections[1][2], "&")
+            ; home_sections.3/*[Subsection_ID]*/ := StrSplit(home_sections.1[3], "&")
+            
+
+            Total_Home_Sections := this.get_existing_sum_of_sections(home_sections)
+
+            dot_operator_start := 1
+
+            
+
+            loop % Total_Home_Sections
+            {
+                home_sections[dot_operator_start] := StrSplit(home_sections[0][dot_operator_start], "&")
+                dot_operator_start++
+            }
+            
+            ;msgbox % home_sections[2][2]
+
+            
+            
+
+
+            
+
+            ; msgbox % home_sections.2[1]
+            ; msgbox % home_sections.2[2]
+            ; msgbox % home_sections.2[3]
+
+            ; msgbox % home_sections.3[1]
+            ; msgbox % home_sections.3[2]
+            ; msgbox % home_sections.3[3]
+        ;*/
+        ;}
+
+        
+        return home_sections
+
+    }
+
+    Add_Section_Homes_Into_HomeStorage(home_sections, Minecraft_Window_Title)
+    {
+        result := this.get_existing_sum_of_sections(home_sections)
+
+        ; now that we got the amount of sections inside, all thats needed, is noting down the minecraft version. 
+   
+
+
+
+        Insert_Home_numbers_into_HomeStorage(result, Minecraft_Window_Title)
+
+        TrayTip Minecraft Quick Homes, Added Homes&%result%&%Minecraft_Window_Title%
+
+        return
+    }
+
+    Get_Active_Window_Title()
+    {
+        WinGetActiveTitle, active_window_title
+
+        return active_window_title
+    }
+
+    ; Just pipe in the Parsed HomeStorage Array here.
+    get_existing_sum_of_sections(home_sections)
+    {
+        ;While home_sections has an index, execute inside code. 
+        while home_sections[0][A_Index]
+        {
+            ;msgbox % home_sections.1[A_Index]","A_Index
+            result := A_Index
+        }
+        
+
+        ;msgbox final index is %result%
+        ;If there is no homes index, then the result should be 0. 
+
+        return result
+    }
+
+}
+
+
+class switch_minecraft_header_sections
+{
+
+    current_header_section := 0
+
+    ; If no minecraft version is specified, aka `,0` then it will use Switch_Section_Hotkey
+    Switch_Section_by_category(Switch_Section_Hotkey, Minecraft_Version)
+    {
+        ; Why not change the function parameters to:
+        ; inputname, Switch_Section_Hotkey, Minecraft version.
+        ; This is intuitive to the naming convention already defined in #&#&#
+        ; The inner loop can then be simplified to what it is looking for. If the parameter is 0, then don't check for that. 
+        ; The only exception, is that when calling this function, there only must be one valid parameter. Otherwise, it will not give the expected results. 
+
+        ;This switches the main section header to the hotkey pressed. 
+        /*
+            example:
+            Ctrl + Alt + 1
+            This will go to the first header, 
+            > [Homes&1&blank]
+            If you press:
+            Ctrl + Alt + 2
+            This will go to the second header,
+            > [Homes&2&blank]
+            Changing the main header will change how HomeWarpCasesSwitch() calls homes. 
+            It's like switching desktops on Windows 10.
+        */
+        
+        ; This can be refactored to be more compact. The only thing that changes would be `if home_sections[A_Index][#] = #####`
+        
+        home_sections := minecraft_version_sections_ReadWrite.Parse_Sections_Homes_Into_Array()
+
+        ;Since we can access all the sections from homesections[0][sections], we should search through there using a recursive algorithm.
+
+        ;This is to check if the sections exists. If the section does not exist, break.
+        while home_sections[0][A_Index]
+        {              
+
+            ; This should find the second subsection of the sections
+            if Switch_Section_Hotkey
+            {
+                if home_sections[A_Index][2] = Switch_Section_Hotkey
+                {
+                    hotkey_section_home := A_Index
+                    goto break_out_of_loop
+                }
+            }
+
+            if Minecraft_Version
+            {
+                if home_sections[A_Index][3] = Minecraft_Version
+                {
+                    hotkey_section_home := A_Index
+                    goto break_out_of_loop
+                }
+            }
+                
+
+        }
+
+            
+
+            
+
+            
+        
+
+
+        break_out_of_loop:
+        return hotkey_section_home
+    }
+
+    
+
+    class compare
+    {
+        static last_and_new_minecraft_title := []
+        static window_title_change := ""
+
+        what_is_the_difference__in_two_indexes()
+        {
+            if this.last_and_new_minecraft_title[1] = this.last_and_new_minecraft_title[2]
+            {
+                ;msgbox % "These are the same!" this.last_and_new_minecraft_title[1] "=" this.last_and_new_minecraft_title[2]
+                this.window_title_change := 0
+            }
+            Else
+            {
+                this.window_title_change := 1
+                ;msgbox % "These are not the same!" this.last_and_new_minecraft_title[1] "=" this.last_and_new_minecraft_title[2]
+            }
+        }
+
+        push_active_minecraft_window_title()
+        {
+            this.last_and_new_minecraft_title.Push(minecraft_version_sections_ReadWrite.Get_Active_Window_Title())
+        }
+
+        static first_run_from_launch := 0
+
+        first_run_of_section_switch()
+        {
+            loop 2
+                this.push_active_minecraft_window_title()
+        }
+
+        sum_of_sections(array)
+        {
+            while array[A_Index]
+            {
+                result := A_Index
+            }
+            return result
+        }
+
+        pop_if_over_3()
+        {
+            if this.sum_of_sections(this.last_and_new_minecraft_title) = 3
+            {
+
+                this.last_and_new_minecraft_title.RemoveAt(this.last_and_new_minecraft_title.MinIndex())
+
+            }
+            
+        }
+        
+
+        Has_Window_Title_changed()
+        {
+            if this.first_run_from_launch = 0
+            {
+                this.first_run_of_section_switch()
+                this.first_run_from_launch++
+                this.window_title_change := 1 ; Since this is the first shortcut, make sure it switches.
+            }
+            Else
+            {
+                this.push_active_minecraft_window_title()
+                this.pop_if_over_3()
+                this.what_is_the_difference__in_two_indexes()
+            }
+            
+            ;msgbox % this.last_and_new_minecraft_title[1]
+            
+
+            ; msgbox % this.window_title_change
+            return this.window_title_change
+        }
+    }
+    
+    store_section_pos_after_auto_Switch(Active_Window_Title)
+    {
+        global Stored__home_section_pos
+        Stored__home_section_pos := switch_minecraft_header_sections.Switch_Section_by_category(0, Active_Window_Title)
+
+    }
+
+    Auto_Switch_Sections__by_Minecraft_Title()
+    {
+        IniRead, Auto_Switch_Sections_by_Minecraft_Title, HomeStorage.ini, config, Auto_Switch_Sections_by_Minecraft_Title
+
+        
+
+        window_title_change := This.compare.Has_Window_title_changed()
+
+        if Auto_Switch_Sections_by_Minecraft_Title = 1
+        {
+            if window_title_change = 1
+            {
+                ; Get the active window title
+                Active_Window_Title := minecraft_version_sections_ReadWrite.Get_Active_Window_Title()
+                ;msgbox % Active_Window_Title
+
+                ; Save Stored__home_section_pos
+                this.store_section_pos_after_auto_Switch(Active_Window_Title)            
+                ; Calculate home based on window title. (Use minecraft_section_switch)
+                home_section := this.Switch_Section_by_category(0, Active_Window_Title)
+            }
+        }
+
+        ; If the setting is not turned on, then this options should return "" by default. 
+        return home_section
+    }
+
+
+}
+
+get_section_home_name__from_section_pos(section_pos)
+{
+    home_sections := minecraft_version_sections_ReadWrite.Parse_Sections_Homes_Into_Array()
+    home_name := home_sections[0][section_pos]
+
+    return home_name
+}
+
+; get_section_name is meant to be used with Switch_Section_by_category(). If you need to use a message, enable the second parameter.
+Show_tooltip_while__section_combo_held__(get_section_pos__or__message_input, message_option)
+{
+
+    home_name := get_section_home_name__from_section_pos(get_section_pos__or__message_input)
+
+    
+
+    while GetKeyState("Ctrl", "P") || GetKeyState("Alt", "P")
+    {
+        if message_option = 0
+            ToolTip, %home_name%
+
+        if message_option = 1
+            ToolTip, %get_section_pos__or__message_input%
+    }
+
+    ToolTip
+
+
+    return
+}
+
+
+determine_home_name()
+{
+    global Stored__home_section_pos
+    ; This looks up the current Stored__home_section_pos. But if switch_minecraft_header_sections.Auto_Switch_Sections__by_Minecraft_Title() was on, it should run under this command. 
+    Home_Name_Default := get_section_home_name__from_section_pos(Stored__home_section_pos)
+    Home_Name_2 := get_section_home_name__from_section_pos(switch_minecraft_header_sections.Auto_Switch_Sections__by_Minecraft_Title())
+
+    ; If the Window title is not named (aka Home_Name_2 := ""), don't use it if the setting is turned on. 
+    if Home_Name_2
+    {
+        Final_Home_Name = %Home_Name_2%
+        
+    }
+    Else
+    {
+        Final_Home_Name = %Home_Name_Default%
+    }
+
+    return Final_Home_Name
+}
+
+IFSHIFT_Multiplier(CaseSwitch, IFSHIFT)
+{
+    Option_To_Add_OR_Multiply := read_Option_To_Add_OR_Multiply_in__HomeStorage()
 
     switch Option_To_Add_OR_Multiply ;Supports option for shift *2 or shift +9
     {
@@ -378,11 +770,30 @@ HomeWarpCasesSwitch(CaseSwitch, IFSHIFT)
 
     Calc_Home: ;Because return in switch statements end the Function.
 
-    IniRead, Current_Home_warp, HomeStorage.ini, Homes, Home%CaseSwitch%
+    return CaseSwitch
+}
+
+; *** end (most of the logic) update 4.0 ***
+
+;Main Function
+CaseSwitch := 0
+IFSHIFT := 0
+Current_Home_warp=0
+
+HomeWarpCasesSwitch(CaseSwitch, IFSHIFT)
+{
+    
+    optionFailsafes(true)
+
+    CaseSwitch := IFSHIFT_Multiplier(CaseSwitch, IFSHIFT)
+
+    Home_Name := determine_home_name()
+
+    ; Send known home. The part of the code that is useful.
+    IniRead, Current_Home_warp, HomeStorage.ini, %Home_Name%, Home%CaseSwitch%
     Wait_Until_Minecraft_Registers_Slash()
     send %Current_Home_warp%`n
     
-    ;MsgBox, %Current_Home_warp% ;Debug
 
     Fix_Virtual_Alt_Held()
     Fix_Virtual_Shift_Held()
@@ -427,11 +838,54 @@ Fix_Virtual_Shift_Held()
     return
 }
 
+toggle_auto_switch_sections()
+{
+    
+    IniRead, Auto_Switch_Sections_by_Minecraft_Title, HomeStorage.ini, config, Auto_Switch_Sections_by_Minecraft_Title
+
+    switch Auto_Switch_Sections_by_Minecraft_Title
+    {
+        case 0:
+            IniWrite, 1, HomeStorage.ini, config, Auto_Switch_Sections_by_Minecraft_Title
+            ending_toggle_message := "ON For Auto_Switch_Sections_by_Minecraft_Title Toggled ON"
+        goto exit_switch
+
+        case 1:
+            IniWrite, 0, HomeStorage.ini, config, Auto_Switch_Sections_by_Minecraft_Title
+            ending_toggle_message := "OFF For Auto_Switch_Sections_by_Minecraft_Title Toggled OFF"
+        goto exit_switch
+
+        Default:
+            ; If the user needs to teleport away, but Auto_Switch_Sections_by_Minecraft_Title was invalid after program was launched, set it to 1. 
+            IniWrite, 1, HomeStorage.ini, config, Auto_Switch_Sections_by_Minecraft_Title
+            ending_toggle_message := "OFF For Invalid value in key Auto_Switch_Sections_by_Minecraft_Title, in HomeStorage.ini Setted to OFF"
+        goto exit_switch
+        
+    }
+    
+    ; Because using return in a switch statement ends the function.
+    exit_switch:
+
+    ; This should show the user if the setting is on or off when it has been toggled. Actually
+    Show_tooltip_while__section_combo_held__(ending_toggle_message, 1)
+
+    return
+}
 
 ;Special keys ---------------------------
 
 !Esc::
-Exitapp
+    Exitapp
+return
+
+!i::
+    if !FileExist("HomeStorage.ini")
+    {
+        optionFailsafes(true)
+    }
+    else
+    run HomeStorage.ini
+
 return
 
 #IfWinActive ahk_exe javaw.exe
@@ -439,46 +893,50 @@ return
 ;Failsafe in case user uses hotkey out of minecraft. 
 ;When Testing shortcuts, comment out #IfWinActive javaw.exe
 
-!i::
-if !FileExist("HomeStorage.ini")
-{
-    optionFailsafes(true)
-}
-else
-run HomeStorage.ini
+!Q::
+    ;Notes down current title version, and makes a new section.
+    minecraft_version_sections_ReadWrite.Add_Section_Homes_Into_HomeStorage(minecraft_version_sections_ReadWrite.Parse_Sections_Homes_Into_Array(), minecraft_version_sections_ReadWrite.Get_Active_Window_Title())
 
 return
+
+!+Q::
+
+    ; Toggles setting Auto_Switch_Sections_by_Minecraft_Title
+    toggle_auto_switch_sections()
+
+return
+
 
 !v::
-Wait_Until_Minecraft_Registers_Slash()
-send veinminer toggle`n
-return
+    Wait_Until_Minecraft_Registers_Slash()
+    send veinminer toggle`n
+return  
 
 !t::
-Wait_Until_Minecraft_Registers_Slash()
-send trash`n
+    Wait_Until_Minecraft_Registers_Slash()
+    send trash`n
 return
 
 !c::
-Wait_Until_Minecraft_Registers_Slash()
-send craft`n
+    Wait_Until_Minecraft_Registers_Slash()
+    send craft`n
 return
 
 !e::
-Wait_Until_Minecraft_Registers_Slash()
-send echest`n
+    Wait_Until_Minecraft_Registers_Slash()
+    send echest`n
 return
 
 
 !`::
-Wait_Until_Minecraft_Registers_Slash()
-send back`n
+    Wait_Until_Minecraft_Registers_Slash()
+    send back`n
 return
 
 ;Numeral options ------------------------------------------------
 
 !1::
-    HomeWarpCasesSwitch(1, 0)
+HomeWarpCasesSwitch(1, 0)
 return
 
 !2::
@@ -549,4 +1007,150 @@ return
 
 !+9::
 HomeWarpCasesSwitch(9, 1)
+return
+
+
+; Switch sections by number. -----------------------------------------
+
+
+switch_section_hotkey_number(Number_input, IFSHIFT)
+{
+    global Stored__home_section_pos
+
+    Number_input := IFSHIFT_Multiplier(Number_input, IFSHIFT)
+
+    Stored__home_section_pos := switch_minecraft_header_sections.Switch_Section_by_category(Number_input, 0)
+    ; msgbox % Has_Window_title_changed
+    Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Section_by_category(Number_input,0), 0)
+}
+
+^1::
+    switch_section_hotkey_number(1, 0)
+
+return
+
+^2::
+    switch_section_hotkey_number(2, 0)
+return
+
+^3::
+    switch_section_hotkey_number(3, 0)
+return
+
+^4::
+    switch_section_hotkey_number(4, 0)
+return
+
+^5::
+    switch_section_hotkey_number(5, 0)
+return
+
+^6::
+    switch_section_hotkey_number(6, 0)
+return
+
+^7::
+    switch_section_hotkey_number(7, 0)
+return
+
+^8::
+    switch_section_hotkey_number(8, 0)
+return
+
+^9::
+    switch_section_hotkey_number(9, 0)
+return
+
+^0::
+    switch_section_hotkey_number(10, 0)
+return
+
+;---
+; IFSHIFT Switch Sections!! ----------------------------
+;---
+
+^+1::
+    switch_section_hotkey_number(1, 1)
+
+return
+
+^+2::
+    switch_section_hotkey_number(2, 1)
+return
+
+^+3::
+    switch_section_hotkey_number(3, 1)
+return
+
+^+4::
+    switch_section_hotkey_number(4, 1)
+return
+
+^+5::
+    switch_section_hotkey_number(5, 1)
+return
+
+^+6::
+    switch_section_hotkey_number(6, 1)
+return
+
+^+7::
+    switch_section_hotkey_number(7, 1)
+return
+
+^+8::
+    switch_section_hotkey_number(8, 1)
+return
+
+^+9::
+    switch_section_hotkey_number(9, 1)
+return
+
+^+0::
+    switch_section_hotkey_number(10, 1)
+return
+
+;
+; Numpad Switch Sections! -----------------------------------------------------------------------------
+;
+
+
+^Numpad1::
+    switch_section_hotkey_number(1, 0)
+return
+
+^Numpad2::
+    switch_section_hotkey_number(2, 0)
+return
+
+^Numpad3::
+    switch_section_hotkey_number(3, 0)
+return
+
+^Numpad4::
+    switch_section_hotkey_number(4, 0)
+return
+
+^Numpad5::
+    switch_section_hotkey_number(5, 0)
+return
+
+^Numpad6::
+    switch_section_hotkey_number(6, 0)
+return
+
+^Numpad7::
+    switch_section_hotkey_number(7, 0)
+return
+
+^Numpad8::
+    switch_section_hotkey_number(8, 0)
+return
+
+^Numpad9::
+    switch_section_hotkey_number(9, 0)
+return
+
+^Numpad0::
+    switch_section_hotkey_number(10, 0)
 return
