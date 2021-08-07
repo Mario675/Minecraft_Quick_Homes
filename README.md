@@ -32,7 +32,9 @@
     - You don't need it to be a home. It can even be a warp.
       - This script types whatever you have in your ini corelating to the button you pressed after alt, after inputting /
 
-4. You can adjust what ALT+SHIFT does by changing the variable in section `config`
+4. You can adjust what ALT+SHIFT does by changing the variable `Option_To_Add_OR_Multiply` in section `config`
+
+- Option 1, is adding 10 to your input. Option 2, is multiplying your input by two.
 
 - You can change the variable to 1 or 2. Do so otherwise, and app will exit.
 
