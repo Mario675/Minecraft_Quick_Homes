@@ -607,18 +607,18 @@ class switch_minecraft_header_sections
     class compare
     {
         static last_and_new_minecraft_title := []
-        static temp_setting := ""
+        static window_title_chage := ""
 
         what_is_the_difference__in_two_indexes()
         {
             if this.last_and_new_minecraft_title[1] = this.last_and_new_minecraft_title[2]
             {
                 ;msgbox % "These are the same!" this.last_and_new_minecraft_title[1] "=" this.last_and_new_minecraft_title[2]
-                this.temp_setting := 0
+                this.window_title_chage := 0
             }
             Else
             {
-                this.temp_setting := 1
+                this.window_title_chage := 1
                 ;msgbox % "These are not the same!" this.last_and_new_minecraft_title[1] "=" this.last_and_new_minecraft_title[2]
             }
         }
@@ -658,13 +658,13 @@ class switch_minecraft_header_sections
         }
         
 
-        test()
+        Has_Window_Title_changed()
         {
             if this.first_run_from_launch = 0
             {
                 this.first_run_of_section_switch()
                 this.first_run_from_launch++
-                this.temp_setting := 1 ; Since this is the first shortcut, make sure it switches.
+                this.window_title_chage := 1 ; Since this is the first shortcut, make sure it switches.
             }
             Else
             {
@@ -676,8 +676,8 @@ class switch_minecraft_header_sections
             ;msgbox % this.last_and_new_minecraft_title[1]
             
 
-            ; msgbox % this.temp_setting
-            return this.temp_setting
+            ; msgbox % this.window_title_chage
+            return this.window_title_chage
         }
     }
     
@@ -694,11 +694,11 @@ class switch_minecraft_header_sections
 
         
 
-        temp_setting := this.compare.test()
+        window_title_chage := This.compare.Has_Window_title_changed()
 
         if Auto_Switch_Sections_by_Minecraft_Title = 1
         {
-            if temp_setting = 1
+            if window_title_chage = 1
             {
                 ; Get the active window title
                 Active_Window_Title := minecraft_version_sections_ReadWrite.Get_Active_Window_Title()
@@ -1047,7 +1047,7 @@ switch_section_hotkey_number(Number_input, IFSHIFT)
     Number_input := IFSHIFT_Multiplier(Number_input, IFSHIFT)
 
     Stored__home_section_pos := switch_minecraft_header_sections.Switch_Section_by_category(Number_input, 0)
-    ; msgbox % test
+    ; msgbox % Has_Window_title_changed
     Show_tooltip_while__section_combo_held__(switch_minecraft_header_sections.Switch_Section_by_category(Number_input,0), 0)
 }
 
