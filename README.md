@@ -31,6 +31,8 @@
 
     - You don't need it to be a home. It can even be a warp.
       - This script types whatever you have in your ini corelating to the button you pressed after alt, after inputting /
+  
+    - If you want to add a section, press `Alt` `+` `Q` on a Minecraft Window.
 
 4. You can adjust what ALT+SHIFT does by changing the variable `Option_To_Add_OR_Multiply` in section `config`
 
@@ -97,6 +99,8 @@ Minecraft_Launcher_Path=C:\Program Files (x86)\Minecraft Launcher\MinecraftLaunc
 
 ## (Section Switch, and adding more sections - Hotkey Guide)
 
+If you want to `Auto_Switch_Sections_by_Minecraft_Title`, please enable that setting in section `[config]` in `HomeStorage.ini`. 
+
 1. Use `Ctrl` `+` `1-9` to switch sections.
 2. Use `Ctrl` `+` `Shift` to add ten to your input (Default). Not supported on the numpad.
 3. Use `Ctrl` `+` `Numpad` to switch sections.
@@ -107,7 +111,7 @@ Minecraft_Launcher_Path=C:\Program Files (x86)\Minecraft Launcher\MinecraftLaunc
 - Use `Alt` `+` `Q`, to add a new section. Quick Homes will automatically populate the blank homes, along with noting down the active window title.
 
 - `Alt` `+` `Shift` `+` `Q`, will toggle the setting: `Auto_Switch_Sections_by_Minecraft_Title`.
-- If there is an invalid value in `Auto_Switch_Sections_by_Minecraft_Title`, it will set it to 0.
+- If there is an invalid value in `Auto_Switch_Sections_by_Minecraft_Title`, it will set it to 1.
 
 ## Syntax of sections (Explanation)
 

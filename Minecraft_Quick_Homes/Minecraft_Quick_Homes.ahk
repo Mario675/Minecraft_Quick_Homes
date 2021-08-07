@@ -386,37 +386,9 @@ Wait_Until_Minecraft_Registers_Slash()
     return
 }
 
-/*
-    https://www.autohotkey.com/docs/commands/LoopParse.htm
-    
-    - 
-    - I would need to make a function that makes new personalized sections, based on the window title.
-  It would start at 1, since the 0 `[Homes]` already exists. 
-  ```Example
-  HS.1
-  ```
-  Actually, Why not have it start at two? Since the default one, can be accessed with `Alt + Ctrl 1`
 
-    - If the setting to auto switch homes are on, then the auto switch will only occur when it receves a hotkey input.
-  ```Example
-  When Minecraft_Quick_Homes gets `Alt + 1`, it will put the window title of the JAVA exe, into a variable called Mincraft_Version_title. 
-  It would then compare Mincraft_Version_title, with the [Homes] section titles parsed in the array. 
-  If it found a match (Aka, the array[3] found in that section https://autohotkey.com/board/topic/66720-read-ini-sections/ ), then it would use the data from `Home1=`, and take it from there. 
-  ```
 
-    - I would need to read the total sections in the file, and test each one of them for the version title. 
-    
-    
-    - I would need the period to act as a delimiter, to separate the subjects from each other. 
-    - Then I can omit chars from the third string, otherwise known as the `MC_`
-    
-    I would need these three functions
-    1. Parse_Existing_Homes_Into_Array()
-    
-    
-*/
-
-;Update 3.5
+; ** Begin (most of the logic) Update 4.0 **
 
 
 
@@ -492,7 +464,7 @@ class minecraft_version_sections_ReadWrite
         result := this.get_existing_sum_of_sections(home_sections)
 
         ; now that we got the amount of sections inside, all thats needed, is noting down the minecraft version. 
-        ; Since config is not a useful home section, subtract result by 1.
+   
 
 
 
@@ -652,7 +624,6 @@ class switch_minecraft_header_sections
 
                 this.last_and_new_minecraft_title.RemoveAt(this.last_and_new_minecraft_title.MinIndex())
 
-                ; Value := Object.RemoveAt(Object.Length())
             }
             
         }
@@ -757,7 +728,7 @@ determine_home_name()
     Home_Name_Default := get_section_home_name__from_section_pos(Stored__home_section_pos)
     Home_Name_2 := get_section_home_name__from_section_pos(switch_minecraft_header_sections.Auto_Switch_Sections__by_Minecraft_Title())
 
-    ; If the Window title is not named, don't use it if the setting is turned on. 
+    ; If the Window title is not named (aka Home_Name_2 := ""), don't use it if the setting is turned on. 
     if Home_Name_2
     {
         Final_Home_Name = %Home_Name_2%
@@ -801,6 +772,7 @@ IFSHIFT_Multiplier(CaseSwitch, IFSHIFT)
     return CaseSwitch
 }
 
+; *** end (most of the logic) update 4.0 ***
 
 ;Main Function
 CaseSwitch := 0
@@ -883,8 +855,8 @@ toggle_auto_switch_sections()
         goto exit_switch
 
         Default:
-            ; If the user needs to teleport away, but Auto_Switch_Sections_by_Minecraft_Title was invalid after program was launched, set it to 0. 
-            IniWrite, 0, HomeStorage.ini, config, Auto_Switch_Sections_by_Minecraft_Title
+            ; If the user needs to teleport away, but Auto_Switch_Sections_by_Minecraft_Title was invalid after program was launched, set it to 1. 
+            IniWrite, 1, HomeStorage.ini, config, Auto_Switch_Sections_by_Minecraft_Title
             ending_toggle_message := "OFF For Invalid value in key Auto_Switch_Sections_by_Minecraft_Title, in HomeStorage.ini Setted to OFF"
         goto exit_switch
         
