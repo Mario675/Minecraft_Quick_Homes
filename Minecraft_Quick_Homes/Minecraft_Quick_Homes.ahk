@@ -90,7 +90,8 @@ ErrorsMsgbox(What_type_error, App_stay_OPEN_AfterError)
         return
 
         case 5:
-            msgbox Please change Auto_Switch_Sections_by_Minecraft_Title to valid values:`n   - 0 or 1.
+            IniWrite, 1, HomeStorage.ini, config, Auto_Switch_Sections_by_Minecraft_Title
+            TrayTip, Set `...` to 1. , Please change Auto_Switch_Sections_by_Minecraft_Title to valid values:`n   - 0 or 1.
             End_ErrorsMsgbox_Check____(App_stay_OPEN_AfterError)
         return
         
