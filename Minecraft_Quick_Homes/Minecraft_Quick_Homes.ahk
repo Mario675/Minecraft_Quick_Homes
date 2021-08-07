@@ -607,18 +607,18 @@ class switch_minecraft_header_sections
     class compare
     {
         static last_and_new_minecraft_title := []
-        static window_title_chage := ""
+        static window_title_change := ""
 
         what_is_the_difference__in_two_indexes()
         {
             if this.last_and_new_minecraft_title[1] = this.last_and_new_minecraft_title[2]
             {
                 ;msgbox % "These are the same!" this.last_and_new_minecraft_title[1] "=" this.last_and_new_minecraft_title[2]
-                this.window_title_chage := 0
+                this.window_title_change := 0
             }
             Else
             {
-                this.window_title_chage := 1
+                this.window_title_change := 1
                 ;msgbox % "These are not the same!" this.last_and_new_minecraft_title[1] "=" this.last_and_new_minecraft_title[2]
             }
         }
@@ -664,7 +664,7 @@ class switch_minecraft_header_sections
             {
                 this.first_run_of_section_switch()
                 this.first_run_from_launch++
-                this.window_title_chage := 1 ; Since this is the first shortcut, make sure it switches.
+                this.window_title_change := 1 ; Since this is the first shortcut, make sure it switches.
             }
             Else
             {
@@ -676,8 +676,8 @@ class switch_minecraft_header_sections
             ;msgbox % this.last_and_new_minecraft_title[1]
             
 
-            ; msgbox % this.window_title_chage
-            return this.window_title_chage
+            ; msgbox % this.window_title_change
+            return this.window_title_change
         }
     }
     
@@ -694,11 +694,11 @@ class switch_minecraft_header_sections
 
         
 
-        window_title_chage := This.compare.Has_Window_title_changed()
+        window_title_change := This.compare.Has_Window_title_changed()
 
         if Auto_Switch_Sections_by_Minecraft_Title = 1
         {
-            if window_title_chage = 1
+            if window_title_change = 1
             {
                 ; Get the active window title
                 Active_Window_Title := minecraft_version_sections_ReadWrite.Get_Active_Window_Title()
