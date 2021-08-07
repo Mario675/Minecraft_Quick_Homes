@@ -93,6 +93,54 @@ Minecraft_Launcher_Path=C:\Program Files (x86)\Minecraft Launcher\MinecraftLaunc
 - Please be sure that you have saved your changes when editing your .ini config file, so changes would take effect in app.
 - This script will also not accept hotkeys outside of minecraft (javaw.exe). This is a failsafe.
 
+## (Section Switch, and adding more sections - Hotkey Guide)
+
+1. Use `Ctrl` `+` `1-9` to switch sections.
+2. Use `Ctrl` `+` `Shift` to add ten to your input (Default). Not supported on the numpad.
+3. Use `Ctrl` `+` `Numpad` to switch sections.
+
+- Switching sections will normally give feedback in the form of a tooltip. Hold `Ctrl` to read tooltip.
+- If you have switched to a section that is not available, the tooltip will not show. Teleporting to homes using a invalid section will type out `/ERROR` in chat.
+
+- Use `Alt` `+` `Q`, to add a new section. Quick Homes will automatically populate the blank homes, along with noting down the active window title.
+
+- `Alt` `+` `Shift` `+` `Q`, will toggle the setting: `Auto_Switch_Sections_by_Minecraft_Title`.
+- If there is an invalid value in `Auto_Switch_Sections_by_Minecraft_Title`, it will set it to 0.
+
+## Syntax of sections (Explanation)
+
+> Why on earth is the section called `[Homes&1&blank]`?
+
+- `Name_input`&`Number_switch`&`Window_Title`
+- For the first value, you may name `Name_input` however you wish. In the future, `Name_input` will be used for switching sections by inputting a name to quick homes.
+- `Number_switch` is used for what order to switch homes. You can quickly and easily reorder them by changing the `Number_Switch`. Example:
+
+  ```ini
+  [First_Original_order&1&blank]
+  [Second_Original_order&2&blank]
+  [Third_Original_order&3&blank]
+  ; Can be changed to:
+  [First_Original_order&3&blank]
+  [Second_Original_order&2&blank]
+  [Third_Original_order&1&blank]
+ 
+  ; No copy and pasting required.
+  ```
+
+- If there are two of `Number_switch` in `HomeStorage.ini` in a section, the closest one to the top will take priority. Example:
+
+```ini
+  [First_Original_order&1&blank] ;<--- This would be used first. 
+  
+  [Second_Original_order&1&blank]
+  ```
+
+- `Window_Title` is used for auto switching sections. This is generated, when you __create a new section on an active Minecraft window__ (`Alt + Q`). Be aware, that Minecraft may change it's window title in newer versions when you are on a server. Meaning, you may have to create a new section, if that was unaccounted for.
+
+## Behavior of `Auto_Switch_Sections_by_Minecraft_Title`
+
+- When you are in minecraft, and you input your first home via hotkey; your `active window title` will be stored. When you `switch sections` in the same `active window title`, then input your home via hotkey, it will allow your action. When you input a home in a different `active window title` via hotkey, it will automatically switch to the `window title` in `HomeStorage.ini`.
+
 ## How to Customize your Minecraft Quick Home script
 
 - Scroll down to the point where there is a comment saying `Special keys ---------`.
