@@ -90,9 +90,11 @@ Minecraft_Launcher_Path=C:\Program Files (x86)\Minecraft Launcher\MinecraftLaunc
 7. Use Alt+e to open Ender Chest.
 8. Use Alt+t To open Trash
 9. Use Alt+v to toggle veinminer.
-10. Bask in the glory of amazement.
-11. When you want to close script, go to your taskbar tray, right click the green icon with an H, and click exit app.
-12. or exit app by Alt+Esc. (Alt + x) In older versions.
+10. Use Alt+f to toggle tempfly.
+11. Use Alt+CapsLock to open the radial menu.
+12. Bask in the glory of amazement.
+13. When you want to close script, go to your taskbar tray, right click the green icon with an H, and click exit app.
+14. or exit app by Alt+Esc. (Alt + x) In older versions.
 
 - Please be sure that you have saved your changes when editing your .ini config file, so changes would take effect in app.
 - This script will also not accept hotkeys outside of minecraft (javaw.exe). This is a failsafe.
