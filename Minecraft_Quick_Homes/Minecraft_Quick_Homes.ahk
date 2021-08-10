@@ -907,6 +907,16 @@ return
 return
 
 
+!f::
+    Wait_Until_Minecraft_Registers_Slash()
+    send tempfly`n
+return
+    
+!CapsLock::
+    Wait_Until_Minecraft_Registers_Slash()
+    send cp RadialMenu`n
+return
+
 !v::
     Wait_Until_Minecraft_Registers_Slash()
     send veinminer toggle`n
