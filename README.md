@@ -29,10 +29,12 @@
     ...
     ```
 
-    - You don't need it to be a home. It can even be a warp.
-      - This script types whatever you have in your ini corelating to the button you pressed after alt, after inputting /
+    - You don't need it to be a home. It can even be a warp. It can be any command.
+      - It simply types slash, then your command in your settings that you called.
   
     - If you want to add a section, press `Alt` `+` `Q` on a Minecraft Window.
+      - This removes the unnecessary work when customizing your home.
+      - You may also remove blank entires from the template.
 
 4. You can adjust what ALT+SHIFT does by changing the variable `Option_To_Add_OR_Multiply` in section `config`
 
