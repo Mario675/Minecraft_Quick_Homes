@@ -97,7 +97,12 @@ Minecraft_Launcher_Path=C:\Program Files (x86)\Minecraft Launcher\MinecraftLaunc
 14. or exit app by Alt+Esc. (Alt + x) In older versions.
 
 - Please be sure that you have saved your changes when editing your .ini config file, so changes would take effect in app.
-- This script will also not accept hotkeys outside of minecraft (javaw.exe). This is a failsafe.
+- This script will also not accept almost all hotkeys outside of minecraft (javaw.exe). This is a failsafe.
+  - Exceptions are:
+    1. Alt + I
+        - Settings
+    2. Alt + Esc
+        - Exiting Quick Homes.
 
 ## (Section Switch, and adding more sections - Hotkey Guide)
 
