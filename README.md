@@ -202,7 +202,7 @@ return
 
 - This is a documented issue on the [Mincraft Quick Homes Github](https://github.com/Mario675/Minecraft_Quick_Homes/issues/25). A temporary fix would be to press, then release the alt key, to unlatch the virtually held key. When minecraft is busy, and cannot accept an input into the text line, Minecraft Quick Homes will proceed to type into minecraft without the text line. Meaning that windows might pop up from button shortcuts such as the achievement window `(L)`, the server players windows `(P)`, etc.
 
-## Important End notes
+## Logic with Alt + Shift
 
 > - I know number 10 is inacessable with default, but
 >   `Alt+Shift+1 = __1__*1*`
