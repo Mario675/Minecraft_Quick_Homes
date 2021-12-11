@@ -29,10 +29,12 @@
     ...
     ```
 
-    - You don't need it to be a home. It can even be a warp.
-      - This script types whatever you have in your ini corelating to the button you pressed after alt, after inputting /
+    - You don't need it to be a home. It can even be a warp. It can be any command.
+      - It simply types slash, then your command in your settings that you called.
   
     - If you want to add a section, press `Alt` `+` `Q` on a Minecraft Window.
+      - This removes the unnecessary work when customizing your home.
+      - You may also remove blank entires from the template.
 
 4. You can adjust what ALT+SHIFT does by changing the variable `Option_To_Add_OR_Multiply` in section `config`
 
@@ -97,7 +99,12 @@ Minecraft_Launcher_Path=C:\Program Files (x86)\Minecraft Launcher\MinecraftLaunc
 14. or exit app by Alt+Esc. (Alt + x) In older versions.
 
 - Please be sure that you have saved your changes when editing your .ini config file, so changes would take effect in app.
-- This script will also not accept hotkeys outside of minecraft (javaw.exe). This is a failsafe.
+- This script will also not accept almost all hotkeys outside of minecraft (javaw.exe). This is a failsafe.
+  - Exceptions are:
+    1. Alt + I
+        - Settings
+    2. Alt + Esc
+        - Exiting Quick Homes.
 
 ## (Section Switch, and adding more sections - Hotkey Guide)
 
@@ -195,7 +202,7 @@ return
 
 - This is a documented issue on the [Mincraft Quick Homes Github](https://github.com/Mario675/Minecraft_Quick_Homes/issues/25). A temporary fix would be to press, then release the alt key, to unlatch the virtually held key. When minecraft is busy, and cannot accept an input into the text line, Minecraft Quick Homes will proceed to type into minecraft without the text line. Meaning that windows might pop up from button shortcuts such as the achievement window `(L)`, the server players windows `(P)`, etc.
 
-## Important End notes
+## Logic with Alt + Shift
 
 > - I know number 10 is inacessable with default, but
 >   `Alt+Shift+1 = __1__*1*`
