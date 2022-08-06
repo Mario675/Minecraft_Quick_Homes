@@ -172,7 +172,7 @@ When sections are created, the minecraft title is noted. When the active window 
 
 ### How to make a "Hotkey"
 
-- First up, most of the documentation that is referenced below you can find on the [AutoHotkey's Help manual.](https://www.autohotkey.com/docs/AutoHotkey.htm)
+- For more information about hotkeys: [AutoHotkey's Help manual.](https://www.autohotkey.com/docs/AutoHotkey.htm)
 - Here is an example of a hotkey in Quick homes:
 
 ```AutoHotKey
