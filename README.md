@@ -11,6 +11,7 @@
 
 - Please keep the files in a folder, since Mc_Quick_Homes will be working off it's current directory, Quick_Homes will create files where it is.
 
+0. Install [AutoHotKey](https://www.autohotkey.com/). 
 1. Launch Script once. Quick homes will create your ini file, (when there is no .ini file).
 2. Open your .ini file.
 3. Add a space after the home, and input your home.
