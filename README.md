@@ -154,7 +154,15 @@ If you want to `Auto_Switch_Sections_by_Minecraft_Title`, please enable that set
 
 ## Behavior of `Auto_Switch_Sections_by_Minecraft_Title`
 
-- When you are in minecraft, and you input your first home via hotkey; your `active window title` will be stored. When you `switch sections` in the same `active window title`, then input your home via hotkey, it will allow your action. When you input a home in a different `active window title` via hotkey, it will automatically switch to the `window title` in `HomeStorage.ini`.
+### Why?
+If a person is on different servers: rather than the person pressing CTRL+1 (CTRL+2, etc.) to switch a section, the program can take the context of the minecraft window title, and change the section for you.
+
+### What?
+When sections are created, the minecraft title is noted. When the active window correlates with the section name `*&*&Window_Title`, the appropriate section will be used for homes. An example:
+
+//Window 1: alt+1 = Vanilla Server Home Name
+
+//Window 2: alt+1 = Modded Server Home name
 
 ## How to Customize your Minecraft Quick Home script
 
